@@ -1,0 +1,38 @@
+.loginComponent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  //   align-items: center;
+  margin-top: 12vh;
+
+  .login-card {
+    width: 450px;
+    height: 600px;
+    // border: rgb(0 0 0 / 75%) 1px ridge;
+    border-radius: 5px;
+    padding: 20px;
+    -webkit-box-shadow: 2px 2px 19px -1px rgb(0 0 0 / 24%);
+    -moz-box-shadow: 2px 2px 19px -1px rgb(0 0 0 / 24%);
+    box-shadow: 2px 2px 19px -1px rgb(0 0 0 / 24%);
+
+    .login-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      height: 50%;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-footer {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+  }
+}

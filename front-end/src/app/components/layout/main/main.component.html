@@ -1,0 +1,39 @@
+<mat-toolbar>
+    <button mat-icon-button class="menu-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+    </button>
+    <span>Lyon - Processos</span>
+</mat-toolbar>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened="true">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                <img mat-card-avatar width="50" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                    alt="Photo of a Shiba Inu">
+                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    This is the expansion title
+                </mat-panel-title>
+                <mat-panel-description>
+                    This is a summary of the content
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>This is the primary content of the panel.</p>
+        </mat-expansion-panel>
+        <div class="footer">
+            <div class="actions">
+                <button mat-raised-button color="primary">Sair</button>
+            </div>
+        </div>
+    </mat-drawer>
+
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>
