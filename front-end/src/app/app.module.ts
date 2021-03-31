@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ComponentsModule } from './components/components.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ComponentsModule } from './components/components.module';
     AppComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     RouterModule,
     CommonModule,
