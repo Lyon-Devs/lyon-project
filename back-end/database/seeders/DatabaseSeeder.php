@@ -13,6 +13,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        if (env('APP_DEBUG', false)) {
+
+            \App\Models\User::factory(3)->create()->each(function ($user) {
+                $user->attachRoleBySlug('admin');
+            });
+
+            \App\Models\User::factory(3)->create()->each(function ($user) {
+                $user->attachRoleBySlug('user');
+            });
+
+            \App\Models\User::factory(3)->create()->each(function ($user) {
+                $user->attachRoleBySlug('comercial');
+            });
+        }
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(PermissionRoleSeeder::class);
     }
 }

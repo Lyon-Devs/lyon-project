@@ -25,3 +25,16 @@ Route::get('/teste', function () {
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::middleware(['auth:api', 'role:administrator'])->get('/role/admin', function (Request $request) {
+    return 'welcome administrator';
+});
+
+Route::middleware(['auth:api', 'role:comercial'])->get('/role/comer', function (Request $request) {
+    return 'welcome comercial';
+});
+
+Route::middleware(['auth:api', 'role:user'])->get('/role/user', function (Request $request) {
+    return 'welcome user';
+});
