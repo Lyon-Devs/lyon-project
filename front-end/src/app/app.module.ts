@@ -16,6 +16,7 @@ import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from '@angular/common/http';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,8 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     ComponentsModule
   ],
-  exports:[
-  ],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent]
 })

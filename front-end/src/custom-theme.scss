@@ -41,3 +41,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background: #8D6851;
   color: #fff
 }
+
+.container {
+  margin: 5px 30px 20px;
+  height: 100%;
+  table {
+    width: 100%;
+  }
+}

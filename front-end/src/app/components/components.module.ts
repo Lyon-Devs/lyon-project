@@ -1,25 +1,27 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MainComponent } from './layout/main/main.component';
-import { RouterModule } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { ExternalModule } from './layout/external/external.module';
 import { MainModule } from './layout/main/main.module';
+import { CommonTitleComponent } from './common-title/common-title.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [],
+  declarations: [CommonTitleComponent],
   imports: [
+    CommonModule,
     MainModule,
-    ExternalModule
+    ExternalModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   exports: [
     MainModule,
-    ExternalModule
+    ExternalModule,
+    CommonTitleComponent
   ]
 })
 export class ComponentsModule { }
