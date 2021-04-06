@@ -9,5 +9,5 @@ export interface User {
     created_at: Date;
     // tslint:disable-next-line:variable-name
     updated_at: Date;
-    roles: Roles;
+    roles: Roles[];
 }

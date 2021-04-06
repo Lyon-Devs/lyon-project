@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '@models/users.model';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private userBehaviorSubject: BehaviorSubject<User> = new BehaviorSubject(null);
+
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public router: Router
   ) { }
 
   public authUser(user: string, password: string): any {
@@ -20,9 +26,35 @@ export class AuthService {
       username: user,
       password,
       scope: environment.auth.scope
-    }).subscribe(res => console.log(res));
+    }).subscribe(res => {
+      sessionStorage.setItem('lyon_0', JSON.stringify(res));
+      this.router.navigate(['home']);
+    });
   }
-  public registerUser(newUser): any {
+  public registerUser(newUser): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}register`, newUser);
+  }
+
+  public checkSession(): Observable<User> {
+    const sessionToken = sessionStorage.getItem('lyon_0');
+    if (sessionToken) {
+      return this.http.get<User>(`${environment.apiUrl}user`)
+        .pipe(map(user => {
+          this.userBehaviorSubject.next(user);
+          sessionStorage.setItem('user', JSON.stringify(user));
+          return user;
+        }),
+          catchError(err => {
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('lyon_0');
+            return throwError(err);
+          }));
+    }
+    return new Observable<User>(null);
+
+  }
+
+  public getUser(): Observable<User> {
+    return this.userBehaviorSubject;
   }
 }
