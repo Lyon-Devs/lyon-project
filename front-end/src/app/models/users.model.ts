@@ -1,13 +1,13 @@
 import { Roles } from './roles.model';
 
-export class User {
-    public id: bigint;
-    public name: string;
-    public email: string;
-    public password: string;
+export interface User {
+    id: bigint;
+    name: string;
+    email: string;
+    password: string;
     // tslint:disable-next-line:variable-name
-    public created_at: Date;
+    created_at: Date;
     // tslint:disable-next-line:variable-name
-    public updated_at: Date;
-    public roles: Roles;
+    updated_at: Date;
+    roles: Roles;
 }
