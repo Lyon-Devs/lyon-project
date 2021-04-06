@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { User } from '@models/users.model';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -20,5 +21,8 @@ export class AuthService {
       password,
       scope: environment.auth.scope
     }).subscribe(res => console.log(res));
+  }
+  public registerUser(newUser): any {
+    return this.http.post<User>(`${environment.apiUrl}register`, newUser);
   }
 }

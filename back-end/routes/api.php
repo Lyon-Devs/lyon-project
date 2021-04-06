@@ -38,3 +38,5 @@ Route::middleware(['auth:api', 'role:comercial'])->get('/role/comer', function (
 Route::middleware(['auth:api', 'role:user'])->get('/role/user', function (Request $request) {
     return 'welcome user';
 });
+
+require __DIR__ . '/auth.php';

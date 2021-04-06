@@ -9,6 +9,14 @@
       <mat-label>Nome</mat-label>
       <input matInput required formControlName="name">
     </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Permissão</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="comercial">Comercial</mat-option>
+        <mat-option value="user">User</mat-option>
+        <mat-option value="admin">Administrador</mat-option>
+      </mat-select>
+    </mat-form-field>
     <p>Informe um senha segura, com minímo de 8 caracteres</p>
     <p>{{passMsg}}</p>
     <mat-form-field appearance="outline">

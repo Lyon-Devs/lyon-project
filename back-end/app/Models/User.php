@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Yajra\Acl\Models\Role;
 use Yajra\Acl\Traits\HasRole;
 
 class User extends Authenticatable
@@ -35,6 +36,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $with = [
+        'roles'
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -43,4 +48,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user');
+    }
 }

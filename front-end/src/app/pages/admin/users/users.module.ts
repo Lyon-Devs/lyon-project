@@ -12,6 +12,8 @@ import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -28,6 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     ComponentsModule,
     MatPaginatorModule,
+    MatSelectModule,
+    MatSnackBarModule,
     ReactiveFormsModule
   ],
   exports: [

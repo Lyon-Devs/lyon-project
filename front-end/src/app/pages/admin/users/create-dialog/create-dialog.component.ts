@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '@services/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-create-dialog',
   templateUrl: './create-dialog.component.html',
@@ -12,14 +14,17 @@ export class CreateDialogComponent implements OnInit {
   public formUser = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    confirmPassword: ['', Validators.required]
+    password: ['', [Validators.required, Validators.min(8)]],
+    role: ['', Validators.required],
+    confirmPassword: ['', [Validators.required, Validators.min(8)]]
   }, {
     validator: this.mustMatch('password', 'confirmPassword')
   });
   constructor(
     public fb: FormBuilder,
     public dialogRef: MatDialogRef<CreateDialogComponent>,
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -32,6 +37,14 @@ export class CreateDialogComponent implements OnInit {
   }
   public onSubmit(): void {
     console.log(this.formUser.value);
+    const newUser = this.formUser.value;
+    newUser.password_confirmation = newUser.confirmPassword;
+    delete newUser.confirmPassword;
+    this.authService.registerUser(newUser).subscribe(user => {
+      console.log(user);
+      this.dialogRef.close();
+      this.snackBar.open('Usuário criado com sucesso');
+    });
   }
 
   public mustMatch(controlName: string, matchingControlName: string): AbstractControl | any {
