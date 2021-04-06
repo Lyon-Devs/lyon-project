@@ -1,12 +1,36 @@
-<h1 mat-dialog-title>Hi </h1>
+<h1 mat-dialog-title>Novo usuários </h1>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <!-- <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput>
-  </mat-form-field> -->
+  <form [formGroup]="formUser">
+    <mat-form-field appearance="outline" fullWidth>
+      <mat-label>E-mail</mat-label>
+      <input matInput placeholder="pat@example.com" required formControlName="email">
+    </mat-form-field>
+    <mat-form-field appearance="outline" fullWidth>
+      <mat-label>Nome</mat-label>
+      <input matInput required formControlName="name">
+    </mat-form-field>
+    <p>Informe um senha segura, com minímo de 8 caracteres</p>
+    <p>{{passMsg}}</p>
+    <mat-form-field appearance="outline">
+      <mat-label>Senha</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Confirme a senha</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onNoClick()">cancelar</button>
+  <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formUser.valid" color="primary">salvar</button>
 </div>

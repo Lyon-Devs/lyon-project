@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
   public createUser(): void {
     console.log('open');
     const dialogRef = this.dialog.open(CreateDialogComponent, {
-      width: '250px',
+      width: '600px',
       data: { teste: 'name' }
     });
   }
