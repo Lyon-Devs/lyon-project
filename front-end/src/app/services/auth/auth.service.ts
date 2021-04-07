@@ -18,18 +18,26 @@ export class AuthService {
     public router: Router
   ) { }
 
-  public authUser(user: string, password: string): any {
-    this.http.post<any>(`${environment.apiUrl}oauth/token`, {
+  public authUser(user: string, password: string): Observable<any> {
+    return this.http.post<User>(`${environment.apiUrl}oauth/token`, {
       grant_type: 'password',
       client_id: environment.auth.client_id,
       client_secret: environment.auth.client_secret,
       username: user,
       password,
       scope: environment.auth.scope
-    }).subscribe(res => {
-      sessionStorage.setItem('lyon_0', JSON.stringify(res));
-      this.router.navigate(['home']);
-    });
+    }).pipe(map(resUser => {
+      sessionStorage.setItem('lyon_0', JSON.stringify(resUser));
+      // this.userBehaviorSubject.next(resUser);
+      this.checkSession().subscribe();
+      return resUser;
+    }));
+
+
+    // .subscribe(res => {
+    //   console.log('res', res)
+
+    // });
   }
   public registerUser(newUser): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}register`, newUser);
@@ -51,7 +59,12 @@ export class AuthService {
           }));
     }
     return new Observable<User>(null);
+  }
 
+  public logout(): void {
+    sessionStorage.removeItem('lyon_0');
+    sessionStorage.removeItem('user');
+    this.router.navigate(['login']);
   }
 
   public getUser(): Observable<User> {

@@ -29,13 +29,13 @@
                     Administração
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>Usuários</p>
+            <p routerLink="/admin/user">Usuários</p>
             <p>Ramo de atuação</p>
             <p>Tipo de serviço</p>
         </mat-expansion-panel>
         <div class="footer">
             <div class="actions">
-                <button mat-raised-button color="primary">Sair</button>
+                <button mat-raised-button color="primary" (click)="logout()">Sair</button>
             </div>
         </div>
     </mat-drawer>

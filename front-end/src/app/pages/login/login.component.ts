@@ -23,7 +23,11 @@ export class LoginComponent implements OnInit {
 
 
   public authUser(user, password): void {
-    this.authService.authUser(user, password);
+    this.authService.authUser(user, password).subscribe((userRes) => {
+      setTimeout(() => {
+        this.router.navigate(['home']);
+      }, 2000);
+    });
   }
 
 }
