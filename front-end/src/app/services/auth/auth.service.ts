@@ -28,16 +28,9 @@ export class AuthService {
       scope: environment.auth.scope
     }).pipe(map(resUser => {
       sessionStorage.setItem('lyon_0', JSON.stringify(resUser));
-      // this.userBehaviorSubject.next(resUser);
       this.checkSession().subscribe();
       return resUser;
     }));
-
-
-    // .subscribe(res => {
-    //   console.log('res', res)
-
-    // });
   }
   public registerUser(newUser): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}register`, newUser);

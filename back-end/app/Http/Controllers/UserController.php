@@ -12,9 +12,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return User::paginate(20);
+        $paginate = $request->has('per_page') ? $request->per_page : 20;
+        return User::paginate($paginate);
     }
 
     /**
