@@ -7,9 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
-  declarations: [CommonTitleComponent],
+  declarations: [CommonTitleComponent, ConfirmComponent],
   imports: [
     CommonModule,
     MainModule,

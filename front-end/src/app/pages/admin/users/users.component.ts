@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateDialogComponent } from './create-dialog/create-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
+
 import { UserService } from '@services/user/user.service';
+
+import { ConfirmComponent } from '@components/confirm/confirm.component';
+import { CreateDialogComponent } from './create-dialog/create-dialog.component';
+
 import { User } from '@models/users.model';
 import { Paginate } from '@models/paginate.model';
-import { PageEvent } from '@angular/material/paginator';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -19,6 +25,7 @@ export class UsersComponent implements OnInit {
   public pageEvent: PageEvent;
   constructor(
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     public userService: UserService,
   ) { }
 
@@ -27,22 +34,44 @@ export class UsersComponent implements OnInit {
   }
 
   public handlePageEvent(event: PageEvent): void {
-    console.log('event', event.pageIndex + 1);
     this.getPage(event.pageIndex + 1, event.pageSize);
   }
   public createUser(): void {
-    console.log('open');
-    const dialogRef = this.dialog.open(CreateDialogComponent, {
+    this.dialog.open(CreateDialogComponent, {
       width: '600px',
       data: { teste: 'name' }
+    });
+  }
+  public deleteUser(user: User): void {
+    console.log('user', user);
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '600px',
+      data: {
+        title: `Exclusão usuário`,
+        body: `Confirmar exclusão do usuário <b>${user.name}</b>`,
+      }
+    });
+    dialogRef.afterClosed().subscribe(event => {
+      if (event) {
+        this.userService.delete(user).subscribe(resUser => {
+          console.log('resUser', resUser);
+          const removedUser = this.paginateUser.data.filter(filterUser => filterUser.id !== user.id);
+          if (removedUser.length) {
+            this.paginateUser.data = removedUser;
+            this.paginateUser.total--;
+            this.snackBar.open(`Usuário ${user.name} removido! `);
+
+          }
+        });
+      }
     });
   }
 
   private getPage(page: number = 0, perPage: number = 10): void {
     this.userService.list(page, perPage).subscribe(paginate => {
-      console.log('paginate', paginate);
       this.paginateUser = paginate;
     });
   }
+
 
 }

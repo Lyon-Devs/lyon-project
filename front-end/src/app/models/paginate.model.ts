@@ -2,7 +2,7 @@ import { Links } from './links.model';
 
 export interface Paginate<t> {
     current_page: number;
-    data: t;
+    data: t[];
     first_page_url: string;
     from: number;
     last_page: number;

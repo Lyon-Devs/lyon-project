@@ -41,7 +41,6 @@ export class CreateDialogComponent implements OnInit {
     newUser.password_confirmation = newUser.confirmPassword;
     delete newUser.confirmPassword;
     this.authService.registerUser(newUser).subscribe(user => {
-      console.log(user);
       this.dialogRef.close();
       this.snackBar.open('Usuário criado com sucesso');
     });
