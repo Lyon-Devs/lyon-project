@@ -35,6 +35,9 @@ export class AuthService {
   public registerUser(newUser): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}register`, newUser);
   }
+  public updateUser(newUser): Observable<User> {
+    return this.http.put<User>(`${environment.apiUrl}users/${newUser.id}`, newUser);
+  }
 
   public checkSession(): Observable<User> {
     const sessionToken = sessionStorage.getItem('lyon_0');

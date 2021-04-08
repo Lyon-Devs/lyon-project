@@ -33,13 +33,24 @@ export class UsersComponent implements OnInit {
     this.getPage();
   }
 
-  public handlePageEvent(event: PageEvent): void {
+  public handlePageEvent(event: PageEvent = this.pageEvent): void {
+    this.pageEvent = event;
     this.getPage(event.pageIndex + 1, event.pageSize);
   }
   public createUser(): void {
     this.dialog.open(CreateDialogComponent, {
       width: '600px',
-      data: { teste: 'name' }
+    });
+  }
+
+  public editUser(user: User): void {
+    const dialogRef = this.dialog.open(CreateDialogComponent, {
+      width: '600px',
+      data: user
+    });
+
+    dialogRef.afterClosed().subscribe(event => {
+      this.handlePageEvent();
     });
   }
   public deleteUser(user: User): void {
@@ -54,19 +65,16 @@ export class UsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(event => {
       if (event) {
         this.userService.delete(user).subscribe(resUser => {
-          console.log('resUser', resUser);
           const removedUser = this.paginateUser.data.filter(filterUser => filterUser.id !== user.id);
           if (removedUser.length) {
             this.paginateUser.data = removedUser;
             this.paginateUser.total--;
             this.snackBar.open(`Usuário ${user.name} removido! `);
-
           }
         });
       }
     });
   }
-
   private getPage(page: number = 0, perPage: number = 10): void {
     this.userService.list(page, perPage).subscribe(paginate => {
       this.paginateUser = paginate;

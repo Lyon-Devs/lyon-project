@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -56,10 +57,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $user, Request $request)
     {
-        //
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -70,7 +71,25 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'present',
+            'role' => 'required|string|exists:roles,slug'
+        ]);
+
+        $user->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        if ($request->has('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->revokeAllRoles();
+        $user->attachRoleBySlug($request->role);
+        $user->save();
+        return $user;
     }
 
     /**
