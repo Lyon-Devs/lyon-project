@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ActingBranchController;
+use App\Http\Controllers\TypeServiceController;
+use App\Http\Controllers\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,9 +31,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // 'auth:api', 'role:administrator'
-Route::middleware([])->group(function () {
-    Route::resource('users', UserController::class);
+Route::middleware(['auth:api', 'role:administrator'])->group(function () {
+    Route::resource('users', UserController::class)->except('edit');
 });
+Route::middleware(['auth:api', 'role:administrator,comercial'])->group(function () {
+    Route::resource('acting/branch', ActingBranchController::class)->except([
+        'index', 'edit'
+    ]);
+    Route::resource('type/service', TypeServiceController::class)->except([
+        'index', 'edit'
+    ]);
+    Route::resource('client', ClientController::class)->except([
+        'index', 'edit'
+    ]);
+});
+Route::get('acting/branch', [ActingBranchController::class, 'index'])->name('branch.index');
+Route::get('type/service', [TypeServiceController::class, 'index'])->name('service.index');
+Route::get('client', [ClientController::class, 'index'])->name('client.index');
 
 Route::middleware(['auth:api', 'role:administrator'])->get('/role/admin', function (Request $request) {
     return 'welcome administrator';
