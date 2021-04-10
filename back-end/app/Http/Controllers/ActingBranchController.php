@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActingBranch;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
 
 class ActingBranchController extends Controller
@@ -12,19 +13,10 @@ class ActingBranchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request): Paginator
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $paginate = $request->has('per_page') ? $request->per_page : 20;
+        return ActingBranch::paginate($paginate);
     }
 
     /**
@@ -33,32 +25,16 @@ class ActingBranchController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ActingBranch $actingBranch): ActingBranch
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $actingBranch->fill($request->all());
+        $actingBranch->save();
+        return $actingBranch;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ActingBranch  $actingBranch
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ActingBranch $actingBranch)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ActingBranch  $actingBranch
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ActingBranch $actingBranch)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -67,9 +43,14 @@ class ActingBranchController extends Controller
      * @param  \App\Models\ActingBranch  $actingBranch
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ActingBranch $actingBranch)
+    public function update(Request $request, ActingBranch $actingBranch): ActingBranch
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $actingBranch->fill($request->all());
+        $actingBranch->save();
+        return $actingBranch;
     }
 
     /**
@@ -78,8 +59,9 @@ class ActingBranchController extends Controller
      * @param  \App\Models\ActingBranch  $actingBranch
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ActingBranch $actingBranch)
+    public function destroy(ActingBranch $actingBranch): ActingBranch
     {
-        //
+        $actingBranch->delete();
+        return $actingBranch;
     }
 }

@@ -26,7 +26,7 @@ class TypeServiceController extends Controller
      * @param  \App\Models\TypeService  $typeService
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, TypeService $typeService)
+    public function store(Request $request, TypeService $typeService): TypeService
     {
         $request->validate([
             'name' => 'required',

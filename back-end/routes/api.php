@@ -37,7 +37,10 @@ Route::middleware(['auth:api', 'role:admin'])->group(function () {
 Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
     Route::resource('acting/branch', ActingBranchController::class)->except([
         'index', 'edit'
+    ])->parameters([
+        'branch' => 'actingBranch'
     ]);
+
     Route::resource('type/service', TypeServiceController::class)->except([
         'index', 'edit'
     ])->parameters([

@@ -9,7 +9,7 @@ import { TypeServices as Type } from '@models/type-service';
 
 import { ConfirmComponent } from '@components/confirm/confirm.component';
 
-import { TypeServices } from '@services/typeService/type-service.service';
+import { TypeServices } from '@services/type-service/type-service.service';
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { PaginateService } from '../../../services/paginate/paginate.service';
 import { CrudPage } from '../../crud-page.interface';
