@@ -11,5 +11,13 @@ class Client extends Model
 
     protected $fillable = [
         'name',
+        'acting_branches_id'
     ];
+    protected $with = [
+        'actingBranches'
+    ];
+    public function actingBranches()
+    {
+        return $this->belongsTo(ActingBranch::class, 'acting_branches_id');
+    }
 }

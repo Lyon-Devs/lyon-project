@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ActingBranch;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
+use PhpParser\ErrorHandler\Collecting;
 
 class ActingBranchController extends Controller
 {
@@ -17,6 +18,11 @@ class ActingBranchController extends Controller
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
         return ActingBranch::paginate($paginate);
+    }
+
+    public function allItens()
+    {
+        return ActingBranch::all();
     }
 
     /**

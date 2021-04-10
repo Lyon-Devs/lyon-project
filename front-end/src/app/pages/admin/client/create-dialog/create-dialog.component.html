@@ -5,6 +5,14 @@
       <mat-label>Descrição</mat-label>
       <input matInput required formControlName="name">
     </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Ramo de atuação</mat-label>
+        <mat-select formControlName="acting_branches_id">
+          <mat-option [value]="actingBranch?.id" *ngFor="let actingBranch of actingBranches">
+            {{actingBranch?.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
   </form>
 
 </div>

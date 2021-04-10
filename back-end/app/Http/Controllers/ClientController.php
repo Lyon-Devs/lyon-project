@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -12,19 +13,14 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request): Paginator
     {
-        //
-    }
+        $paginate = $request->has('per_page') ? $request->per_page : 20;
+        $client =  Client::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        // dd($client[0]);
+
+        return Client::paginate($paginate);
     }
 
     /**
@@ -33,32 +29,18 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Client $client): Client
     {
-        //
+        $request->validate([
+            'name' => "required",
+            'acting_branches_id' => 'required|exists:acting_branches,id'
+        ]);
+
+        $client->fill($request->all());
+        $client->save();
+        return $client;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Client $client)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Client $client)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -67,9 +49,16 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Client $client): Client
     {
-        //
+        $request->validate([
+            'name' => "required",
+            'acting_branches_id' => 'required|exists:acting_branches,id'
+        ]);
+
+        $client->fill($request->all());
+        $client->save();
+        return $client;
     }
 
     /**
@@ -80,6 +69,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return $client;
     }
 }

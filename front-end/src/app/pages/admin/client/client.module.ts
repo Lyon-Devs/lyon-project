@@ -11,6 +11,7 @@ import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ClientComponent } from './client.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ClientComponent } from './client.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     ReactiveFormsModule,
     MatPaginatorModule,
   ]
