@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TypeService;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
 
 class TypeServiceController extends Controller
@@ -12,54 +13,30 @@ class TypeServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request): Paginator
     {
-        //
+        $paginate = $request->has('per_page') ? $request->per_page : 20;
+        return TypeService::paginate($paginate);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Create the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
      * @param  \App\Models\TypeService  $typeService
      * @return \Illuminate\Http\Response
      */
-    public function show(TypeService $typeService)
+    public function store(Request $request, TypeService $typeService)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'unity_business' => 'required',
+            'email_group' => 'required',
+        ]);
+        $typeService->fill($request->all());
+        $typeService->save();
+        return $typeService;
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TypeService  $typeService
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TypeService $typeService)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -69,7 +46,14 @@ class TypeServiceController extends Controller
      */
     public function update(Request $request, TypeService $typeService)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'unity_business' => 'required',
+            'email_group' => 'required',
+        ]);
+        $typeService->fill($request->all());
+        $typeService->save();
+        return $typeService;
     }
 
     /**
@@ -78,8 +62,9 @@ class TypeServiceController extends Controller
      * @param  \App\Models\TypeService  $typeService
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TypeService $typeService)
+    public function destroy(TypeService $typeService): TypeService
     {
-        //
+        $typeService->delete();
+        return $typeService;
     }
 }

@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { UsersModule } from './users/users.module';
+import { TypeServiceModule } from './type-service/type-service.module';
+import { ComponentsModule } from '@components/components.module';
+
 
 
 
@@ -9,12 +12,13 @@ import { UsersModule } from './users/users.module';
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
-    AdminRoutingModule,
     UsersModule,
+    CommonModule,
+    TypeServiceModule,
+    AdminRoutingModule
   ],
   exports: [
-    UsersModule
+    UsersModule,
   ]
 })
 export class AdminModule { }

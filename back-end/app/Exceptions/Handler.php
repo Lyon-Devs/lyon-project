@@ -38,4 +38,13 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+
+    public function render($request, Throwable $e)
+    {
+        if (get_class($e) === \Laravel\Passport\Exceptions\OAuthServerException::class) {
+            return response(['message' => 'Usuário ou senha incorretos'], 422);
+        }
+        return parent::render($request, $e);
+    }
 }

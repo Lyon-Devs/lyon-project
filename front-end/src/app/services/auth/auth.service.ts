@@ -16,7 +16,13 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     public router: Router
-  ) { }
+  ) {
+    const hasUser = JSON.parse(sessionStorage.getItem('user'));
+    if (hasUser && !this.userBehaviorSubject.value) {
+      this.userBehaviorSubject.next(hasUser);
+    }
+
+  }
 
   public authUser(user: string, password: string): Observable<any> {
     return this.http.post<User>(`${environment.apiUrl}oauth/token`, {

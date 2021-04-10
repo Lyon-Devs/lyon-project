@@ -31,16 +31,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // 'auth:api', 'role:administrator'
-Route::middleware(['auth:api', 'role:administrator'])->group(function () {
+Route::middleware(['auth:api', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class)->except('edit');
 });
-Route::middleware(['auth:api', 'role:administrator,comercial'])->group(function () {
+Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
     Route::resource('acting/branch', ActingBranchController::class)->except([
         'index', 'edit'
     ]);
     Route::resource('type/service', TypeServiceController::class)->except([
         'index', 'edit'
+    ])->parameters([
+        'service' => 'typeService'
     ]);
+
+    // Route::resources([
+    //     'typServices' => TypeServiceController::class,
+    // ]);
+
     Route::resource('client', ClientController::class)->except([
         'index', 'edit'
     ]);
@@ -49,7 +56,7 @@ Route::get('acting/branch', [ActingBranchController::class, 'index'])->name('bra
 Route::get('type/service', [TypeServiceController::class, 'index'])->name('service.index');
 Route::get('client', [ClientController::class, 'index'])->name('client.index');
 
-Route::middleware(['auth:api', 'role:administrator'])->get('/role/admin', function (Request $request) {
+Route::middleware(['auth:api', 'role:admin'])->get('/role/admin', function (Request $request) {
     return 'welcome administrator';
 });
 

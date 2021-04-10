@@ -10,8 +10,8 @@
             <mat-card-header>
                 <img mat-card-avatar width="50" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
                     alt="Photo of a Shiba Inu">
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                <mat-card-title>{{user?.name}}</mat-card-title>
+                <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
             </mat-card-header>
         </mat-card>
         <mat-expansion-panel>
@@ -31,7 +31,7 @@
             </mat-expansion-panel-header>
             <p routerLink="/admin/user">Usuários</p>
             <p>Ramo de atuação</p>
-            <p>Tipo de serviço</p>
+            <p routerLink="/admin/tipo/servicos">Tipo de serviço</p>
         </mat-expansion-panel>
         <div class="footer">
             <div class="actions">

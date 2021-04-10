@@ -1,22 +1,25 @@
 <div class="top-header">
-    <div class="icon-page">
-        <mat-card>
-            <span class="material-icons">
-                {{icon}}
-            </span>
-        </mat-card>
-    </div>
     <div class="title-container">
-        <div class="title">
-            {{title}}
+        <div class="icon-page">
+            <mat-card>
+                <span class="material-icons">
+                    {{icon}}
+                </span>
+            </mat-card>
         </div>
-        <div class="sub-title">
-            {{subtitle}}
+        <div class="title-page">
+            <div class="title">
+                {{title}}
+            </div>
+            <div class="sub-title">
+                {{subtitle}}
+            </div>
         </div>
+        
     </div>
     <div class="actions" *ngIf="navigation">
         <div class="group-buttons">
-            <button (click)="back()" mat-mini-fab aria-label="Example icon button with a home icon">
+            <button (click)="back()" mat-mini-fab aria-label="Voltar para página anterior">
                 <mat-icon>arrow_back</mat-icon>
             </button>
         </div>

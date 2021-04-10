@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonTitleComponent } from '@components/common-title/common-title.component';
 
 
 
@@ -28,11 +29,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    ComponentsModule,
     MatPaginatorModule,
     MatSelectModule,
     MatSnackBarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ],
   exports: [
     UsersComponent

@@ -18,7 +18,7 @@ export class AuthService implements CanActivate {
         const user: User = JSON.parse(sessionStorage.getItem('user'));
         const hasRole = user.roles.filter(role => role.slug === roleCheck);
         const superUser = user.roles.filter(role => role.slug === 'admin');
-        if (hasRole.length || superUser) {
+        if (hasRole.length || superUser.length) {
           return true;
         }
         // unauthorized

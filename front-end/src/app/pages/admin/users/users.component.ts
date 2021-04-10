@@ -22,7 +22,8 @@ export class UsersComponent implements OnInit {
   public myDataArray: any;
   public paginateUser: Paginate<User>;
 
-  public pageEvent: PageEvent;
+
+  public pageEvent: PageEvent = new PageEvent();
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -38,8 +39,14 @@ export class UsersComponent implements OnInit {
     this.getPage(event.pageIndex + 1, event.pageSize);
   }
   public createUser(): void {
-    this.dialog.open(CreateDialogComponent, {
+    const dialogRef = this.dialog.open(CreateDialogComponent, {
       width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(event => {
+      if (event) {
+        this.handlePageEvent();
+      }
     });
   }
 
@@ -54,7 +61,6 @@ export class UsersComponent implements OnInit {
     });
   }
   public deleteUser(user: User): void {
-    console.log('user', user);
     const dialogRef = this.dialog.open(ConfirmComponent, {
       width: '600px',
       data: {

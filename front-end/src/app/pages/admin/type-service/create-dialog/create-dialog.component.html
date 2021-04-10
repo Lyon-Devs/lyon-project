@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} tipo de serviço </h1>
+<div mat-dialog-content>
+  <form [formGroup]="formType">
+    <mat-form-field appearance="outline" fullWidth>
+      <mat-label>Descrição</mat-label>
+      <input matInput required formControlName="name">
+    </mat-form-field>
+    <mat-form-field appearance="outline" fullWidth>
+      <mat-label>Unidade de negócio</mat-label>
+      <input matInput required  formControlName="unity_business">
+    </mat-form-field>
+    <mat-form-field appearance="outline" fullWidth>
+        <mat-label>Grupo de email</mat-label>
+        <input matInput required placeholder="engenharia@lyon.com.br;ti@lyon.com.br" formControlName="email_group">
+      </mat-form-field>
+  </form>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">cancelar</button>
+  <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">salvar</button>
+</div>
