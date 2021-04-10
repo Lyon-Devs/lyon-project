@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +11,15 @@ import { AuthService } from '@services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
   public hide = true;
+  public loading = new BehaviorSubject<boolean>(false);
+  public error: string;
 
   constructor(
     private router: Router,
     private authService: AuthService
-  ) { }
+  ) {
+    this.loading.next(false);
+  }
 
   ngOnInit(): void {
     this.authService.checkSession().subscribe(user => {
@@ -23,10 +29,19 @@ export class LoginComponent implements OnInit {
 
 
   public authUser(user, password): void {
+    this.loading.next(true);
     this.authService.authUser(user, password).subscribe((userRes) => {
       setTimeout(() => {
         this.router.navigate(['home']);
+        this.loading.next(false);
       }, 2000);
+    }, error => {
+
+      this.error = error?.error?.message || 'Acontenceu algum error no servidor tente de novo.';
+      setTimeout(() => {
+        this.error = null;
+      }, 8000);
+      this.loading.next(false);
     });
   }
 
