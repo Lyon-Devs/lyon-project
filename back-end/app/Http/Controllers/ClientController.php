@@ -16,10 +16,6 @@ class ClientController extends Controller
     public function index(Request $request): Paginator
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
-        $client =  Client::all();
-
-        // dd($client[0]);
-
         return Client::paginate($paginate);
     }
 

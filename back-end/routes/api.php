@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActingBranchController;
 use App\Http\Controllers\TypeServiceController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProposalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
 
 Route::get('/', function () {
     return 'ok';
@@ -38,28 +41,22 @@ Route::middleware(['auth:api', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class)->except('edit');
 });
 Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
-
+    $exceptActions = ['index', 'edit'];
     Route::resource('acting/branch', ActingBranchController::class)->except([
         'index', 'edit'
     ])->parameters([
         'branch' => 'actingBranch'
     ]);
 
+    Route::resource('proposal', ProposalController::class)->except($exceptActions);
 
 
-    Route::resource('type/service', TypeServiceController::class)->except([
-        'index', 'edit'
-    ])->parameters([
-        'service' => 'typeService'
-    ]);
+    Route::resource('type/service', TypeServiceController::class)->except($exceptActions)
+        ->parameters([
+            'service' => 'typeService'
+        ]);
 
-    // Route::resources([
-    //     'typServices' => TypeServiceController::class,
-    // ]);
-
-    Route::resource('client', ClientController::class)->except([
-        'index', 'edit'
-    ]);
+    Route::resource('client', ClientController::class)->except($exceptActions);
 });
 
 
