@@ -31,7 +31,23 @@
     object-fit: fill;
   }
 }
+::ng-deep .mat-expansion-panel-body {
+  p {
+    cursor: pointer;
+    padding: 5px;
+  }
 
+  p:hover {
+    background-color: #f1f4f6;
+  }
+
+  p.active {
+    background-color: #f1f4f6;
+  }
+  p:focus {
+    outline: none;
+  }
+}
 .footer {
 
   position: absolute;
