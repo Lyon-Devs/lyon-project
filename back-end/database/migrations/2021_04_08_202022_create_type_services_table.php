@@ -17,7 +17,7 @@ class CreateTypeServicesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('unity_business');
-            $table->mediumText('email_group');
+            $table->mediumText('email_group')->nullable();
             $table->timestamps();
         });
     }

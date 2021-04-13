@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ActingBranch;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,5 +31,11 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(PermissionRoleSeeder::class);
+
+
+        //Fill base data
+        $this->call(TypeServiceSeeder::class);
+        $this->call(ActingBranchSeeder::class);
+        $this->call(ClientsSeeder::class);
     }
 }
