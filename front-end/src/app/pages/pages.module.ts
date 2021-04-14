@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { UsersComponent } from './admin/users/users.component';
 import { ProposalComponent } from './proposal/proposal.component';
 
+
 @NgModule({
   declarations: [LoginModule, HomeModule, UsersComponent, ProposalComponent],
   imports: [

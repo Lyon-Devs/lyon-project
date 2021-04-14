@@ -14,11 +14,14 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CreateDialogComponent } from './create-dialog/create-dialog.component';
+import { MatStepperModule } from '@angular/material/stepper';
+
 
 
 
 @NgModule({
-  declarations: [ProposalComponent],
+  declarations: [ProposalComponent, CreateDialogComponent],
   imports: [
     CommonModule,
     ComponentsModule,
@@ -33,7 +36,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatSnackBarModule,
     ReactiveFormsModule,
-    ProposalRoutingModule
+    ProposalRoutingModule,
+    MatStepperModule
   ]
 })
 export class ProposalModule { }

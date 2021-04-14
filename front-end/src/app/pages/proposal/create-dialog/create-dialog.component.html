@@ -1,0 +1,103 @@
+<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} proposta</h1>
+<div mat-dialog-content>
+    <!-- <form [formGroup]="formType">
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>Descrição</mat-label>
+            <input matInput required formControlName="name">
+        </mat-form-field>
+    </form> -->
+
+    <mat-vertical-stepper #linear #stepper>
+        <mat-step [stepControl]="formType">
+            <form [formGroup]="formType">
+                <ng-template matStepLabel>Informações básicas</ng-template>
+                <div class="two-col">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Cliente</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Cod lyon</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                </div>
+                <div class="three-col">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Comprador</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Data solicitação</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Cod. solicitação</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="formType" optional="true">
+            <form [formGroup]="formType">
+                <ng-template matStepLabel>Proposta técnica</ng-template>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Data</mat-label>
+                    <input matInput required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="formType" optional>
+            <form [formGroup]="formType">
+                <ng-template matStepLabel>Proposta comercial</ng-template>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Data</mat-label>
+                    <input matInput required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="formType">
+            <form [formGroup]="formType">
+                <ng-template matStepLabel>Execução</ng-template>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Em meses</mat-label>
+                    <input matInput required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Local</mat-label>
+                    <input matInput required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
+
+
+
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">cancelar</button>
+    <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">salvar</button>
+</div>
