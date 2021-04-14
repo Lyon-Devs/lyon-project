@@ -4,16 +4,19 @@
     </button>
     <span>Lyon - Processos</span>
 </mat-toolbar>
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened="true">
-        <mat-card class="example-card">
+<mat-drawer-container>
+    <mat-drawer #drawer mode="side" opened="true">
+        <mat-card>
             <mat-card-header>
-                <img mat-card-avatar width="50" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                    alt="Photo of a Shiba Inu">
+                <img mat-card-avatar width="50" src="/assets/imgs/user.png" [alt]="user?.name">
                 <mat-card-title>{{user?.name}}</mat-card-title>
                 <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
             </mat-card-header>
+            
         </mat-card>
+        <mat-toolbar class="painel-home" routerLink="/home">
+            <mat-icon>home</mat-icon><span>Home</span>
+        </mat-toolbar>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
