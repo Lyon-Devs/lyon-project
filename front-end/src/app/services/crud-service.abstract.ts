@@ -21,4 +21,7 @@ export abstract class CrudService<t> implements Crud<t> {
     public create(data: any): Observable<t> {
         return this.http.post<t>(`${this.url}`, data);
     }
+    public all(): Observable<t[]> {
+        return this.http.get<t[]>(`${this.url}/all`);
+    }
 }

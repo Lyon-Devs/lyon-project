@@ -17,7 +17,6 @@ export class ActingBranchService extends CrudService<ActingBranch> {
     super(http, 'acting/branch');
     this.urlActing = env.apiUrl + 'acting/branch/all';
   }
-
   public all(): Observable<ActingBranch[]> {
     return this.http.get<ActingBranch[]>(`${this.urlActing}`);
   }

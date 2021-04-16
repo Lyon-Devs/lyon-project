@@ -18,6 +18,7 @@ class CreateTypeServicesTable extends Migration
             $table->string('name');
             $table->string('unity_business');
             $table->mediumText('email_group')->nullable();
+            $table->softDeletes($column = 'deleted_at', $precision = 0);
             $table->timestamps();
         });
     }

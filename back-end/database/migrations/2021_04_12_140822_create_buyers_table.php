@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActingBranchesTable extends Migration
+class CreateBuyersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateActingBranchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('acting_branches', function (Blueprint $table) {
+        Schema::create('buyers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->softDeletes($column = 'deleted_at', $precision = 0);
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateActingBranchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acting_branches');
+        Schema::dropIfExists('buyers');
     }
 }

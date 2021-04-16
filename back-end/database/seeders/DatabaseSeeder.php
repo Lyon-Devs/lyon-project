@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(PermissionRoleSeeder::class);
+
         if (env('APP_DEBUG', false)) {
 
             \App\Models\User::factory(3)->create()->each(function ($user) {
@@ -28,14 +32,12 @@ class DatabaseSeeder extends Seeder
                 $user->attachRoleBySlug('comercial');
             });
         }
-        $this->call(PermissionSeeder::class);
-        $this->call(RoleSeeder::class);
-        $this->call(PermissionRoleSeeder::class);
 
 
         //Fill base data
         $this->call(TypeServiceSeeder::class);
         $this->call(ActingBranchSeeder::class);
         $this->call(ClientsSeeder::class);
+        $this->call(BuyerSeeder::class);
     }
 }

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProposalRevision extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     //     Nº Revisão da Proposta Consolidada $number_revision			
     // Data do comitê $created_at			

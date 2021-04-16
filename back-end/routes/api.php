@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActingBranchController;
+use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\TypeServiceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProposalController;
@@ -32,10 +33,13 @@ Route::get('/teste', function () {
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('acting/branch/all', [ActingBranchController::class, 'allItens']);
+Route::get('acting/branch/all', [ActingBranchController::class, 'allItens'])->name('branch.all');
 Route::get('acting/branch', [ActingBranchController::class, 'index'])->name('branch.index');
 Route::get('type/service', [TypeServiceController::class, 'index'])->name('service.index');
 Route::get('client', [ClientController::class, 'index'])->name('client.index');
+Route::get('client/all', [ClientController::class, 'allItens'])->name('client.all');
+Route::get('buyer/all', [BuyerController::class, 'allItens'])->name('buyer.all');
+Route::get('buyer', [BuyerController::class, 'index'])->name('client.index');
 // 'auth:api', 'role:administrator'
 Route::middleware(['auth:api', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class)->except('edit');
@@ -49,7 +53,7 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
     ]);
 
     Route::resource('proposal', ProposalController::class)->except($exceptActions);
-
+    Route::resource('buyer', BuyerController::class)->except($exceptActions);
 
     Route::resource('type/service', TypeServiceController::class)->except($exceptActions)
         ->parameters([

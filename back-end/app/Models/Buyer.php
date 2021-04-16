@@ -6,19 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Client extends Model
+class Buyer extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'acting_branches_id'
-    ];
+    protected $fillable = ['name', 'client_id'];
+
     protected $with = [
-        'actingBranches'
+        'client'
     ];
-    public function actingBranches()
+    public function client()
     {
-        return $this->belongsTo(ActingBranch::class, 'acting_branches_id');
+        return $this->belongsTo(Client::class, 'client_id');
     }
 }

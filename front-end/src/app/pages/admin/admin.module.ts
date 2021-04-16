@@ -5,10 +5,13 @@ import { UsersModule } from './users/users.module';
 import { TypeServiceModule } from './type-service/type-service.module';
 import { ActingBranchModule } from './acting-branch/acting-branch.module';
 import { ClientModule } from './client/client.module';
+import { BuyerComponent } from './buyer/buyer.component';
+import { BuyerModule } from './buyer/buyer.module';
 
 @NgModule({
   declarations: [],
   imports: [
+    BuyerModule,
     UsersModule,
     ClientModule,
     CommonModule,
