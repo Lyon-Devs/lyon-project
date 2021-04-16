@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('acting_branches_id');
             $table->foreign('acting_branches_id')->references('id')->on('acting_branches')->onDelete('cascade');
-            $table->softDeletes($column = 'deleted_at', $precision = 0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

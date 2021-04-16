@@ -16,7 +16,7 @@ class CreateActingBranchesTable extends Migration
         Schema::create('acting_branches', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->softDeletes($column = 'deleted_at', $precision = 0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
