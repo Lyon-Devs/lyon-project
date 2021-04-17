@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   public hide = true;
   public loading = new BehaviorSubject<boolean>(false);
   public error: string;
+  public mode: 'login' | 'recovery' = 'login';
 
   constructor(
     private router: Router,
@@ -42,6 +43,13 @@ export class LoginComponent implements OnInit {
         this.error = null;
       }, 8000);
       this.loading.next(false);
+    });
+  }
+
+  public recoveryUser(user): void {
+    this.loading.next(true);
+    this.authService.recoveryUser(user).subscribe(res => {
+      console.log('res', res);
     });
   }
 

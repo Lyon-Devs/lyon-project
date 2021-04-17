@@ -3,38 +3,58 @@
         <div class="login-header">
             <img src="/assets/imgs/logo-lyon-engenharia.png">
         </div>
-        <form class="example-form">
-            <ng-template [ngIf]="error">
-                <span class="error">{{error}}</span>
-            </ng-template>
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput #user>
-            </mat-form-field>
+        <!-- <ng-template [ngIf]="login"></ng-template> -->
+        <ng-container [ngTemplateOutlet]="mode === 'login'? login : recovery "></ng-container>
+        <ng-template #login>
+            <form>
+                <ng-template [ngIf]="error">
+                    <span class="error">{{error}}</span>
+                </ng-template>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput #user>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Senha</mat-label>
-                <input matInput #password [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-        </form>
-        <div class="login-footer">
-            <ng-template [ngIf]="!loading.getValue()">
-                <button mat-raised-button color="primary" (click)="authUser(user.value, password.value)">
-                    Login
-                </button>
-                <button mat-button>Esqueci minha senha</button>
-            </ng-template>
-            <ng-template [ngIf]="loading.getValue()">
-                <div class="check-access">
-                    <mat-spinner color="accent" diameter="35"></mat-spinner>
-                    <span>Verificando sua conta</span>
+                <mat-form-field appearance="outline">
+                    <mat-label>Senha</mat-label>
+                    <input matInput #password [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </form>
+            <div class="login-footer">
+                <ng-template [ngIf]="!loading.getValue()">
+                    <button mat-raised-button color="primary" (click)="authUser(user.value, password.value)">
+                        Login
+                    </button>
+                    <button (click)="mode ='recovery'" mat-button>Esqueci minha senha</button>
+                </ng-template>
+                <ng-template [ngIf]="loading.getValue()">
+                    <div class="check-access">
+                        <mat-spinner color="accent" diameter="35"></mat-spinner>
+                        <span>Verificando sua conta</span>
+                    </div>
+                </ng-template>
+            </div>
+        </ng-template>
+        <ng-template #recovery>
+            <form>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput #user>
+                </mat-form-field>
+                <div class="login-footer">
+                    <ng-template [ngIf]="!loading.getValue()">
+                        <button mat-raised-button color="primary" (click)="recoveryUser(user.value)">
+                            Enviar
+                        </button>
+                        <button (click)="mode ='login'" mat-button>Cancelar</button>
+                    </ng-template>
                 </div>
-            </ng-template>
-        </div>
+            </form>
+        </ng-template>
     </div>
 </div>
 <div class="loading">
