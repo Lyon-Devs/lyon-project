@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +16,20 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRole, SoftDeletes;
 
+    // use App\Notifications\ResetPasswordNotification;
 
+    /**
+     * Send a password reset notification to the user.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $url = 'https://example.com/reset-password?token=' . $token;
+
+        $this->notify(new ResetPasswordNotification($url));
+    }
     /**
      * The attributes that are mass assignable.
      *
