@@ -103,4 +103,11 @@ class UserController extends Controller
         $user->delete();
         return $user;
     }
+
+    public function allItens()
+    {
+        return User::whereHas('roles', function ($query) {
+            $query->where('slug', '<>', 'admin');
+        })->get();
+    }
 }

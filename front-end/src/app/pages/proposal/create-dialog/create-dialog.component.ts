@@ -2,7 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ProposalService } from '../../../services/proposal/proposal.service';
+
+import { UserService } from '@services/user/user.service';
+import { ProposalService } from '@services/proposal/proposal.service';
+
+import { User } from '@models/users.model';
 
 @Component({
   selector: 'app-create-dialog',
@@ -14,11 +18,16 @@ export class CreateDialogComponent implements OnInit {
   public createForm: boolean;
   public passMsg: string;
   public formType: FormGroup;
+  public userListTec: User[];
+  public selectedUserTec: User[] = [];
+  public selectedUserCom: User[] = [];
+  public userListCom: User[];
   constructor(
     public fb: FormBuilder,
     public dialogRef: MatDialogRef<CreateDialogComponent>,
-    private proposalService: ProposalService,
     private snackBar: MatSnackBar,
+    private userService: UserService,
+    private proposalService: ProposalService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -53,8 +62,27 @@ export class CreateDialogComponent implements OnInit {
       summary_scope: [this.data?.summary_scope || '', Validators.required, Validators.toString],
       scope: [this.data?.scope || '', Validators.required, Validators.toString],
     });
+
+    this.userService.all().subscribe(userList => {
+      this.userListTec = userList.filter(user => user.roles.filter(role => role.slug === 'technical').length > 0);
+      this.userListCom = userList.filter(user => user.roles.filter(role => role.slug === 'comercial').length > 0);
+    });
   }
 
+  public addOrRemoveTec(event: any, user: User): void {
+    if (event.checked) {
+      this.selectedUserTec.push(user);
+    } else {
+      this.selectedUserTec.splice(this.selectedUserTec.indexOf(user), 1);
+    }
+  }
+  public addOrRemoveCom(event: any, user: User): void {
+    if (event.checked) {
+      this.selectedUserCom.push(user);
+    } else {
+      this.selectedUserCom.splice(this.selectedUserCom.indexOf(user), 1);
+    }
+  }
   public onNoClick(): void {
     this.dialogRef.close();
   }

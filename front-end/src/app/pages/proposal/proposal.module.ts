@@ -11,11 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -37,7 +38,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSnackBarModule,
     ReactiveFormsModule,
     ProposalRoutingModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCheckboxModule,
+    FormsModule
   ]
 })
 export class ProposalModule { }

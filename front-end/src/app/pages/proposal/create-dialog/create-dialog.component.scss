@@ -2,6 +2,16 @@
   display: block;
 }
 
+ul {
+  list-style-type: none;
+  // margin-top: 4px;
+  margin: 0 -25px 10px;
+}
+
+.list-users {
+  
+}
+
 .two-col {
   display: flex;
 
@@ -12,10 +22,10 @@
 }
 
 .three-col {
-    display: flex;
-  
-    .mat-form-field {
-      width: 33%;
-      margin: 1px;
-    }
+  display: flex;
+
+  .mat-form-field {
+    width: 33%;
+    margin: 1px;
   }
+}

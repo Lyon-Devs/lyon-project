@@ -17,6 +17,7 @@ class RoleSeeder extends Seeder
         $data = [
             ["name" => "administrator", "slug" => "admin", 'description' => "administrate all system", 'system' => 0],
             ["name" => "comercial", "slug" => "comercial", 'description' => "workers of the area", 'system' => 0],
+            ["name" => "técnica", "slug" => "technical", 'description' => "workers of the area", 'system' => 0],
             ["name" => "user", "slug" => "user", 'description' => "user less powers", 'system' => 0],
 
         ];

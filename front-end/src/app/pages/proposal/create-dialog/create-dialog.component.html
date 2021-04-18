@@ -9,7 +9,7 @@
 
     <mat-vertical-stepper #linear #stepper>
         <mat-step [stepControl]="formType">
-            <form [formGroup]="formType">
+            <form >
                 <ng-template matStepLabel>Informações básicas</ng-template>
                 <div class="two-col">
                     <mat-form-field appearance="outline" fullWidth>
@@ -41,7 +41,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formType" optional="true">
-            <form [formGroup]="formType">
+            <form >
                 <ng-template matStepLabel>Proposta técnica</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Data</mat-label>
@@ -54,7 +54,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formType" optional>
-            <form [formGroup]="formType">
+            <form>
                 <ng-template matStepLabel>Proposta comercial</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Data</mat-label>
@@ -67,7 +67,47 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formType">
-            <form [formGroup]="formType">
+            <form>
+                <ng-template matStepLabel>Aréa Técnica</ng-template>
+                <!-- <mat-checkbox class="example-margin" *ngFor="let user of this.userListTec"></mat-checkbox> -->
+                <div class="list-users">
+                    <ul>
+                        <li *ngFor="let user of this.userListTec">
+                            <mat-checkbox (change)="addOrRemoveTec($event, user)">
+                                {{user.name}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="formType">
+            <form>
+                <ng-template matStepLabel>Aréa Comercial</ng-template>
+                <!-- <mat-checkbox class="example-margin" *ngFor="let user of this.userListTec"></mat-checkbox> -->
+                <div class="list-users">
+                    <ul>
+                        <li *ngFor="let user of this.userListCom">
+                            <mat-checkbox (change)="addOrRemoveCom($event, user)">
+                                {{user.name}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="formType">
+            <form >
                 <ng-template matStepLabel>Execução</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Em meses</mat-label>
@@ -83,6 +123,33 @@
                 </div>
             </form>
         </mat-step>
+        <mat-step [stepControl]="formType">
+            <form >
+                <ng-template matStepLabel>Escopo resumido</ng-template>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Escopo resumido</mat-label>
+                    <textarea matInput required rows="3"></textarea>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="formType">
+            <form >
+                <ng-template matStepLabel>Escopo</ng-template>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Escopo</mat-label>
+                    <textarea matInput required rows="25"></textarea>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+
         <mat-step>
             <ng-template matStepLabel>Done</ng-template>
             <p>You are now done.</p>

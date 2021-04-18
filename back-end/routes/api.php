@@ -41,11 +41,10 @@ Route::get('client/all', [ClientController::class, 'allItens'])->name('client.al
 Route::get('buyer/all', [BuyerController::class, 'allItens'])->name('buyer.all');
 Route::get('buyer', [BuyerController::class, 'index'])->name('client.index');
 // 'auth:api', 'role:administrator'
-Route::middleware(['auth:api', 'role:admin'])->group(function () {
-    Route::resource('users', UserController::class)->except('edit');
-});
+
 Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
     $exceptActions = ['index', 'edit'];
+    Route::get('users/all', [UserController::class, 'allItens'])->name('user.all');
     Route::resource('acting/branch', ActingBranchController::class)->except([
         'index', 'edit'
     ])->parameters([
@@ -63,6 +62,9 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
     Route::resource('client', ClientController::class)->except($exceptActions);
 });
 
+Route::middleware(['auth:api', 'role:admin'])->group(function () {
+    Route::resource('users', UserController::class)->except('edit');
+});
 
 Route::middleware(['auth:api', 'role:admin'])->get('/role/admin', function (Request $request) {
     return 'welcome administrator';

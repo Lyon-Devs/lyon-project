@@ -31,6 +31,10 @@ class DatabaseSeeder extends Seeder
             \App\Models\User::factory(3)->create()->each(function ($user) {
                 $user->attachRoleBySlug('comercial');
             });
+
+            \App\Models\User::factory(3)->create()->each(function ($user) {
+                $user->attachRoleBySlug('technical');
+            });
         }
 
 
