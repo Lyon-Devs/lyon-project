@@ -24,11 +24,19 @@ export class AuthService {
 
   }
 
-  public recoveryUser(user: string): Observable<any> {
-
+  public forgotPassword(user: string): Observable<any> {
     return this.http.post<User>(`${environment.apiUrl}forgot-password`,
       { email: user }
     );
+  }
+
+  public resetPassword(email: string, password: string, token: string): Observable<any> {
+    return this.http.post<User>(`${environment.apiUrl}reset-password `, {
+      email,
+      password,
+      password_confirmation: password,
+      token
+    });
   }
   public authUser(user: string, password: string): Observable<any> {
     return this.http.post<User>(`${environment.apiUrl}oauth/token`, {

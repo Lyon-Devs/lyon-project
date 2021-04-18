@@ -3,8 +3,11 @@
         <div class="login-header">
             <img src="/assets/imgs/logo-lyon-engenharia.png">
         </div>
-        <!-- <ng-template [ngIf]="login"></ng-template> -->
-        <ng-container [ngTemplateOutlet]="mode === 'login'? login : recovery "></ng-container>
+
+
+        <ng-container [ngTemplateOutlet]="mode || login">
+
+        </ng-container>
         <ng-template #login>
             <form>
                 <ng-template [ngIf]="error">
@@ -29,7 +32,7 @@
                     <button mat-raised-button color="primary" (click)="authUser(user.value, password.value)">
                         Login
                     </button>
-                    <button (click)="mode ='recovery'" mat-button>Esqueci minha senha</button>
+                    <button (click)="changeMode(recovery)" mat-button>Esqueci minha senha</button>
                 </ng-template>
                 <ng-template [ngIf]="loading.getValue()">
                     <div class="check-access">
@@ -41,6 +44,9 @@
         </ng-template>
         <ng-template #recovery>
             <form>
+                <ng-template [ngIf]="info">
+                    <span class="info">{{info}}</span>
+                </ng-template>
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <input matInput #user>
@@ -50,10 +56,53 @@
                         <button mat-raised-button color="primary" (click)="recoveryUser(user.value)">
                             Enviar
                         </button>
-                        <button (click)="mode ='login'" mat-button>Cancelar</button>
+                        <button (click)="changeMode(login)" mat-button>Cancelar</button>
+                    </ng-template>
+                    <ng-template [ngIf]="loading.getValue()">
+                        <div class="check-access">
+                            <mat-spinner color="accent" diameter="35"></mat-spinner>
+                            <span>Verificando sua conta</span>
+                        </div>
                     </ng-template>
                 </div>
             </form>
+        </ng-template>
+        <ng-template #changePassword>
+            <div class="changePassword">
+                <h3>Informe uma nova senha com no minímo 8 caracteres</h3>
+                <mat-form-field appearance="outline">
+                    <mat-label>Senha</mat-label>
+                    <input matInput #password [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirme a senha</mat-label>
+                    <input matInput #password_confirm [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div class="login-footer">
+                    <ng-template [ngIf]="!loading.getValue()">
+                        <button mat-raised-button color="primary"
+                            [disabled]="password.value !== password_confirm.value || password.value == '' || password.value.length < 8"
+                            (click)="resetPassword(password.value, password_confirm.value)">
+                            Alterar Senha
+                        </button>
+                        <button (click)="changeMode(login)" mat-button>Cancelar</button>
+                    </ng-template>
+                    <ng-template [ngIf]="loading.getValue()">
+                        <div class="check-access">
+                            <mat-spinner color="accent" diameter="35"></mat-spinner>
+                            <span>{{info}}</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
         </ng-template>
     </div>
 </div>

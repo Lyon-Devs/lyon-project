@@ -31,6 +31,6 @@ class PasswordResetLinkController extends Controller
 
 
 
-        return response('E-email enviado com as instruções!', 201);
+        return response()->json(['msg' => 'E-email enviado com as instruções!']);
     }
 }
