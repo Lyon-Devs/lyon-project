@@ -22,14 +22,21 @@ class ClientsSeeder extends Seeder
                 $num = count($data);
                 $row++;
                 for ($c = 0; $c < $num; $c++) {
-                    // echo $data[$c] . "\n";
                     if ($data[$c]) {
                         $dataExplode = explode(',', $data[$c]);
-                        $actionBranch = ActingBranch::where('name', $dataExplode[1])->first();
-                        Client::create([
-                            'name' => $dataExplode[0],
-                            'acting_branches_id' => $actionBranch->id
-                        ]);
+                        $actionBranch = ActingBranch::where('name', $dataExplode[2])->first();
+                        if (@$actionBranch->id) {
+                            // Client::unsetEventDispatcher();
+                            $client = new Client();
+                            $client->fill([
+                                'name' => $dataExplode[1],
+                                'code' => $dataExplode[0],
+                                'acting_branches_id' => $actionBranch->id
+                            ]);
+                            $client->saveQuietly();
+                        } else {
+                            dump($dataExplode[2]);
+                        }
                     }
                 }
             }

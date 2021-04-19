@@ -5,7 +5,7 @@
 export const environment = {
   auth: {
     client_id: 2,
-    client_secret: 'FFNmPvCkb3SKk3Ctkxjg4lj0lmBq3eRIWdbIQzkH',
+    client_secret: '4ATh4sag6C44Qn55Iit7loCifN8r1PUz5j9MRZIz',
     scope: '*',
   },
 

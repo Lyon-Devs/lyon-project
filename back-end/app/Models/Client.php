@@ -12,13 +12,17 @@ class Client extends Model
 
     protected $fillable = [
         'name',
+        'code',
         'acting_branches_id'
     ];
-    protected $with = [
-        'actingBranches'
-    ];
+
     public function actingBranches()
     {
         return $this->belongsTo(ActingBranch::class, 'acting_branches_id');
+    }
+
+    public function scopeWithActingBranches($query)
+    {
+        return $query->with('actingBranches');
     }
 }

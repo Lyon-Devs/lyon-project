@@ -16,8 +16,10 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('code');
             $table->unsignedBigInteger('acting_branches_id');
             $table->foreign('acting_branches_id')->references('id')->on('acting_branches')->onDelete('cascade');
+            $table->unique('code', 'unique_code');
             $table->softDeletes();
             $table->timestamps();
         });

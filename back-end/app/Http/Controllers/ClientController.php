@@ -16,7 +16,7 @@ class ClientController extends Controller
     public function index(Request $request): Paginator
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
-        return Client::paginate($paginate);
+        return Client::withActingBranches()->paginate($paginate);
     }
 
     /**
@@ -71,6 +71,6 @@ class ClientController extends Controller
 
     public function allItens()
     {
-        return Client::all();
+        return Client::withActingBranches()->all();
     }
 }

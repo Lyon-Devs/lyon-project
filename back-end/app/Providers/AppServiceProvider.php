@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Client;
+use App\Observers\ClientObserver;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
             Passport::enableImplicitGrant();
             Passport::routes(null, ['prefix' => "api/oauth"]);
         }
+        Client::observe(ClientObserver::class);
     }
 }

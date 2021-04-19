@@ -26,7 +26,7 @@ export class ClientComponent implements OnInit, CrudPage<Clients>  {
 
   ) { }
   public paginateItems: Paginate<Clients>;
-  displayedColumns: string[] = ['name', 'acting_branch', 'created_at', 'updated_at', 'actions'];
+  displayedColumns: string[] = ['code', 'name', 'acting_branch', 'created_at', 'updated_at', 'actions'];
   pageEvent: PageEvent;
   handlePageEvent(event: PageEvent = this.pageEvent): void {
     this.pageEvent = event;
