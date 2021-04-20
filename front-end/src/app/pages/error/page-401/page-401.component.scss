@@ -1,0 +1,22 @@
+.container {
+  background: url('/assets/imgs/401.jpg') no-repeat;
+  height: 100vh;
+  position: relative;
+  background-position: center;
+
+  .error-page {
+    position: relative;
+
+    .error {
+      position: absolute;
+      text-align: center;
+      top: 20vh;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      font-size: 15rem;
+      font-weight: 600;
+    }
+  }
+}

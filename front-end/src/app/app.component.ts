@@ -14,7 +14,8 @@ export class AppComponent {
   }
   private externalRoutes = [
     'login',
-    '/404'
+    '/401',
+    '/404',
   ];
 
   public isExternal(): boolean {

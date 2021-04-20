@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService as AuthGuard } from '@services/guard/auth.service';
+import { Page404Component } from './error/page-404/page-404.component';
 
 
 const routes: Routes = [
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate: [AuthGuard] },
+  { path: 'home', pathMatch: 'full', loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate: [AuthGuard] },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'proposta', loadChildren: () => import('./proposal/proposal.module').then(m => m.ProposalModule) },
-  { path: '**', redirectTo: 'login' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', loadChildren: () => import('./error/page-error.module').then(m => m.PageErrorModule) },
+  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({

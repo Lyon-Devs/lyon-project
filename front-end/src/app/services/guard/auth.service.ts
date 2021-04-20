@@ -23,13 +23,14 @@ export class AuthService implements CanActivate {
         }
         // unauthorized
         // need make a 401 page
+        this.router.navigate(['401']);
         return false;
       }
       // only auth
       return true;
     }
     // unauthenticated
-    this.router.navigate(['login']);
+    this.router.navigate(['401']);
     return false;
   }
 }

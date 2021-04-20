@@ -1,0 +1,14 @@
+.container{
+    background: url('/assets/imgs/404.png') no-repeat;
+    height: 100vh;
+    position: relative;
+    background-position: center;
+
+    .error-page{
+        position: absolute;
+        top: 213px;
+        font-size: 15rem;
+        font-weight: 600;
+        left: 177px;
+    }
+}

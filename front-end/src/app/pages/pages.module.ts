@@ -9,10 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { UsersComponent } from './admin/users/users.component';
 import { ProposalComponent } from './proposal/proposal.component';
+import { Page401Component } from './error/page401/page401.component';
+import { Page404Component } from './error/page404/page404.component';
 
 
 @NgModule({
-  declarations: [LoginModule, HomeModule, UsersComponent, ProposalComponent],
+  declarations: [LoginModule, HomeModule, UsersComponent, ProposalComponent, Page401Component, Page404Component],
   imports: [
     CommonModule,
     LoginModule,
