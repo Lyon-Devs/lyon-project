@@ -22,19 +22,12 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    return 'ok';
-});
-
-Route::get('/teste', function () {
-    return 'ok teste';
-});
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('acting/branch/all', [ActingBranchController::class, 'allItens'])->name('branch.all');
 Route::get('acting/branch', [ActingBranchController::class, 'index'])->name('branch.index');
+Route::get('type/service/all', [TypeServiceController::class, 'allItens'])->name('service.all');
 Route::get('type/service', [TypeServiceController::class, 'index'])->name('service.index');
 Route::get('client', [ClientController::class, 'index'])->name('client.index');
 Route::get('client/all', [ClientController::class, 'allItens'])->name('client.all');

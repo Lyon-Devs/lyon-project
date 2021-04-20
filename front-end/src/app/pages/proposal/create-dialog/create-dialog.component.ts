@@ -4,9 +4,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UserService } from '@services/user/user.service';
+import { BuyerService } from '@services/buyer/buyer.service';
+import { ClientsService } from '@services/clients/clients.service';
 import { ProposalService } from '@services/proposal/proposal.service';
+import { TypeServices } from '@services/type-service/type-service.service';
 
 import { User } from '@models/users.model';
+import { Buyer } from '@models/buyer.model';
+import { Clients } from '@models/clients.model';
+import { TypeServices as Type } from '@models/type-service';
 
 @Component({
   selector: 'app-create-dialog',
@@ -22,12 +28,18 @@ export class CreateDialogComponent implements OnInit {
   public selectedUserTec: User[] = [];
   public selectedUserCom: User[] = [];
   public userListCom: User[];
+  public clients: Clients[];
+  public buyers: Buyer[];
+  public types: Type[];
   constructor(
     public fb: FormBuilder,
     public dialogRef: MatDialogRef<CreateDialogComponent>,
     private snackBar: MatSnackBar,
     private userService: UserService,
-    private proposalService: ProposalService,
+    private buyerService: BuyerService,
+    private clientService: ClientsService,
+    private typeService: TypeServices,
+    private proposalServices: ProposalService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -63,9 +75,23 @@ export class CreateDialogComponent implements OnInit {
       scope: [this.data?.scope || '', Validators.required, Validators.toString],
     });
 
+    // Get all user tec and comercial
     this.userService.all().subscribe(userList => {
       this.userListTec = userList.filter(user => user.roles.filter(role => role.slug === 'technical').length > 0);
       this.userListCom = userList.filter(user => user.roles.filter(role => role.slug === 'comercial').length > 0);
+    });
+
+    this.clientService.all().subscribe(clients => {
+      this.clients = clients;
+    });
+
+    this.buyerService.all().subscribe(buyers => {
+      this.buyers = buyers;
+    });
+
+    this.typeService.all().subscribe(types => {
+      this.types = types;
+      console.log(this.types);
     });
   }
 

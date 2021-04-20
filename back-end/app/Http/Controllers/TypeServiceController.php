@@ -67,4 +67,9 @@ class TypeServiceController extends Controller
         $typeService->delete();
         return $typeService;
     }
+
+    public function allItens()
+    {
+        return TypeService::all();
+    }
 }

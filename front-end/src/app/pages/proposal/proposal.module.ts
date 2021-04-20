@@ -17,10 +17,21 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
 
-
-
-
+export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 @NgModule({
   declarations: [ProposalComponent, CreateDialogComponent],
   imports: [
@@ -40,7 +51,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ProposalRoutingModule,
     MatStepperModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentDateModule
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_MOMENT_DATE_FORMATS },
+  ],
+  exports: [
   ]
 })
 export class ProposalModule { }

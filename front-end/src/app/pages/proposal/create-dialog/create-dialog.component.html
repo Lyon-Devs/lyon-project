@@ -9,30 +9,43 @@
 
     <mat-vertical-stepper #linear #stepper>
         <mat-step [stepControl]="formType">
-            <form >
+            <form>
                 <ng-template matStepLabel>Informações básicas</ng-template>
                 <div class="two-col">
-                    <mat-form-field appearance="outline" fullWidth>
+                    <mat-form-field appearance="outline">
                         <mat-label>Cliente</mat-label>
-                        <input matInput required>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" fullWidth>
-                        <mat-label>Cod lyon</mat-label>
-                        <input matInput required>
-                    </mat-form-field>
-                </div>
-                <div class="three-col">
-                    <mat-form-field appearance="outline" fullWidth>
-                        <mat-label>Comprador</mat-label>
-                        <input matInput required>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" fullWidth>
-                        <mat-label>Data solicitação</mat-label>
-                        <input matInput required>
+                        <mat-select>
+                            <mat-option>None</mat-option>
+                            <mat-option [value]="client.id" *ngFor="let client of clients">{{client.name}}</mat-option>
+                        </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Cod. solicitação</mat-label>
                         <input matInput required>
+                    </mat-form-field>
+                </div>
+                <div class="two-col">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Comprador</mat-label>
+                        <mat-select>
+                            <mat-option>None</mat-option>
+                            <mat-option [value]="buyer.id" *ngFor="let buyer of buyers">{{buyer.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Data solicitação</mat-label>
+                        <input matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="two-col">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Tipo de serviço</mat-label>
+                        <mat-select>
+                            <mat-option>None</mat-option>
+                            <mat-option [value]="types.id" *ngFor="let type of types">{{type.name}}</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
                 <div>
@@ -41,11 +54,13 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formType" optional="true">
-            <form >
+            <form>
                 <ng-template matStepLabel>Proposta técnica</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Data</mat-label>
-                    <input matInput required>
+                    <input matInput [matDatepicker]="pickerTec">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerTec></mat-datepicker>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
@@ -58,7 +73,9 @@
                 <ng-template matStepLabel>Proposta comercial</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Data</mat-label>
-                    <input matInput required>
+                    <input matInput [matDatepicker]="pickerCom">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerCom></mat-datepicker>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
@@ -107,16 +124,19 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formType">
-            <form >
+            <form>
                 <ng-template matStepLabel>Execução</ng-template>
-                <mat-form-field appearance="outline" fullWidth>
-                    <mat-label>Em meses</mat-label>
-                    <input matInput required>
-                </mat-form-field>
-                <mat-form-field appearance="outline" fullWidth>
-                    <mat-label>Local</mat-label>
-                    <input matInput required>
-                </mat-form-field>
+                <div class="two-col">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Em meses</mat-label>
+                        <input matInput type="number" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Local</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                </div>
+
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-button matStepperNext>Next</button>
@@ -124,7 +144,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formType">
-            <form >
+            <form>
                 <ng-template matStepLabel>Escopo resumido</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Escopo resumido</mat-label>
@@ -137,7 +157,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formType">
-            <form >
+            <form>
                 <ng-template matStepLabel>Escopo</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Escopo</mat-label>
