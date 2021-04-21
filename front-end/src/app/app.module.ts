@@ -16,6 +16,7 @@ import { ComponentsModule } from './components/components.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { TokenInterceptor } from './interceptors/token/token.interceptor';
+import { NgxMaskModule } from 'ngx-mask';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -38,6 +39,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
     MatButtonModule,
     BrowserAnimationsModule,
     ComponentsModule,
+    NgxMaskModule.forRoot(),
   ],
   exports: [],
   providers: [

@@ -2,6 +2,11 @@
   display: block;
 }
 
+.mat-dialog-title {
+  display: flex;
+  align-items: center;
+}
+
 ul {
   list-style-type: none;
   // margin-top: 4px;
@@ -9,7 +14,18 @@ ul {
 }
 
 .list-users {
-  
+  border: 2px ridge rgba(0, 0, 0, 15%);
+  border-radius: 5px;
+  padding: 11px 0px 0px 5px;
+  position: relative;
+  .title {
+    background: #fff;
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
 }
 
 .two-col {

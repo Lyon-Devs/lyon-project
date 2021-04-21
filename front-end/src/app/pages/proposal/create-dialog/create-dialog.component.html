@@ -1,40 +1,47 @@
-<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} proposta</h1>
-<div mat-dialog-content>
-    <!-- <form [formGroup]="formType">
-        <mat-form-field appearance="outline" fullWidth>
-            <mat-label>Descrição</mat-label>
-            <input matInput required formControlName="name">
-        </mat-form-field>
-    </form> -->
+<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} proposta <button mat-icon-button
+        [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+    </button></h1>
 
-    <mat-vertical-stepper #linear #stepper>
-        <mat-step [stepControl]="formType">
-            <form>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="createClient()">
+        <mat-icon>person_add</mat-icon>
+        <span>Novo cliente</span>
+    </button>
+    <button mat-menu-item (click)="createBuyer()">
+        <mat-icon>face</mat-icon>
+        <span>Novo comprador</span>
+    </button>
+</mat-menu>
+<div mat-dialog-content>
+    <mat-vertical-stepper [linear]="false" #stepper>
+        <mat-step [stepControl]="formBasic">
+            <form  [formGroup]="formBasic">
                 <ng-template matStepLabel>Informações básicas</ng-template>
                 <div class="two-col">
                     <mat-form-field appearance="outline">
                         <mat-label>Cliente</mat-label>
-                        <mat-select>
+                        <mat-select formControlName="client_id">
                             <mat-option>None</mat-option>
                             <mat-option [value]="client.id" *ngFor="let client of clients">{{client.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Cod. solicitação</mat-label>
-                        <input matInput required>
+                        <input matInput>
                     </mat-form-field>
                 </div>
                 <div class="two-col">
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Comprador</mat-label>
-                        <mat-select>
+                        <mat-select formControlName="buyer_id" required>
                             <mat-option>None</mat-option>
                             <mat-option [value]="buyer.id" *ngFor="let buyer of buyers">{{buyer.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Data solicitação</mat-label>
-                        <input matInput [matDatepicker]="picker">
+                        <input matInput [matDatepicker]="picker" formControlName="date_request">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
@@ -42,9 +49,11 @@
                 <div class="two-col">
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Tipo de serviço</mat-label>
-                        <mat-select>
+                        <mat-select formControlName="acting_branch_id" required>
                             <mat-option>None</mat-option>
-                            <mat-option [value]="types.id" *ngFor="let type of types">{{type.name}}</mat-option>
+                            <mat-option [value]="type.id" *ngFor="let type of types">
+                                {{type.unity_business}}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -53,41 +62,19 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step [stepControl]="formType" optional="true">
-            <form>
+        <mat-step [stepControl]="formTec" optional="true">
+            <form [formGroup]="formTec">
                 <ng-template matStepLabel>Proposta técnica</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Data</mat-label>
-                    <input matInput [matDatepicker]="pickerTec">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <input matInput [matDatepicker]="pickerTec" #dateTec formControlName="date_delivery_technique_proposal">
+                    <mat-datepicker-toggle matSuffix [for]="pickerTec"></mat-datepicker-toggle>
                     <mat-datepicker #pickerTec></mat-datepicker>
                 </mat-form-field>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </form>
-        </mat-step>
-        <mat-step [stepControl]="formType" optional>
-            <form>
-                <ng-template matStepLabel>Proposta comercial</ng-template>
-                <mat-form-field appearance="outline" fullWidth>
-                    <mat-label>Data</mat-label>
-                    <input matInput [matDatepicker]="pickerCom">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerCom></mat-datepicker>
-                </mat-form-field>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </form>
-        </mat-step>
-        <mat-step [stepControl]="formType">
-            <form>
                 <ng-template matStepLabel>Aréa Técnica</ng-template>
                 <!-- <mat-checkbox class="example-margin" *ngFor="let user of this.userListTec"></mat-checkbox> -->
-                <div class="list-users">
+                <div class="list-users" *ngIf="dateTec.value">
+                    <div class="title"> Usuários</div>
                     <ul>
                         <li *ngFor="let user of this.userListTec">
                             <mat-checkbox (change)="addOrRemoveTec($event, user)">
@@ -96,18 +83,25 @@
                         </li>
                     </ul>
                 </div>
-
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-button matStepperNext>Next</button>
                 </div>
             </form>
         </mat-step>
-        <mat-step [stepControl]="formType">
+        <mat-step [stepControl]="" optional>
             <form>
+                <ng-template matStepLabel>Proposta comercial</ng-template>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Data</mat-label>
+                    <input matInput [matDatepicker]="pickerCom" #dateCom>
+                    <mat-datepicker-toggle matSuffix [for]="pickerCom"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerCom></mat-datepicker>
+                </mat-form-field>
+
                 <ng-template matStepLabel>Aréa Comercial</ng-template>
-                <!-- <mat-checkbox class="example-margin" *ngFor="let user of this.userListTec"></mat-checkbox> -->
-                <div class="list-users">
+                <div class="list-users" *ngIf="dateCom.value">
+                    <div class="title"> Usuários</div>
                     <ul>
                         <li *ngFor="let user of this.userListCom">
                             <mat-checkbox (change)="addOrRemoveCom($event, user)">
@@ -116,39 +110,73 @@
                         </li>
                     </ul>
                 </div>
-
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-button matStepperNext>Next</button>
                 </div>
             </form>
         </mat-step>
-        <mat-step [stepControl]="formType">
-            <form>
+       
+        <mat-step [stepControl]="formSummaryScope">
+            <form [formGroup]="formSummaryScope">
+                <ng-template matStepLabel>Escopo resumido</ng-template>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Escopo resumido</mat-label>
+                    <textarea matInput required rows="3" formControlName="summary_scope"></textarea>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+       
+        <mat-step [stepControl]="formScope">
+            <form [formGroup]="formScope">
+                <ng-template matStepLabel>Escopo</ng-template>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Escopo</mat-label>
+                    <textarea matInput required rows="25" formControlName="scope"></textarea>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="formExe">
+            <form [formGroup]="formExe">
                 <ng-template matStepLabel>Execução</ng-template>
                 <div class="two-col">
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Em meses</mat-label>
-                        <input matInput type="number" required>
+                        <input matInput type="number" required formControlName="months_exec">
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Local</mat-label>
-                        <input matInput required>
+                        <input matInput required formControlName="place_to_deploys_services">
                     </mat-form-field>
                 </div>
-
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                <div class="two-col">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Data visita técnica</mat-label>
+                        <input #dateTecVis matInput [matDatepicker]="dateTechniqueVisit" formControlName="date_technique_visit">
+                        <mat-datepicker-toggle matSuffix [for]="dateTechniqueVisit"></mat-datepicker-toggle>
+                        <mat-datepicker #dateTechniqueVisit></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth *ngIf="dateTecVis.value">
+                        <mat-label>Hora</mat-label>
+                        <input matInput type="text" required formControlName="date_technique_visit">
+                    </mat-form-field>
+                    
                 </div>
-            </form>
-        </mat-step>
-        <mat-step [stepControl]="formType">
-            <form>
-                <ng-template matStepLabel>Escopo resumido</ng-template>
-                <mat-form-field appearance="outline" fullWidth>
-                    <mat-label>Escopo resumido</mat-label>
-                    <textarea matInput required rows="3"></textarea>
+                <mat-form-field appearance="outline" fullWidth *ngIf="dateTecVis.value">
+                    <mat-label>Local visita técnica</mat-label>
+                    <input matInput type="text" formControlName="local_technique_visit">
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth *ngIf="dateTecVis.value">
+                    <mat-label>Detalhes visita técnica</mat-label>
+                    <textarea matInput rows="5" formControlName="details_technique_visit"></textarea>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
@@ -156,12 +184,36 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step [stepControl]="formType">
-            <form>
-                <ng-template matStepLabel>Escopo</ng-template>
+        <mat-step [stepControl]="">
+            <form >
+                <ng-template matStepLabel>Prestação de serviço</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
-                    <mat-label>Escopo</mat-label>
-                    <textarea matInput required rows="25"></textarea>
+                    <mat-label>Local</mat-label>
+                    <input matInput required >
+                </mat-form-field>
+                <div class="two-col">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Data confirm. participação</mat-label>
+                        <input  matInput [matDatepicker]="dateCon">
+                        <mat-datepicker-toggle matSuffix [for]="dateCon"></mat-datepicker-toggle>
+                        <mat-datepicker #dateCon></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Hora</mat-label>
+                        <input matInput type="text" mask="99:99" >
+                    </mat-form-field>
+                </div>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Histograma Médio</mat-label>
+                    <input matInput >
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Anexos</mat-label>
+                    <ngx-mat-file-input multiple></ngx-mat-file-input>
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Considerações finais</mat-label>
+                    <textarea matInput ></textarea>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
@@ -169,7 +221,6 @@
                 </div>
             </form>
         </mat-step>
-
         <mat-step>
             <ng-template matStepLabel>Done</ng-template>
             <p>You are now done.</p>
@@ -186,5 +237,5 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">cancelar</button>
-    <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">salvar</button>
+    <!-- <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">salvar</button> -->
 </div>

@@ -18,8 +18,12 @@ import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
 import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
+import { MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { NgxMaskModule } from 'ngx-mask';
+
 
 export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
   parse: {
@@ -35,7 +39,8 @@ export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
 @NgModule({
   declarations: [ProposalComponent, CreateDialogComponent],
   imports: [
-    CommonModule,
+  
+  CommonModule,
     ComponentsModule,
     MatIconModule,
     MatCardModule,
@@ -54,7 +59,10 @@ export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MomentDateModule
+    MomentDateModule,
+    MatMenuModule,
+    MaterialFileInputModule,
+    NgxMaskModule
   ],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

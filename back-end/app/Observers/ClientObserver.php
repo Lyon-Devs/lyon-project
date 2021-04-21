@@ -10,7 +10,7 @@ class ClientObserver
 
     public function creating(Client $client)
     {
-        $lastCode = Client::select('code')->orderBy('code', 'desc')->latest()->first();
+        $lastCode = Client::select('code')->withTrashed()->orderBy('code', 'desc')->latest()->first();
         $client->code = ++$lastCode->code;
     }
 
