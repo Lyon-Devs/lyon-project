@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Client;
+use App\Models\Proposal;
 use App\Observers\ClientObserver;
+use App\Observers\ProposalObserver;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -32,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
             Passport::routes(null, ['prefix' => "api/oauth"]);
         }
         Client::observe(ClientObserver::class);
+        Proposal::observe(ProposalObserver::class);
     }
 }

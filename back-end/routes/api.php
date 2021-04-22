@@ -44,7 +44,7 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
         'branch' => 'actingBranch'
     ]);
 
-    Route::resource('proposal', ProposalController::class)->except($exceptActions);
+    Route::resource('proposal', ProposalController::class)->except(['edit']);
     Route::resource('buyer', BuyerController::class)->except($exceptActions);
 
     Route::resource('type/service', TypeServiceController::class)->except($exceptActions)

@@ -23,7 +23,11 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
     private paginateService: PaginateService<Proposal>,
   ) { }
   paginateItems: Paginate<Proposal>;
-  displayedColumns: string[];
+  displayedColumns: string[] = [
+    'cod_lyon', 'client_id', 'acting_branch_id',
+    'status', 'deadline_date_confirme',
+    'summary_scope', 'months_exec', 'actions'
+  ];
   pageEvent: PageEvent;
 
   handlePageEvent(event: PageEvent = this.pageEvent): void {
@@ -47,11 +51,29 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
   update(item: Proposal): void {
     throw new Error('Method not implemented.');
   }
-  getPage(page: number, perPage: number): void {
-    throw new Error('Method not implemented.');
+  getPage(page: number = 0, perPage: number = 10): void {
+    this.proposalService.list(page, perPage).subscribe(paginate => {
+      this.paginateItems = paginate;
+    });
+  }
+
+  getStatus(status: string): string{
+
+    const translateStatus = {
+      committee_1:  'Comitê 1',
+      committee_2:  'Comitê 1',
+      lost: 'Perdido',
+      draft: 'Rascunho',
+      canceled: 'Cancelado',
+      finished: 'Finalizado',
+
+    };
+
+    return translateStatus[status];
   }
 
   ngOnInit(): void {
+    this.getPage();
   }
 
 }

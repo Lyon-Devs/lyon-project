@@ -17,7 +17,9 @@ class ProposalController extends Controller
     public function index(Request $request): Paginator
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
-        return Proposal::paginate($paginate);
+        return Proposal::with([
+            'client', 'actingBranch'
+        ])->paginate($paginate);
     }
     /**
      * Store a newly created resource in storage.
@@ -30,7 +32,7 @@ class ProposalController extends Controller
         $request->validate([
             'acting_branch_id' => 'required',
             'buyer_id' => 'required',
-            'client_id' => 'required',
+            'client_id' => 'required|exists:clients,id',
             'date_delivery_comercial_proposal' => 'date',
             'date_delivery_technique_proposal' => 'date',
             'date_request'  => 'date',
@@ -41,8 +43,6 @@ class ProposalController extends Controller
 
         ]);
         $proposal->fill($request->all());
-        // dd($request->all());
-        $proposal->cod_lyon  = 'asdas' . date('h:i');
         $proposal->save();
 
 
