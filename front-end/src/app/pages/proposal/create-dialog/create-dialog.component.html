@@ -28,7 +28,7 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Cod. solicitação</mat-label>
-                        <input matInput>
+                        <input matInput required formControlName="number_client_request">
                     </mat-form-field>
                 </div>
                 <div class="two-col">
@@ -66,12 +66,12 @@
             <form [formGroup]="formTec">
                 <ng-template matStepLabel>Proposta técnica</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
-                    <mat-label>Data</mat-label>
+                    <mat-label>Data entrega</mat-label>
                     <input matInput [matDatepicker]="pickerTec" #dateTec formControlName="date_delivery_technique_proposal">
                     <mat-datepicker-toggle matSuffix [for]="pickerTec"></mat-datepicker-toggle>
                     <mat-datepicker #pickerTec></mat-datepicker>
                 </mat-form-field>
-                <ng-template matStepLabel>Aréa Técnica</ng-template>
+                <ng-template matStepLabel>Responsável aréa Técnica</ng-template>
                 <!-- <mat-checkbox class="example-margin" *ngFor="let user of this.userListTec"></mat-checkbox> -->
                 <div class="list-users" *ngIf="dateTec.value">
                     <div class="title"> Usuários</div>
@@ -89,17 +89,17 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step [stepControl]="" optional>
-            <form>
+        <mat-step [stepControl]="formCom" optional>
+            <form [formGroup]="formCom">
                 <ng-template matStepLabel>Proposta comercial</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
-                    <mat-label>Data</mat-label>
-                    <input matInput [matDatepicker]="pickerCom" #dateCom>
+                    <mat-label>Data entrega</mat-label>
+                    <input matInput [matDatepicker]="pickerCom" #dateCom formControlName="date_delivery_comercial_proposal">
                     <mat-datepicker-toggle matSuffix [for]="pickerCom"></mat-datepicker-toggle>
                     <mat-datepicker #pickerCom></mat-datepicker>
                 </mat-form-field>
 
-                <ng-template matStepLabel>Aréa Comercial</ng-template>
+                <ng-template matStepLabel>Responsável aréa Comercial</ng-template>
                 <div class="list-users" *ngIf="dateCom.value">
                     <div class="title"> Usuários</div>
                     <ul>
@@ -166,7 +166,7 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth *ngIf="dateTecVis.value">
                         <mat-label>Hora</mat-label>
-                        <input matInput type="text" required formControlName="date_technique_visit">
+                        <input matInput type="text" required mask="99:99" formControlName="time_technique_visit">
                     </mat-form-field>
                     
                 </div>
@@ -184,36 +184,32 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step [stepControl]="">
-            <form >
+        <mat-step [stepControl]="formDeploy">
+            <form [formGroup]="formDeploy">
                 <ng-template matStepLabel>Prestação de serviço</ng-template>
-                <mat-form-field appearance="outline" fullWidth>
-                    <mat-label>Local</mat-label>
-                    <input matInput required >
-                </mat-form-field>
                 <div class="two-col">
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Data confirm. participação</mat-label>
-                        <input  matInput [matDatepicker]="dateCon">
+                        <input  matInput [matDatepicker]="dateCon" formControlName="deadline_date_confirme">
                         <mat-datepicker-toggle matSuffix [for]="dateCon"></mat-datepicker-toggle>
                         <mat-datepicker #dateCon></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Hora</mat-label>
-                        <input matInput type="text" mask="99:99" >
+                        <input matInput type="text" mask="99:99" formControlName="deadline_time_confirme">
                     </mat-form-field>
                 </div>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Histograma Médio</mat-label>
-                    <input matInput >
+                    <input matInput required formControlName="medium_histogram">
                 </mat-form-field>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Anexos</mat-label>
-                    <ngx-mat-file-input multiple></ngx-mat-file-input>
+                    <ngx-mat-file-input multiple (change)="uploadDocument($event)"></ngx-mat-file-input>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Considerações finais</mat-label>
-                    <textarea matInput ></textarea>
+                    <textarea matInput  formControlName="observations"></textarea>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
@@ -227,6 +223,7 @@
             <div>
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button (click)="stepper.reset()">Reset</button>
+                <button mat-button (click)="onSubmit()">Criar</button>
             </div>
         </mat-step>
     </mat-vertical-stepper>

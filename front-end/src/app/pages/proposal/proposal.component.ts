@@ -33,6 +33,7 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
   create(): void {
     const dialogRef = this.dialog.open(CreateDialogComponent, {
       width: '900px',
+      disableClose: true,
     });
     dialogRef.afterClosed().subscribe(event => {
       if (event) {

@@ -27,12 +27,15 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
   public passMsg: string;
   public formBasic: FormGroup;
   public formTec: FormGroup;
+  public formCom: FormGroup;
   public formExe: FormGroup;
   public formSummaryScope: FormGroup;
+  public formDeploy: FormGroup;
   public formScope: FormGroup;
   public userListTec: User[];
   public selectedUserTec: User[] = [];
   public selectedUserCom: User[] = [];
+  public filesToUpload: any[];
   public userListCom: User[];
   public clients: Clients[];
   public buyers: Buyer[];
@@ -53,30 +56,6 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     this.cdr.detectChanges();
   }
-
-
-  // 'buyer',
-  //       'number_client_request',
-  //       'cod_lyon',
-  //       'date_request',
-  //       'date_delivery_comercial_proposal',
-  //       'owner_technique_proposal',
-  //       'owner_comercial_proposal',
-  //       'summary_scope',
-  //       'scope',
-  //       'months_exec',
-  //       'date_delivery_technique_proposal',
-  //       'date_technique_visit',
-  //       'time_technique_visit',
-  //       'local_technique_visit',
-  //       'details_technique_visit',
-  //       'comercial_delivery',
-  //       'place_to_deploys_services',
-  //       'contract_time',
-  //       'deadline_confirme',
-  //       'medium_histogram',
-  //       'observations',
-  //       'status'
   ngOnInit(): void {
     this.createForm = this.data?.id ? false : true;
     this.formBasic = this.fb.group({
@@ -84,12 +63,13 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       buyer_id: [this.data?.buyer?.id || '', Validators.required],
       date_request: [this.data?.date_request || '', Validators.required],
       acting_branch_id: ['', Validators.required],
-      formTec: this.fb.group({
-        date_delivery_technique_proposal: [],
-      })
+      number_client_request: [this?.data?.number_client_request || '', Validators.required],
     });
     this.formTec = this.fb.group({
-      date_delivery_technique_proposal: [],
+      date_delivery_technique_proposal: [this?.data?.date_delivery_technique_proposal || ''],
+    });
+    this.formCom = this.fb.group({
+      date_delivery_comercial_proposal: [this?.data?.date_delivery_comercial_proposal || ''],
     });
 
     this.formSummaryScope = this.fb.group({
@@ -106,14 +86,13 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       local_technique_visit: [this?.data?.local_technique_visit || ''],
       details_technique_visit: [this?.data?.local_technique_visit || ''],
     });
-    // this.formInfoTec = this.fb.group({
-    //   date_delivery_technique_proposal: [this.data?.client?.id || '', Validators.required],
-    //   buyer_id: [this.data?.buyer?.id || '', Validators.required],
-    //   date_request: [this.data?.date_request || '', Validators.required],
-    //   acting_branch_id: ['', Validators.required],
-    // });
-    // scope: [this.data?.scope || '', Validators.required, Validators.toString],
-    // summary_scope: [this.data?.summary_scope || '', Validators.required, Validators.toString],
+    this.formDeploy = this.fb.group({
+      deadline_date_confirme: [this?.data?.deadline_date_confirme || '', Validators.required],
+      deadline_time_confirme: [this?.data?.deadline_time_confirme || '', Validators.required],
+      medium_histogram: [this?.data?.medium_histogram || '', Validators.required],
+      observations: [this?.data?.observations || ''],
+
+    });
 
     // Get all user tec and comercial
     this.userService.all().subscribe(userList => {
@@ -130,7 +109,6 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
     this.getClients();
   }
-
   public addOrRemoveTec(event: any, user: User): void {
     if (event.checked) {
       this.selectedUserTec.push(user);
@@ -171,8 +149,62 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.dialogRef.close();
   }
   public onSubmit(): void {
-  }
+    console.log('this.formBasic', this.formBasic);
+    console.log('this.formTec', this.formTec);
+    console.log('this.formCom', this.formCom);
+    console.log('this.formSummaryScope', this.formSummaryScope);
+    console.log('this.formScope', this.formScope);
+    console.log('this.formExe', this.formExe);
+    console.log('this.formDeploy', this.formDeploy);
 
+
+    console.log('\n\n\n');
+    // console.log('this.formBasic', this.formBasic.value);
+    // console.log('this.formTec', this.formTec.value);
+    // console.log('this.formCom', this.formCom.value);
+    // console.log('this.formSummaryScope', this.formSummaryScope.value);
+    // console.log('this.formScope', this.formScope.value);
+    // console.log('this.formExe', this.formExe.value);
+    // console.log('this.formDeploy', this.formDeploy.value);
+    const form = {
+      ...this.formBasic.value,
+      ...this.formTec.value,
+      ...this.formCom.value,
+      ...this.formSummaryScope.value,
+      ...this.formScope.value,
+      ...this.formExe.value,
+      ...this.formDeploy.value,
+      selectedUserTec: this.selectedUserTec,
+      selectedUserCom: this.selectedUserCom,
+
+
+    };
+    if (form.time_technique_visit) {
+      form.time_technique_visit += '00';
+    }
+    if (form.deadline_time_confirme) {
+      form.deadline_time_confirme += '00';
+    }
+    Object.keys(form).forEach((k) => {
+      if (form[k] == null || form[k] === '') {
+        delete form[k];
+        return;
+      }
+      if (Array.isArray(form[k])) {
+        if (form[k].length === 0) {
+          delete form[k];
+        }
+      }
+    });
+    this.proposalServices.create(form).subscribe(res => {
+      console.log(res);
+    });
+    // console.log('this.filesToUpload', this.filesToUpload);
+
+  }
+  public uploadDocument(event): void {
+    this.filesToUpload = event.target.files;
+  }
   private getBuyer(): void {
     this.buyerService.all().subscribe(buyers => {
       this.buyers = buyers;

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UserProposal extends Migration
+class UserProposalTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class UserProposal extends Migration
      */
     public function up()
     {
-        Schema::create('user_proposal', function (Blueprint $table) {
+        Schema::create('proposal_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('proposal_id');
-            $table->foreign('proposal_id')->references('id')->on('proposal')->onDelete('cascade');
+            $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ class UserProposal extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_proposal');
+        Schema::dropIfExists('proposal_user');
     }
 }

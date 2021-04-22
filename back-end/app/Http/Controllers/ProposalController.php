@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proposal;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
 
@@ -27,31 +28,38 @@ class ProposalController extends Controller
     public function store(Request $request, Proposal $proposal)
     {
         $request->validate([
-            'buyer' => 'required',
-            'number_client_request' => 'required',
-            'cod_lyon' => 'required',
-            'date_request' => 'required',
-            'date_delivery_comercial_proposal' => 'required',
-            'owner_technique_proposal' => 'required',
-            'owner_comercial_proposal' => 'required',
-            'summary_scope' => 'required',
-            'scope' => 'required',
-            'months_exec' => 'required',
-            'date_delivery_technique_proposal' => 'required',
-            'date_technique_visit' => 'required',
-            'local_technique_visit' => 'required',
-            'details_technique_visit' => 'required',
-            'comercial_delivery' => 'required',
-            'place_to_deploys_services' => 'required',
-            'contract_time' => 'required',
-            'deadline_confirme' => 'required',
-            'medium_histogram' => 'required',
-            'observations' => 'required',
-            'status' => 'required',
-            'users' => 'required'
+            'acting_branch_id' => 'required',
+            'buyer_id' => 'required',
+            'client_id' => 'required',
+            'date_delivery_comercial_proposal' => 'date',
+            'date_delivery_technique_proposal' => 'date',
+            'date_request'  => 'date',
+            'date_technique_visit'  => 'date',
+            'deadline_date_confirme'  => 'date',
+            'deadline_time_confirme'  => 'date_format:"His"',
+            'time_technique_visit'  => 'date_format:"His"',
+
         ]);
         $proposal->fill($request->all());
+        // dd($request->all());
+        $proposal->cod_lyon  = 'asdas' . date('h:i');
         $proposal->save();
+
+
+        if ($request->has('selectedUserTec')) {
+            foreach ($request->selectedUserTec as $user) {
+                $hasUser = User::find($user['id']);
+                $proposal->users()->attach($hasUser);
+            }
+        }
+
+        if ($request->has('selectedUserCom')) {
+            foreach ($request->selectedUserTec as $user) {
+                $hasUser = User::find($user['id']);
+                $proposal->users()->attach($hasUser);
+            }
+        }
+
         return $proposal;
     }
 
