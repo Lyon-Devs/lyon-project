@@ -39,7 +39,10 @@ class CreateProposalTable extends Migration
             $table->longText('scope')->nullable();
             $table->mediumText('summary_scope')->nullable();
             $table->time('time_technique_visit')->nullable();
-            $table->enum('status', ['committee_1', 'committee_2', 'draft', 'lost'])->default('committee_1');
+            $table->enum('status', [
+                'committee_1', 'committee_2', 'draft',
+                'lost', 'canceled', 'finished', 'winner'
+            ])->default('draft');
             $table->softDeletes();
             $table->timestamps();
         });

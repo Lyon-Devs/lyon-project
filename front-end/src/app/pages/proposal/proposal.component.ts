@@ -8,6 +8,7 @@ import { CrudPage } from '@pages/crud-page.interface';
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { ProposalService } from '../../services/proposal/proposal.service';
 import { PaginateService } from '@services/paginate/paginate.service';
+import { ConfirmComponent } from '../../components/confirm/confirm.component';
 
 @Component({
   selector: 'app-proposal',
@@ -46,10 +47,32 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
     });
   }
   destroy(item: Proposal): void {
-    throw new Error('Method not implemented.');
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '600px',
+      data: {
+        title: `Exclusão proposta`,
+        body: `Confirmar exclusão da proposta <b>${item.cod_lyon}</b>`,
+      }
+    });
+    dialogRef.afterClosed().subscribe(event => {
+      if (event) {
+        this.proposalService.delete(item).subscribe(resUser => {
+          this.paginateItems = this.paginateService.removeItem(item, this.paginateItems);
+          console.log('item', item)
+          this.snackBar.open(`Proposta ${item.cod_lyon} removida!`);
+        });
+      }
+    });
   }
   update(item: Proposal): void {
-    throw new Error('Method not implemented.');
+    const dialogRef = this.dialog.open(CreateDialogComponent, {
+      width: '900px',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(event => {
+      this.handlePageEvent();
+    });
   }
   getPage(page: number = 0, perPage: number = 10): void {
     this.proposalService.list(page, perPage).subscribe(paginate => {
@@ -57,15 +80,16 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
     });
   }
 
-  getStatus(status: string): string{
+  getStatus(status: string): string {
 
     const translateStatus = {
-      committee_1:  'Comitê 1',
-      committee_2:  'Comitê 1',
+      committee_1: 'Comitê 1',
+      committee_2: 'Comitê 1',
       lost: 'Perdido',
       draft: 'Rascunho',
       canceled: 'Cancelado',
       finished: 'Finalizado',
+      winner: 'Ganho'
 
     };
 

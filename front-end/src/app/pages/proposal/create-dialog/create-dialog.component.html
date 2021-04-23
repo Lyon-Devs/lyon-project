@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} proposta <button mat-icon-button
+<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} proposta {{ data?.cod_lyon}} <button mat-icon-button
         [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>more_vert</mat-icon>
     </button></h1>
@@ -14,9 +14,9 @@
     </button>
 </mat-menu>
 <div mat-dialog-content>
-    <mat-vertical-stepper [linear]="false" #stepper>
+    <mat-vertical-stepper [linear]="createForm" #stepper>
         <mat-step [stepControl]="formBasic">
-            <form  [formGroup]="formBasic">
+            <form [formGroup]="formBasic">
                 <ng-template matStepLabel>Informações básicas</ng-template>
                 <div class="two-col">
                     <mat-form-field appearance="outline">
@@ -56,9 +56,22 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth *ngIf="!createForm">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="status">
+                            <mat-option value="committee_1">Comitê 1</mat-option>
+                            <mat-option value="committee_2">Comitê 2</mat-option>
+                            <mat-option value="lost">Perdido</mat-option>
+                            <mat-option value="draft">Rascunho</mat-option>
+                            <mat-option value="canceled">Cancelado</mat-option>
+                            <mat-option value="finished">Finalizado</mat-option>
+                            <mat-option value="winner">Ganho</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
                 </div>
                 <div>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperNext>Próximo</button>
                 </div>
             </form>
         </mat-step>
@@ -67,7 +80,8 @@
                 <ng-template matStepLabel>Proposta técnica</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Data entrega</mat-label>
-                    <input matInput [matDatepicker]="pickerTec" #dateTec formControlName="date_delivery_technique_proposal">
+                    <input matInput [matDatepicker]="pickerTec" #dateTec
+                        formControlName="date_delivery_technique_proposal">
                     <mat-datepicker-toggle matSuffix [for]="pickerTec"></mat-datepicker-toggle>
                     <mat-datepicker #pickerTec></mat-datepicker>
                 </mat-form-field>
@@ -77,15 +91,15 @@
                     <div class="title"> Usuários</div>
                     <ul>
                         <li *ngFor="let user of this.userListTec">
-                            <mat-checkbox (change)="addOrRemoveTec($event, user)">
+                            <mat-checkbox [checked]="hasUserTec(user)" (change)="addOrRemoveTec($event, user)">
                                 {{user.name}}
                             </mat-checkbox>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious>Voltar</button>
+                    <button mat-button matStepperNext>Próximo</button>
                 </div>
             </form>
         </mat-step>
@@ -94,7 +108,8 @@
                 <ng-template matStepLabel>Proposta comercial</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Data entrega</mat-label>
-                    <input matInput [matDatepicker]="pickerCom" #dateCom formControlName="date_delivery_comercial_proposal">
+                    <input matInput [matDatepicker]="pickerCom" #dateCom
+                        formControlName="date_delivery_comercial_proposal">
                     <mat-datepicker-toggle matSuffix [for]="pickerCom"></mat-datepicker-toggle>
                     <mat-datepicker #pickerCom></mat-datepicker>
                 </mat-form-field>
@@ -104,19 +119,19 @@
                     <div class="title"> Usuários</div>
                     <ul>
                         <li *ngFor="let user of this.userListCom">
-                            <mat-checkbox (change)="addOrRemoveCom($event, user)">
+                            <mat-checkbox [checked]="hasUserCom(user)" (change)="addOrRemoveCom($event, user)">
                                 {{user.name}}
                             </mat-checkbox>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious>Voltar</button>
+                    <button mat-button matStepperNext>Próximo</button>
                 </div>
             </form>
         </mat-step>
-       
+
         <mat-step [stepControl]="formSummaryScope">
             <form [formGroup]="formSummaryScope">
                 <ng-template matStepLabel>Escopo resumido</ng-template>
@@ -125,12 +140,12 @@
                     <textarea matInput required rows="3" formControlName="summary_scope"></textarea>
                 </mat-form-field>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious>Voltar</button>
+                    <button mat-button matStepperNext>Próximo</button>
                 </div>
             </form>
         </mat-step>
-       
+
         <mat-step [stepControl]="formScope">
             <form [formGroup]="formScope">
                 <ng-template matStepLabel>Escopo</ng-template>
@@ -139,8 +154,8 @@
                     <textarea matInput required rows="25" formControlName="scope"></textarea>
                 </mat-form-field>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious>Voltar</button>
+                    <button mat-button matStepperNext>Próximo</button>
                 </div>
             </form>
         </mat-step>
@@ -160,7 +175,8 @@
                 <div class="two-col">
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Data visita técnica</mat-label>
-                        <input #dateTecVis matInput [matDatepicker]="dateTechniqueVisit" formControlName="date_technique_visit">
+                        <input #dateTecVis matInput [matDatepicker]="dateTechniqueVisit"
+                            formControlName="date_technique_visit">
                         <mat-datepicker-toggle matSuffix [for]="dateTechniqueVisit"></mat-datepicker-toggle>
                         <mat-datepicker #dateTechniqueVisit></mat-datepicker>
                     </mat-form-field>
@@ -168,7 +184,7 @@
                         <mat-label>Hora</mat-label>
                         <input matInput type="text" required mask="99:99" formControlName="time_technique_visit">
                     </mat-form-field>
-                    
+
                 </div>
                 <mat-form-field appearance="outline" fullWidth *ngIf="dateTecVis.value">
                     <mat-label>Local visita técnica</mat-label>
@@ -179,8 +195,8 @@
                     <textarea matInput rows="5" formControlName="details_technique_visit"></textarea>
                 </mat-form-field>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious>Voltar</button>
+                    <button mat-button matStepperNext>Próximo</button>
                 </div>
             </form>
         </mat-step>
@@ -190,7 +206,7 @@
                 <div class="two-col">
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Data confirm. participação</mat-label>
-                        <input  matInput [matDatepicker]="dateCon" formControlName="deadline_date_confirme">
+                        <input matInput [matDatepicker]="dateCon" formControlName="deadline_date_confirme">
                         <mat-datepicker-toggle matSuffix [for]="dateCon"></mat-datepicker-toggle>
                         <mat-datepicker #dateCon></mat-datepicker>
                     </mat-form-field>
@@ -209,21 +225,20 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Considerações finais</mat-label>
-                    <textarea matInput  formControlName="observations"></textarea>
+                    <textarea matInput formControlName="observations"></textarea>
                 </mat-form-field>
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious>Voltar</button>
+                    <button mat-button matStepperNext>Próximo</button>
                 </div>
             </form>
         </mat-step>
         <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done.</p>
+            <ng-template matStepLabel>Ação</ng-template>
             <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
-                <button mat-button (click)="onSubmit()">Criar</button>
+                <button mat-button matStepperPrevious>Voltar</button>
+                <button mat-button (click)="stepper.reset()" *ngIf="createForm">Resetar</button>
+                <button mat-button (click)="onSubmit()">{{ createForm ? 'Criar': 'Atualizar'}}</button>
             </div>
         </mat-step>
     </mat-vertical-stepper>

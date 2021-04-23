@@ -16,6 +16,7 @@ import { TypeServices as Type } from '@models/type-service';
 import { CreateDialogComponent as CreateDialogClientComponent } from '../../admin/client/create-dialog/create-dialog.component';
 import { CreateDialogComponent as CreateDialogBuyerComponent } from '../../admin/buyer/create-dialog/create-dialog.component';
 
+
 @Component({
   selector: 'app-create-dialog',
   templateUrl: './create-dialog.component.html',
@@ -57,13 +58,16 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.cdr.detectChanges();
   }
   ngOnInit(): void {
+    console.log('this.data', this.data);
+    // this.selectedUserTec = this.data.users
     this.createForm = this.data?.id ? false : true;
     this.formBasic = this.fb.group({
       client_id: [this.data?.client?.id || '', Validators.required],
-      buyer_id: [this.data?.buyer?.id || '', Validators.required],
+      buyer_id: [this.data?.buyer_id || '', Validators.required],
       date_request: [this.data?.date_request || '', Validators.required],
-      acting_branch_id: ['', Validators.required],
+      acting_branch_id: [this.data?.acting_branch_id || '', Validators.required],
       number_client_request: [this?.data?.number_client_request || '', Validators.required],
+      status: [this?.data?.status || ''],
     });
     this.formTec = this.fb.group({
       date_delivery_technique_proposal: [this?.data?.date_delivery_technique_proposal || ''],
@@ -96,8 +100,15 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
     // Get all user tec and comercial
     this.userService.all().subscribe(userList => {
-      this.userListTec = userList.filter(user => user.roles.filter(role => role.slug === 'technical').length > 0);
-      this.userListCom = userList.filter(user => user.roles.filter(role => role.slug === 'comercial').length > 0);
+      this.userListTec = userList.filter(user => this.filterRole(user, 'technical'));
+      this.userListCom = userList.filter(user => this.filterRole(user, 'comercial'));
+
+      this.selectedUserTec = this.data?.users?.filter(user => this.filterRole(user, 'technical')) || [];
+      this.selectedUserCom = this.data?.users?.filter(user => this.filterRole(user, 'comercial')) || [];
+
+      console.log('this.selectedUserTec', this.selectedUserTec);
+      console.log('this.userListTec', this.userListTec);
+      // console.log('check', this.selectedUserTec.filter(user => user.id === this.userListTec[2].id).length ? true : false);
     });
 
 
@@ -179,12 +190,21 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
 
     };
-    if (form.time_technique_visit) {
+    const regexSecond = /:\d+$/gm;
+    if (form.time_technique_visit && form.time_technique_visit.length < 8) {
       form.time_technique_visit += '00';
+    } else {
+      form.time_technique_visit = form.time_technique_visit?.replaceAll(':', '');
     }
-    if (form.deadline_time_confirme) {
+    if (form.deadline_time_confirme && form.deadline_time_confirme < 8) {
+      console.log('form.deadline_time_confirme', form.deadline_time_confirme);
+      // console.log('regexSecond.exec(form.deadline_time_confirme)', !regexSecond.test(form.deadline_time_confirme));
       form.deadline_time_confirme += '00';
+    } else {
+      form.deadline_time_confirme = form.deadline_time_confirme?.replaceAll(':', '')
     }
+
+    // clean properties
     Object.keys(form).forEach((k) => {
       if (form[k] == null || form[k] === '') {
         delete form[k];
@@ -196,14 +216,30 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
         }
       }
     });
-    this.proposalServices.create(form).subscribe(res => {
-      console.log(res);
-    });
+    if (this.createForm) {
+      this.proposalServices.create(form).subscribe(res => {
+        console.log(res);
+      });
+    } else {
+      form.id = this.data.id;
+      this.proposalServices.update(form).subscribe(res => {
+        console.log(res);
+      });
+    }
+
+
     // console.log('this.filesToUpload', this.filesToUpload);
 
   }
   public uploadDocument(event): void {
     this.filesToUpload = event.target.files;
+  }
+  public hasUserTec(hasUser: User): boolean {
+    return this.selectedUserTec?.filter(user => user.id === hasUser.id).length ? true : false;
+  }
+
+  public hasUserCom(hasUser: User): boolean {
+    return this.selectedUserCom?.filter(user => user.id === hasUser.id).length ? true : false;
   }
   private getBuyer(): void {
     this.buyerService.all().subscribe(buyers => {
@@ -214,6 +250,9 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.clientService.all().subscribe(clients => {
       this.clients = clients;
     });
+  }
+  private filterRole(user: any, roleSlug: string): any {
+    return user.roles.filter(role => role.slug === roleSlug).length > 0;
   }
 
 }

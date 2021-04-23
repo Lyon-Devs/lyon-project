@@ -18,7 +18,7 @@ class ProposalController extends Controller
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
         return Proposal::with([
-            'client', 'actingBranch'
+            'client', 'actingBranch', 'users'
         ])->paginate($paginate);
     }
     /**
@@ -45,16 +45,14 @@ class ProposalController extends Controller
         $proposal->fill($request->all());
         $proposal->save();
 
-
         if ($request->has('selectedUserTec')) {
             foreach ($request->selectedUserTec as $user) {
                 $hasUser = User::find($user['id']);
                 $proposal->users()->attach($hasUser);
             }
         }
-
         if ($request->has('selectedUserCom')) {
-            foreach ($request->selectedUserTec as $user) {
+            foreach ($request->selectedUserCom as $user) {
                 $hasUser = User::find($user['id']);
                 $proposal->users()->attach($hasUser);
             }
@@ -83,7 +81,49 @@ class ProposalController extends Controller
      */
     public function update(Request $request, Proposal $proposal)
     {
-        //
+
+        $request->validate([
+            'acting_branch_id' => 'required',
+            'buyer_id' => 'required',
+            'client_id' => 'required|exists:clients,id',
+            'date_delivery_comercial_proposal' => 'date',
+            'date_delivery_technique_proposal' => 'date',
+            'date_request'  => 'date',
+            'date_technique_visit'  => 'date',
+            'deadline_date_confirme'  => 'date',
+            'deadline_time_confirme'  => 'date_format:"His"',
+            'time_technique_visit'  => 'date_format:"His"',
+            'status' => 'required'
+
+        ]);
+        $proposal->fill($request->all());
+        $proposal->save();
+
+        $userProposal = $proposal->users;
+        if ($request->has('selectedUserTec')) {
+            $userProposal->each(function ($user) use ($proposal) {
+                if ($user->hasRole('technical')) {
+                    $proposal->users()->detach($user);
+                }
+            });
+            foreach ($request->selectedUserTec as $user) {
+                $hasUser = User::find($user['id']);
+                $proposal->users()->attach($hasUser);
+            }
+        }
+        if ($request->has('selectedUserCom')) {
+            $userProposal->each(function ($user) use ($proposal) {
+                if ($user->hasRole('comercial')) {
+                    $proposal->users()->detach($user);
+                }
+            });
+            foreach ($request->selectedUserCom as $user) {
+                $hasUser = User::find($user['id']);
+                $proposal->users()->attach($hasUser);
+            }
+        }
+
+        return $proposal;
     }
 
     /**
@@ -94,7 +134,7 @@ class ProposalController extends Controller
      */
     public function destroy(Proposal $proposal)
     {
-        $this->proposal->delete();
-        return $this->proposal;
+        $proposal->delete();
+        return $proposal;
     }
 }
