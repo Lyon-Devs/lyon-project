@@ -1,0 +1,72 @@
+<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} Revisão</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formType">
+    <mat-form-field appearance="outline" fullWidth>
+      <mat-label>Nª Revisão da proposta consolidada</mat-label>
+      <input matInput required formControlName="number_revision">
+    </mat-form-field>
+    <div class="two-col">
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>Data do comitê</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="data_committee">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de precificação</mat-label>
+        <mat-select formControlName="type_price">
+          <mat-option value="global">Global</mat-option>
+          <mat-option value="unity">Unitário</mat-option>
+          <mat-option value="menu">Cardápio</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="two-col">
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>Histograma Média</mat-label>
+        <input matInput type="number" step="0.01" required formControlName="medium_histogram">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>Preço global</mat-label>
+        <input matInput type="number" step="0.01" required formControlName="global_price">
+      </mat-form-field>
+    </div>
+    <div class="two-col">
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>Margem Bruta</mat-label>
+        <input matInput type="number" step="0.01" required formControlName="gross_margin">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>BDI</mat-label>
+        <input matInput type="number" step="0.01" required formControlName="bdi">
+      </mat-form-field>
+    </div>
+    <div class="three-col">
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>Imposto</mat-label>
+        <input matInput type="number" step="0.01" required formControlName="taxes">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>Encargo</mat-label>
+        <input matInput type="number" step="0.01" required formControlName="charge">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>Taxa Financeira</mat-label>
+        <input matInput type="number" step="0.01" required formControlName="financial_taxis">
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" fullWidth>
+      <mat-label>Riscos</mat-label>
+      <input matInput required formControlName="risks">
+    </mat-form-field>
+    <mat-form-field appearance="outline" fullWidth>
+      <mat-label>Tipo de aviso</mat-label>
+      <input matInput required formControlName="type_warning">
+    </mat-form-field>
+  </form>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">cancelar</button>
+  <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">salvar</button>
+</div>

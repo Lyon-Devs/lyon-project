@@ -10,21 +10,15 @@ class ProposalRevision extends Model
 {
     use HasFactory, SoftDeletes;
 
-    //     Nº Revisão da Proposta Consolidada $number_revision			
-    // Data do comitê $created_at			
-    // Tipo de Precificação (Global, Unitario, Cardapio) $type_price			
-    // Histograma Médio	 $gross margin		
-    // Preço Global	$global_price		
-    // Margem Bruta	$gross_margin		
-    // BDI	$bdi		
-    // Imposto	$taxes		
-    // Encargo $charge			
-    // Tipo de Aviso $type_warning			
-    // Riscos $risks			
-    // Taxa Financeira (Abaixo do BDI) $financial_taxis
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'data_committee'
+    ];
 
     protected $fillable = [
         'number_revision',
+        'data_committee',
         'type_price',
         'medium_histogram',
         'global_price',
@@ -34,7 +28,15 @@ class ProposalRevision extends Model
         'charge',
         'type_warning',
         'risks',
-        'financial_taxis'
-
+        'financial_taxis',
+        'proposal_id'
     ];
+
+
+
+    public function proposal()
+    {
+
+        return $this->belongsTo(Proposal::class);
+    }
 }

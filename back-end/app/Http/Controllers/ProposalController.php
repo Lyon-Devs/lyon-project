@@ -69,7 +69,7 @@ class ProposalController extends Controller
      */
     public function show(Proposal $proposal)
     {
-        return $proposal;
+        return $proposal->load(['client', 'buyer', 'actingBranch', 'users']);
     }
 
     /**

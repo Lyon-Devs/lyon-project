@@ -19,10 +19,12 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
 import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { NgxMaskModule } from 'ngx-mask';
+import { DetailComponent } from './detail/detail.component';
 
 
 export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
@@ -37,7 +39,7 @@ export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
   },
 };
 @NgModule({
-  declarations: [ProposalComponent, CreateDialogComponent],
+  declarations: [ProposalComponent, CreateDialogComponent, DetailComponent],
   imports: [
     CommonModule,
     ComponentsModule,
@@ -61,7 +63,8 @@ export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
     MomentDateModule,
     MatMenuModule,
     MaterialFileInputModule,
-    NgxMaskModule
+    NgxMaskModule,
+    MatListModule
   ],
   providers: [
     // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

@@ -6,6 +6,7 @@ use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\TypeServiceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\ProposalRevisionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,9 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
         'index', 'edit'
     ])->parameters([
         'branch' => 'actingBranch'
+    ]);
+    Route::resource('proposal/revision', ProposalRevisionController::class)->except(['edit'])->parameters([
+        'revision' => 'proposalRevision'
     ]);
 
     Route::resource('proposal', ProposalController::class)->except(['edit']);

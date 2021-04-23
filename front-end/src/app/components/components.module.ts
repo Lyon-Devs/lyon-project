@@ -8,9 +8,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { CreateProposalRevisionComponent } from './create-proposal-revision/create-proposal-revision.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 @NgModule({
-  declarations: [CommonTitleComponent, ConfirmComponent],
+  declarations: [CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent],
   imports: [
     CommonModule,
     MainModule,
@@ -18,11 +25,19 @@ import { ConfirmComponent } from './confirm/confirm.component';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    MatDatepickerModule,
+    ReactiveFormsModule
   ],
   exports: [
     MainModule,
     ExternalModule,
-    CommonTitleComponent
+    CommonTitleComponent,
+    CreateProposalRevisionComponent,
+    
   ]
 })
 export class ComponentsModule { }
