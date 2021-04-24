@@ -36,7 +36,6 @@ class ProposalRevision extends Model
 
     public function proposal()
     {
-
         return $this->belongsTo(Proposal::class);
     }
 }

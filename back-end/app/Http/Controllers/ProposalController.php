@@ -21,6 +21,11 @@ class ProposalController extends Controller
             'client', 'actingBranch', 'users'
         ])->paginate($paginate);
     }
+
+    public function allItens()
+    {
+        return Proposal::all();
+    }
     /**
      * Store a newly created resource in storage.
      *

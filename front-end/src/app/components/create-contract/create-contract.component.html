@@ -1,0 +1,70 @@
+<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} contrato</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formType">
+        <mat-form-field appearance="outline">
+            <mat-label>Proposta</mat-label>
+            <mat-select formControlName="proposal_id">
+              <mat-option *ngFor="let prop of proposal" [value]="prop.id">{{prop.cod_lyon}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div class="two-col">
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Centro de custo</mat-label>
+                <input matInput required formControlName="center_of_cost">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Nº contrato</mat-label>
+                <input matInput required formControlName="contract_number">
+            </mat-form-field>
+        </div>
+        <div class="two-col">
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Nº do pedido de compra</mat-label>
+                <input matInput required formControlName="purchase_order">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Início contrato</mat-label>
+                <input matInput [matDatepicker]="pickerStart" formControlName="date_start">
+                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                <mat-datepicker #pickerStart></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="two-col">
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Fim do contrato</mat-label>
+                <input matInput [matDatepicker]="pickerEnd" formControlName="date_end">
+                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker #pickerEnd></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Data base reajuste</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="readjustment_base_date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>Gerente Lyon</mat-label>
+            <input matInput required formControlName="manager_lyon">
+        </mat-form-field>
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>E-mail gerente Lyon</mat-label>
+            <input matInput required formControlName="manager_lyon_email">
+        </mat-form-field>
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>Gerente client</mat-label>
+            <input matInput required formControlName="manager_client">
+        </mat-form-field>
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>E-mail gerente</mat-label>
+            <input matInput required formControlName="manager_client_email">
+        </mat-form-field>
+       
+
+    </form>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">cancelar</button>
+    <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">salvar</button>
+</div>

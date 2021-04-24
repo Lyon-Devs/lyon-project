@@ -9,14 +9,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { UsersComponent } from './admin/users/users.component';
 import { ProposalComponent } from './proposal/proposal.component';
-import { ProposalModule } from './proposal/proposal.module';
-
+import { ContractComponent } from './contract/contract.component';
 
 
 @NgModule({
-  declarations: [LoginModule, HomeModule, UsersComponent, ProposalComponent],
+  declarations: [LoginModule, HomeModule, UsersComponent, ProposalComponent, ContractComponent],
   imports: [
-  CommonModule,
+    CommonModule,
     LoginModule,
     HomeModule,
     MatFormFieldModule,
@@ -27,5 +26,6 @@ import { ProposalModule } from './proposal/proposal.module';
     MatButtonModule
   ],
   exports: [],
+
 })
 export class PagesModule { }

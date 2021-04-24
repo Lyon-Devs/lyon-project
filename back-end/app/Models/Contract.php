@@ -9,24 +9,30 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Contract extends Model
 {
     use HasFactory, SoftDeletes;
-    // Centro de Custo	$center_cost									
-    // Tipo [Contrato, Pedido de Compra]	$type				
-    // 	Contrato				
-    // 		Nº do contrato			
-    // 	Pedido de Compra				
-    // 		Nº do Pedido de Compra			
-    // Gerente Lyon				Amarzenar o anterior	
-    // Gerente Cliente					
-    // Tipo de Serviço					
-    // Escopo					
-    // Prazo de exec. (Meses)					
-    // Inicio do Contrato					
-    // Fim do contrato					
-    // Data Base de reajuste
 
-    protected $fillable = [
-        'center_cost',
-        'type',
-        'number_contract'
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'date_start',
+        'date_end',
+        'readjustment_base_date',
     ];
+    protected $fillable = [
+        'center_of_cost',
+        'contract_number',
+        'purchase_order',
+        'manager_lyon',
+        'manager_lyon_email',
+        'manager_client',
+        'manager_client_email',
+        'date_start',
+        'date_end',
+        'readjustment_base_date',
+        'proposal_id'
+    ];
+
+    public function proposal()
+    {
+        return $this->belongsTo(Proposal::class);
+    }
 }

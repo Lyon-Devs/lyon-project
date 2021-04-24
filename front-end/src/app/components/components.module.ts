@@ -11,13 +11,18 @@ import { ConfirmComponent } from './confirm/confirm.component';
 import { CreateProposalRevisionComponent } from './create-proposal-revision/create-proposal-revision.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CreateContractComponent } from './create-contract/create-contract.component';
+import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateModule } from '@angular/material-moment-adapter';
+// import { MY_MOMENT_DATE_FORMATS } from '@pages/proposal/proposal.module';
 
 
 @NgModule({
-  declarations: [CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent],
+  declarations: [CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent, CreateContractComponent],
   imports: [
     CommonModule,
     MainModule,
@@ -30,14 +35,35 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatSelectModule,
     FormsModule,
     MatDatepickerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentDateModule,
+    MatAutocompleteModule
   ],
   exports: [
     MainModule,
     ExternalModule,
     CommonTitleComponent,
     CreateProposalRevisionComponent,
-    
-  ]
+  ],
+  providers: [
+    // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: MAT_DATE_FORMATS, useValue: {
+        parse: {
+          dateInput: 'DD/MM/YYYY',
+        },
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+        },
+      }
+    },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+  ],
+
 })
 export class ComponentsModule { }
