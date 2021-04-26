@@ -13,10 +13,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DetailComponent } from './detail/detail.component';
+import { MatListModule } from '@angular/material/list';
+import { ContractRenegotiationComponent } from './contract-renegotiation/contract-renegotiation.component';
+import { ContractAdditiveComponent } from './contract-additive/contract-additive.component';
 
 
 @NgModule({
-  declarations: [ContractComponent, DetailComponent],
+  declarations: [ContractComponent, DetailComponent, ContractRenegotiationComponent, ContractAdditiveComponent],
   imports: [
     CommonModule,
     ContractRoutingModule,
@@ -30,6 +33,7 @@ import { DetailComponent } from './detail/detail.component';
     ReactiveFormsModule,
     MatPaginatorModule,
     MatSnackBarModule,
+    MatListModule
   ]
 })
 export class ContractModule { }

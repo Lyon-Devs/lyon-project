@@ -52,7 +52,7 @@ class ContractController extends Controller
      */
     public function show(Contract $contract)
     {
-        //
+        return $contract->load(['proposal.buyer', 'proposal.client', 'proposal.actingBranch']);
     }
 
 

@@ -5,7 +5,9 @@ use App\Http\Controllers\ActingBranchController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\TypeServiceController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContractAdditiveController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\ContractRenegotiationController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ProposalRevisionController;
 use Illuminate\Http\Request;
@@ -50,8 +52,17 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
     ]);
 
     Route::get('proposal/all', [ProposalController::class, 'allItens'])->name('proposal.all');
-    Route::resource('proposal', ProposalController::class)->except(['edit']);
+
     Route::resource('contract', ContractController::class)->except(['edit']);
+    Route::resource('contract/additive', ContractAdditiveController::class)->except(['edit'])
+        ->parameters([
+            'additive' => 'contractAdditive'
+        ]);
+    Route::resource('contract/Renegotiation', ContractRenegotiationController::class)->except(['edit'])
+        ->parameters([
+            'renegotiation' => 'contractRenegotiation'
+        ]);
+    Route::resource('proposal', ProposalController::class)->except(['edit']);
     Route::resource('buyer', BuyerController::class)->except($exceptActions);
 
     Route::resource('type/service', TypeServiceController::class)->except($exceptActions)

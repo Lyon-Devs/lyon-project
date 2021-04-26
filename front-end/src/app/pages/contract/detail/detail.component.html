@@ -1,1 +1,64 @@
-<p>detail works!</p>
+<app-common-title title="Contrato" [subtitle]="subtitle"></app-common-title>
+<div class="container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{contract.proposal.client.name}} </mat-card-title>
+            <mat-card-subtitle>{{contract.proposal.cod_lyon}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item>
+                    <span><b>Comprador</b> {{contract.proposal.buyer.name}}</span>
+                    <span><b>Data Solicitação</b> {{contract.proposal.date_request | date: 'd/MM/y':'z'}}</span>
+                    <span><b>Código solicitação</b> {{contract.proposal.number_client_request}}</span>
+                </mat-list-item>
+
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <span>
+                        <b>Data início</b>
+                        {{contract.date_start | date:'d/MM/y':'z'}}
+                    </span>
+                    <span>
+                        <b>Data fim</b>
+                        {{contract.date_end | date:'d/MM/y':'z'}}
+                    </span>
+                    <span>
+                        <b>Data base reajuste</b>
+                        {{contract.readjustment_base_date | date:'d/MM/y':'z'}}
+                    </span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <span><b>Ordem de compra</b> {{contract.purchase_order}} </span>
+                </mat-list-item>
+                <ng-template [ngIf]="contract.proposal.date_delivery_technique_proposal">
+                    <mat-divider></mat-divider>
+                    <mat-list-item>
+                        <span>
+                            <b>Proposta técnica data entrega</b>
+                            {{contract.proposal.date_delivery_technique_proposal | date:'d/MM/y':'z'}}
+                        </span>
+                    </mat-list-item>
+                </ng-template>
+                <ng-template [ngIf]="contract.proposal.date_delivery_comercial_proposal">
+                    <mat-divider></mat-divider>
+                    <mat-list-item>
+                        <span>
+                            <b>Proposta comercial, data entrega</b>
+                            {{contract.proposal.date_delivery_comercial_proposal | date:'d/MM/y':'z'}}
+                        </span>
+                    </mat-list-item>
+                </ng-template>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <span><b>Prazo execução(Meses)</b> {{contract.proposal.months_exec}} </span>
+                    <span><b>Local execução</b> {{contract.proposal.place_to_deploys_services}} </span>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+
+    <app-contract-additive></app-contract-additive>
+    <app-contract-renegotiation></app-contract-renegotiation>
+</div>

@@ -1,3 +1,5 @@
+import { Proposal } from './proposal.model';
+
 export interface Contract {
     id: number;
     center_of_cost: string;
@@ -11,6 +13,7 @@ export interface Contract {
     date_end: Date;
     readjustment_base_date: Date;
     proposal_id: number;
+    proposal: Proposal;
     created_at: Date;
     updated_at: Date;
 }
