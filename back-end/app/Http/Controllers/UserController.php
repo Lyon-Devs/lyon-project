@@ -75,7 +75,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'password' => 'present',
-            'role' => 'required|string|exists:roles,slug'
+            'role' => 'required'
         ]);
 
         $user->fill([
@@ -86,9 +86,23 @@ class UserController extends Controller
         if ($request->has('password')) {
             $user->password = Hash::make($request->password);
         }
-        $user->revokeAllRoles();
-        $user->attachRoleBySlug($request->role);
-        $user->save();
+        $addRoles = $request->role;
+        $removeRoles = $user->roles->filter(function ($role) use ($addRoles) {
+            $hasRole = array_filter($addRoles, function ($addRole) use ($role) {
+                if ($addRole == $role->slug) {
+                    return $addRole;
+                }
+            });
+            if (!$hasRole) {
+                return $role;
+            }
+        });
+        foreach ($addRoles as $role) {
+            $user->attachRoleBySlug($role);
+        }
+        foreach ($removeRoles as $role) {
+            $user->revokeRoleBySlug($role->slug);
+        }
         return $user;
     }
 

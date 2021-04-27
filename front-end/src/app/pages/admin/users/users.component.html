@@ -20,7 +20,7 @@
         <ng-container matColumnDef="roles">
             <th mat-header-cell *matHeaderCellDef> Permissões </th>
             <td mat-cell *matCellDef="let element">
-                <span *ngFor="let role of element.roles">{{role.name}}</span>
+                <p class="role" *ngFor="let role of element.roles">{{role.name}}</p>
             </td>
         </ng-container>
         <ng-container matColumnDef="created_at">

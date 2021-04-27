@@ -24,7 +24,7 @@ export class CreateDialogComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    
     this.createForm = this.data?.id ? false : true;
     const required = this.createForm ? [Validators.required, Validators.min(8)] : [Validators.min(8)];
     this.formUser = this.fb.group({
@@ -32,7 +32,7 @@ export class CreateDialogComponent implements OnInit {
       email: [this.data?.email || '', [Validators.required, Validators.email]],
       password: ['', required],
       confirmPassword: ['', required],
-      role: [this.getFirstRoleUser(this.data) || '', Validators.required],
+      role: [this.data?.roles?.map(role => role.slug) || '', Validators.required],
     }, {
       validator: this.mustMatch('password', 'confirmPassword')
     });
