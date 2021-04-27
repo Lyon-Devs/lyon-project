@@ -1,1 +1,47 @@
-<p>contract-additive works!</p>
+<app-common-title title="Aditivos" [navigation]="false"></app-common-title>
+<div class="container">
+    <div class="actions">
+        <div class="group-buttons">
+            <button mat-mini-fab aria-label="Example icon button with a home icon" (click)="create()" color="primary">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+    <table mat-table [dataSource]="paginateItems?.data">
+        <ng-container matColumnDef="number_additive">
+            <th mat-header-cell *matHeaderCellDef> Nº aditivo  </th>
+            <td mat-cell *matCellDef="let element"> {{element.number_additive}} </td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef> Tipo  </th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
+        <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef> Valor aditivo  </th>
+            <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+        </ng-container>
+        <ng-container matColumnDef="date_start">
+            <th mat-header-cell *matHeaderCellDef> Data início    </th>
+            <td mat-cell *matCellDef="let element"> {{element.date_start | date: 'dd/MM/y' : 'z'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="date_end">
+            <th mat-header-cell *matHeaderCellDef> Data fim    </th>
+            <td mat-cell *matCellDef="let element"> {{element.date_end | date: 'dd/MM/y' : 'z'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell class="action" *matCellDef="let element">
+                <button mat-icon-button color="primary" aria-label="Editar" (click)="update(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" aria-label="deletar " (click)="destroy(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="paginateItems?.total" [pageSize]="paginateItems?.per_page"
+        [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

@@ -11,11 +11,10 @@
             <div class="title">
                 {{title}}
             </div>
-            <div class="sub-title">
+            <div class="sub-title" *ngIf="subtitle">
                 {{subtitle}}
             </div>
         </div>
-        
     </div>
     <div class="actions" *ngIf="navigation">
         <div class="group-buttons">

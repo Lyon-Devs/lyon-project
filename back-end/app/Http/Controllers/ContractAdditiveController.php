@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
 use App\Models\ContractAdditive;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
@@ -13,10 +14,10 @@ class ContractAdditiveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): Paginator
+    public function index(Request $request, Contract $contract): Paginator
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
-        return ContractAdditive::paginate($paginate);
+        return $contract->additives()->paginate($paginate);
     }
 
     /**
@@ -35,9 +36,10 @@ class ContractAdditiveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ContractAdditive $contractAdditive)
+    public function store(Request $request, Contract $contract)
     {
-        $request->require([
+
+        $request->validate([
             'number_additive' => 'required',
             'type' => 'required',
             'date_start' => 'required',
@@ -46,10 +48,9 @@ class ContractAdditiveController extends Controller
             'description' => 'required',
             'contract_id' => 'required|exists:contracts,id'
         ]);
+        $additives = $contract->additives()->create($request->all());
 
-        $contractAdditive->fill($request->all());
-        $contractAdditive->save();
-        return $contractAdditive;
+        return $additives;
     }
 
     /**
@@ -71,9 +72,9 @@ class ContractAdditiveController extends Controller
      * @param  \App\Models\ContractAdditive  $contractAdditive
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContractAdditive $contractAdditive)
+    public function update(Request $request, Contract $contract,  ContractAdditive $contractAdditive)
     {
-        $request->require([
+        $request->validate([
             'number_additive' => 'required',
             'type' => 'required',
             'date_start' => 'required',
@@ -82,7 +83,6 @@ class ContractAdditiveController extends Controller
             'description' => 'required',
             'contract_id' => 'required|exists:contracts,id'
         ]);
-
         $contractAdditive->fill($request->all());
         $contractAdditive->save();
         return $contractAdditive;
@@ -94,7 +94,7 @@ class ContractAdditiveController extends Controller
      * @param  \App\Models\ContractAdditive  $contractAdditive
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ContractAdditive $contractAdditive)
+    public function destroy(Contract $contract, ContractAdditive $contractAdditive)
     {
         $contractAdditive->delete();
         return $contractAdditive;

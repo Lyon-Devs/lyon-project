@@ -8,7 +8,7 @@ export abstract class CrudService<t> implements Crud<t> {
 
     constructor(protected http: HttpClient, public uri: string) { }
 
-    private url = `${environment.apiUrl}${this.uri}`;
+    protected url = `${environment.apiUrl}${this.uri}`;
     public list(page: number, perPage: number): Observable<Paginate<t>> {
         return this.http.get<Paginate<t>>(`${this.url}?page=${page}&per_page=${perPage}`);
     }

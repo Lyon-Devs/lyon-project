@@ -9,7 +9,11 @@ class ContractAdditive extends Model
 {
     use HasFactory;
 
-    protected $filled = [
+    protected $dates = [
+        'date_end',
+        'date_start'
+    ];
+    protected $fillable = [
         'number_additive',
         'type',
         'date_start',

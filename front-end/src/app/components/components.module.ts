@@ -18,11 +18,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CreateContractComponent } from './create-contract/create-contract.component';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateModule } from '@angular/material-moment-adapter';
+import { CreateContractAdditiveComponent } from './create-contract-additive/create-contract-additive.component';
 // import { MY_MOMENT_DATE_FORMATS } from '@pages/proposal/proposal.module';
 
 
 @NgModule({
-  declarations: [CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent, CreateContractComponent],
+  declarations: [CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent, CreateContractComponent, CreateContractAdditiveComponent],
   imports: [
     CommonModule,
     MainModule,

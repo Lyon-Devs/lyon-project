@@ -35,4 +35,9 @@ class Contract extends Model
     {
         return $this->belongsTo(Proposal::class);
     }
+
+    public function additives()
+    {
+        return $this->hasMany(ContractAdditive::class);
+    }
 }

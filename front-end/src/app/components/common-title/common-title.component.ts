@@ -9,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CommonTitleComponent implements OnInit {
 
   @Input() public title = 'Default title';
-  @Input() public subtitle = 'Default sub-title' ;
+  @Input() public subtitle: string;
   @Input() public icon = 'manage_accounts' ;
   @Input() public navigation = true;
 

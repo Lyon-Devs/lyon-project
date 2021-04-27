@@ -1,0 +1,23 @@
+.mat-form-field {
+    display: block;
+  }
+  
+  .two-col {
+    display: flex;
+  
+    .mat-form-field {
+      width: 50%;
+      margin: 1px;
+    }
+  }
+  
+  .three-col {
+      display: flex;
+    
+      .mat-form-field {
+        width: 33%;
+        margin: 1px;
+      }
+    }
+    
+  

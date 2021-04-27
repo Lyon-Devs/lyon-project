@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} Aditivo</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formType">
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>Nº do aditivo</mat-label>
+            <input matInput required formControlName="number_additive">
+        </mat-form-field>
+        <div class="two-col">
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo de aditivo</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option value="deadline">Prazo</mat-option>
+                    <mat-option value="value">Valor</mat-option>
+                    <mat-option value="deadline_value">Prazo e valor</mat-option>
+                    <mat-option value="others">Outros</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Valor do aditivo</mat-label>
+                <input matInput type="number" step="0.01" required formControlName="value">
+            </mat-form-field>
+        </div>
+
+        <div class="two-col">
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Data inícial</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date_start">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Data final</mat-label>
+                <input matInput [matDatepicker]="pickerFinal" formControlName="date_end">
+                <mat-datepicker-toggle matSuffix [for]="pickerFinal"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFinal></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>Descritivo</mat-label>
+            <textarea matInput required formControlName="description"></textarea>
+        </mat-form-field>
+    </form>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">cancelar</button>
+    <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">salvar</button>
+</div>
