@@ -9,12 +9,16 @@ class ContractRenegotiation extends Model
 {
     use HasFactory;
 
-    protected $filled = [
+    protected $fillable = [
         'number_renegotiation',
         'year',
         'purchasing_period',
         'readjustment_base',
         'required',
-        'approved'
+        'approved',
+        'contract_id',
+    ];
+    protected $dates = [
+        'purchasing_period'
     ];
 }

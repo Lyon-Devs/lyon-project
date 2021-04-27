@@ -40,4 +40,8 @@ class Contract extends Model
     {
         return $this->hasMany(ContractAdditive::class);
     }
+    public function renegotiation()
+    {
+        return $this->hasMany(ContractRenegotiation::class);
+    }
 }

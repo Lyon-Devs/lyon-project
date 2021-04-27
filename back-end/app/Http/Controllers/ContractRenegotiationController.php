@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
 use App\Models\ContractRenegotiation;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
@@ -13,10 +14,10 @@ class ContractRenegotiationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): Paginator
+    public function index(Request $request, Contract $contract): Paginator
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
-        return ContractRenegotiation::paginate($paginate);
+        return $contract->renegotiation()->paginate($paginate);
     }
 
     /**
@@ -35,9 +36,9 @@ class ContractRenegotiationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ContractRenegotiation $contractRenegotiation)
+    public function store(Request $request, Contract $contract)
     {
-        $request->require([
+        $request->validate([
             'contract_id' => 'required|exists:contracts,id',
             'number_renegotiation' => 'required',
             'year' => 'required',
@@ -47,8 +48,7 @@ class ContractRenegotiationController extends Controller
             'approved' => 'required'
         ]);
 
-        $contractRenegotiation->fill($request->all());
-        $contractRenegotiation->save();
+        $contractRenegotiation = $contract->renegotiation()->create($request->all());
         return $contractRenegotiation;
     }
 
@@ -72,9 +72,9 @@ class ContractRenegotiationController extends Controller
      * @param  \App\Models\ContractRenegotiation  $contractRenegotiation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContractRenegotiation $contractRenegotiation)
+    public function update(Request $request,  Contract $contract, ContractRenegotiation $contractRenegotiation)
     {
-        $request->require([
+        $request->validate([
             'contract_id' => 'required|exists:contracts,id',
             'number_renegotiation' => 'required',
             'year' => 'required',
@@ -95,7 +95,7 @@ class ContractRenegotiationController extends Controller
      * @param  \App\Models\ContractRenegotiation  $contractRenegotiation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ContractRenegotiation $contractRenegotiation)
+    public function destroy(Contract $contract, ContractRenegotiation $contractRenegotiation)
     {
         $contractRenegotiation->delete();
         return $contractRenegotiation;

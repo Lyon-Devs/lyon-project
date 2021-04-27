@@ -80,7 +80,7 @@ export class ContractAdditiveComponent implements OnInit, CrudPage<ContractAddit
       }
     });
   }
-  public getPage(page: number = 0, perPage: number = 10): void {
+  public getPage(page: number = 0, perPage: number = 5): void {
     this.subscriptItem = this.contractAdditiveService.list(page, perPage).subscribe(paginate => {
       this.paginateItems = paginate;
     });

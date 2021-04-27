@@ -59,8 +59,9 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
             'contract' => 'contract',
             'additive' => 'contractAdditive'
         ]);
-    Route::resource('contract/renegotiation', ContractRenegotiationController::class)->except(['edit'])
+    Route::resource('contract.renegotiation', ContractRenegotiationController::class)->except(['edit'])
         ->parameters([
+            'contract' => 'contract',
             'renegotiation' => 'contractRenegotiation'
         ]);
     Route::resource('proposal', ProposalController::class)->except(['edit']);

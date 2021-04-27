@@ -19,11 +19,12 @@ import { CreateContractComponent } from './create-contract/create-contract.compo
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateModule } from '@angular/material-moment-adapter';
 import { CreateContractAdditiveComponent } from './create-contract-additive/create-contract-additive.component';
+import { CreateContractRenegotiationComponent } from './create-contract-renegotiation/create-contract-renegotiation.component';
 // import { MY_MOMENT_DATE_FORMATS } from '@pages/proposal/proposal.module';
 
 
 @NgModule({
-  declarations: [CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent, CreateContractComponent, CreateContractAdditiveComponent],
+  declarations: [CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent, CreateContractComponent, CreateContractAdditiveComponent, CreateContractRenegotiationComponent],
   imports: [
     CommonModule,
     MainModule,

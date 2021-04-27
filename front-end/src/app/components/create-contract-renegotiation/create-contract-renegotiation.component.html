@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} Repactuação</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="formType">
+            <div class="two-col">
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Nº da repactuação</mat-label>
+                    <input matInput required formControlName="number_renegotiation" type="number" min="0">
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Ano</mat-label>
+                    <input matInput required formControlName="year" type="number" min="2000">
+                </mat-form-field>
+            </div>
+            <div class="two-col">
+                <mat-form-field appearance="outline">
+                    <mat-label>Base para reajuste</mat-label>
+                    <mat-select formControlName="readjustment_base">
+                        <mat-option value="parametric_formula">Fórmula paramétrica</mat-option>
+                        <mat-option value="financial_index">Índice financeiro</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>Período aquisitivo</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="purchasing_period">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="two-col">
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>% Requerido</mat-label>
+                    <input matInput required formControlName="required" type="number" min="0.01">
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>% Aprovado</mat-label>
+                    <input matInput required formControlName="approved" type="number" min="0.01">
+                </mat-form-field>
+            </div>
+        </form>
+
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">cancelar</button>
+        <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid"
+            color="primary">salvar</button>
+    </div>
