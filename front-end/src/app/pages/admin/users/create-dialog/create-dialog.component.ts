@@ -24,7 +24,7 @@ export class CreateDialogComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+
     this.createForm = this.data?.id ? false : true;
     const required = this.createForm ? [Validators.required, Validators.min(8)] : [Validators.min(8)];
     this.formUser = this.fb.group({
@@ -55,7 +55,20 @@ export class CreateDialogComponent implements OnInit {
         this.snackBar.open('Usuário criado com sucesso');
       });
     } else {
+
       newUser.id = this.data.id;
+      // clean properties
+      Object.keys(newUser).forEach((k) => {
+        if (newUser[k] == null || newUser[k] === '') {
+          delete newUser[k];
+          return;
+        }
+        if (Array.isArray(newUser[k])) {
+          if (newUser[k].length === 0) {
+            delete newUser[k];
+          }
+        }
+      });
       this.authService.updateUser(newUser).subscribe(user => {
         this.dialogRef.close('updated');
         this.snackBar.open('Usuário atualizado com sucesso');

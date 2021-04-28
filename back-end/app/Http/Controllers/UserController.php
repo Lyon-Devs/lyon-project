@@ -74,7 +74,6 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'password' => 'present',
             'role' => 'required'
         ]);
 
@@ -103,6 +102,7 @@ class UserController extends Controller
         foreach ($removeRoles as $role) {
             $user->revokeRoleBySlug($role->slug);
         }
+        $user->save();
         return $user;
     }
 

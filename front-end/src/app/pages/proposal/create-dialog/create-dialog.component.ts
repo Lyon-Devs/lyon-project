@@ -105,10 +105,6 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
       this.selectedUserTec = this.data?.users?.filter(user => this.filterRole(user, 'technical')) || [];
       this.selectedUserCom = this.data?.users?.filter(user => this.filterRole(user, 'comercial')) || [];
-
-      console.log('this.selectedUserTec', this.selectedUserTec);
-      console.log('this.userListTec', this.userListTec);
-      // console.log('check', this.selectedUserTec.filter(user => user.id === this.userListTec[2].id).length ? true : false);
     });
 
 
