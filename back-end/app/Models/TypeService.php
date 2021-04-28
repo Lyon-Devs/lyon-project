@@ -15,4 +15,10 @@ class TypeService extends Model
         'unity_business',
         'email_group',
     ];
+
+
+    public function getEmailsAttribute()
+    {
+        return explode(',', $this->email_group);
+    }
 }

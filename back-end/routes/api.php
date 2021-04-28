@@ -11,7 +11,10 @@ use App\Http\Controllers\ContractRenegotiationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ProposalRevisionController;
+use App\Mail\ProposalCommittee1;
+use App\Models\Proposal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +28,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('test', function () {
+    $proposalCommittee1 = Proposal::where('status', 'committee_1')->get();
+    $emails = $proposalCommittee1[0]->typeService->emails;
+    Mail::to($emails)->send(new ProposalCommittee1());
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
