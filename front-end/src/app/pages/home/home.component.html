@@ -7,7 +7,7 @@
             <span class="material-icons">
                 verified
             </span>
-            <h3>500</h3>
+            <h3>{{home?.contract_ative || 0}}</h3>
         </mat-card-content>
     </mat-card>
     <mat-card class="card-data danger">
@@ -18,7 +18,7 @@
             <span class="material-icons">
                 schedule_send
             </span>
-            <h3>500</h3>
+            <h3>{{home?.proposal_pending}}</h3>
         </mat-card-content>
     </mat-card>
     <mat-card class="card-data primary">
@@ -29,7 +29,7 @@
             <span class="material-icons">
                 rule
             </span>
-            <h3>500</h3>
+            <h3>{{home?.proposal_committee_1 || 0}}</h3>
         </mat-card-content>
     </mat-card>
     <mat-card class="card-data info">
@@ -40,7 +40,7 @@
             <span class="material-icons">
                 checklist_rtl
             </span>
-            <h3>500</h3>
+            <h3>{{home?.proposal_committee_2 || 0}}</h3>
         </mat-card-content>
     </mat-card>
 </div>

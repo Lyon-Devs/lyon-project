@@ -58,7 +58,6 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.cdr.detectChanges();
   }
   ngOnInit(): void {
-    console.log('this.data', this.data);
     // this.selectedUserTec = this.data.users
     this.createForm = this.data?.id ? false : true;
     this.formBasic = this.fb.group({
@@ -156,16 +155,16 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.dialogRef.close();
   }
   public onSubmit(): void {
-    console.log('this.formBasic', this.formBasic);
-    console.log('this.formTec', this.formTec);
-    console.log('this.formCom', this.formCom);
-    console.log('this.formSummaryScope', this.formSummaryScope);
-    console.log('this.formScope', this.formScope);
-    console.log('this.formExe', this.formExe);
-    console.log('this.formDeploy', this.formDeploy);
+    // console.log('this.formBasic', this.formBasic);
+    // console.log('this.formTec', this.formTec);
+    // console.log('this.formCom', this.formCom);
+    // console.log('this.formSummaryScope', this.formSummaryScope);
+    // console.log('this.formScope', this.formScope);
+    // console.log('this.formExe', this.formExe);
+    // console.log('this.formDeploy', this.formDeploy);
 
 
-    console.log('\n\n\n');
+    // console.log('\n\n\n');
     // console.log('this.formBasic', this.formBasic.value);
     // console.log('this.formTec', this.formTec.value);
     // console.log('this.formCom', this.formCom.value);
@@ -214,12 +213,14 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     });
     if (this.createForm) {
       this.proposalServices.create(form).subscribe(res => {
-        console.log(res);
+        this.dialogRef.close('created');
+        this.snackBar.open('Proposta criada com sucesso');
       });
     } else {
       form.id = this.data.id;
       this.proposalServices.update(form).subscribe(res => {
-        console.log(res);
+        this.dialogRef.close('updated');
+        this.snackBar.open('Proposta atualizada com sucesso');
       });
     }
 

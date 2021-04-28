@@ -84,7 +84,7 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
 
     const translateStatus = {
       committee_1: 'Comitê 1',
-      committee_2: 'Comitê 1',
+      committee_2: 'Comitê 2',
       lost: 'Perdido',
       draft: 'Rascunho',
       canceled: 'Cancelado',

@@ -8,6 +8,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContractAdditiveController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ContractRenegotiationController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ProposalRevisionController;
 use Illuminate\Http\Request;
@@ -37,6 +38,7 @@ Route::get('client', [ClientController::class, 'index'])->name('client.index');
 Route::get('client/all', [ClientController::class, 'allItens'])->name('client.all');
 Route::get('buyer/all', [BuyerController::class, 'allItens'])->name('buyer.all');
 Route::get('buyer', [BuyerController::class, 'index'])->name('client.index');
+Route::get('home/all', [HomeController::class, 'index'])->name('home.all');
 // 'auth:api', 'role:administrator'
 
 Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
