@@ -64,7 +64,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       client_id: [this.data?.client?.id || '', Validators.required],
       buyer_id: [this.data?.buyer_id || '', Validators.required],
       date_request: [this.data?.date_request || '', Validators.required],
-      acting_branch_id: [this.data?.acting_branch_id || '', Validators.required],
+      type_service_id: [this.data?.type_service_id || '', Validators.required],
       number_client_request: [this?.data?.number_client_request || '', Validators.required],
       status: [this?.data?.status || ''],
     });
@@ -191,12 +191,12 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     } else {
       form.time_technique_visit = form.time_technique_visit?.replaceAll(':', '');
     }
-    if (form.deadline_time_confirme && form.deadline_time_confirme < 8) {
+    if (form.deadline_time_confirme && form.deadline_time_confirme.length < 8) {
       console.log('form.deadline_time_confirme', form.deadline_time_confirme);
       // console.log('regexSecond.exec(form.deadline_time_confirme)', !regexSecond.test(form.deadline_time_confirme));
       form.deadline_time_confirme += '00';
     } else {
-      form.deadline_time_confirme = form.deadline_time_confirme?.replaceAll(':', '')
+      form.deadline_time_confirme = form.deadline_time_confirme?.replaceAll(':', '');
     }
 
     // clean properties

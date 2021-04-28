@@ -13,7 +13,7 @@ class Proposal extends Model
 
     protected $fillable = [
         'cod_lyon',
-        'acting_branch_id',
+        'type_service_id',
         'buyer_id',
         'client_id',
         'date_delivery_comercial_proposal',
@@ -53,9 +53,9 @@ class Proposal extends Model
     {
         return $this->belongsTo(Buyer::class);
     }
-    public function actingBranch()
+    public function TypeService()
     {
-        return $this->belongsTo(ActingBranch::class);
+        return $this->belongsTo(TypeService::class);
     }
     public function users()
     {

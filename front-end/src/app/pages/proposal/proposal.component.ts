@@ -25,7 +25,7 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
   ) { }
   paginateItems: Paginate<Proposal>;
   displayedColumns: string[] = [
-    'cod_lyon', 'client_id', 'acting_branch_id',
+    'cod_lyon', 'client_id', 'type_service_id',
     'status', 'deadline_date_confirme',
     'summary_scope', 'months_exec', 'actions'
   ];
@@ -42,7 +42,7 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
     });
     dialogRef.afterClosed().subscribe(event => {
       if (event) {
-        // this.handlePageEvent();
+        this.handlePageEvent();
       }
     });
   }

@@ -18,7 +18,7 @@ class ProposalController extends Controller
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
         return Proposal::with([
-            'client', 'actingBranch', 'users'
+            'client', 'typeService', 'users'
         ])->paginate($paginate);
     }
 
@@ -35,7 +35,7 @@ class ProposalController extends Controller
     public function store(Request $request, Proposal $proposal)
     {
         $request->validate([
-            'acting_branch_id' => 'required',
+            'type_service_id' => 'required',
             'buyer_id' => 'required',
             'client_id' => 'required|exists:clients,id',
             'date_delivery_comercial_proposal' => 'date',
@@ -88,7 +88,7 @@ class ProposalController extends Controller
     {
 
         $request->validate([
-            'acting_branch_id' => 'required',
+            'type_service_id' => 'required',
             'buyer_id' => 'required',
             'client_id' => 'required|exists:clients,id',
             'date_delivery_comercial_proposal' => 'date',

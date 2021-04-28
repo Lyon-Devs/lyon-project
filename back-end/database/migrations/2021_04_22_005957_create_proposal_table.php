@@ -16,9 +16,9 @@ class CreateProposalTable extends Migration
     {
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
-            $table->string('cod_lyon')->index();
-            $table->unsignedBigInteger('acting_branch_id');
-            $table->foreign('acting_branch_id')->references('id')->on('acting_branches')->onDelete('cascade');
+            $table->string('cod_lyon')->nullable()->index();
+            $table->unsignedBigInteger('type_service_id');
+            $table->foreign('type_service_id')->references('id')->on('type_services')->onDelete('cascade');
             $table->unsignedBigInteger('buyer_id');
             $table->foreign('buyer_id')->references('id')->on('buyers')->onDelete('cascade');
             $table->unsignedBigInteger('client_id');

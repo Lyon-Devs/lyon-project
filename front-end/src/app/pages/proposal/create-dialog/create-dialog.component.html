@@ -49,7 +49,7 @@
                 <div class="two-col">
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Tipo de serviço</mat-label>
-                        <mat-select formControlName="acting_branch_id" required>
+                        <mat-select formControlName="type_service_id" required>
                             <mat-option>None</mat-option>
                             <mat-option [value]="type.id" *ngFor="let type of types">
                                 {{type.unity_business}}

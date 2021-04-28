@@ -14,4 +14,5 @@ export interface Proposal {
     number_client_request: string;
     months_exec: number;
     place_to_deploys_services: string;
+    type_service_id: number;
 }
