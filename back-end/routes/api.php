@@ -16,6 +16,8 @@ use App\Models\Proposal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,10 +30,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('test', function () {
     $proposalCommittee1 = Proposal::where('status', 'committee_1')->get();
-    $emails = $proposalCommittee1[0]->typeService->emails;
-    Mail::to($emails)->send(new ProposalCommittee1());
+    foreach ($proposalCommittee1 as $proposal) {
+        $emails = $proposal->typeService->emails;
+        $pdf = PDF::loadView('reports.proposal', ['proposal' => $proposal]);
+        $fileName = $proposal->cod_lyon . '.pdf';
+        Storage::disk('private')->put($fileName, $pdf->output());
+        $file = storage_path('app/private/' . $fileName);
+        Mail::to($emails)->send(new ProposalCommittee1($proposal, $file));
+    }
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

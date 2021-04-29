@@ -1,12 +1,8 @@
 @component('mail::message')
-# Introduction
+Olá,
 
-The body of your message.
+Segue documentação para aprovação de proposta
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
-
-Thanks,<br>
-{{ config('app.name') }}
+Att,<br>
+SGP LYON
 @endcomponent
