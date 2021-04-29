@@ -20,3 +20,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+back-end/package-lock.json
+back-end/public/js/app.js
+back-end/package-lock.json
+back-end/public/js/app.js

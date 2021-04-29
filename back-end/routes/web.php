@@ -1,6 +1,8 @@
 <?php
 
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('reports.proposal');
+    $pdf = PDF::loadView('reports.proposal');
+    Storage::put('test.pdf', $pdf->output());
+    // return $pdf->stream();
+    // return $pdf->download('invoice.pdf');
 })->name('password.reset');
