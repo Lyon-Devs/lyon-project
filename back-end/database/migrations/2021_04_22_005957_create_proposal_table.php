@@ -41,7 +41,7 @@ class CreateProposalTable extends Migration
             $table->time('time_technique_visit')->nullable();
             $table->enum('status', [
                 'committee_1', 'committee_2', 'draft',
-                'lost', 'canceled', 'finished', 'winner'
+                'lost', 'canceled', 'winner'
             ])->default('draft');
             $table->softDeletes();
             $table->timestamps();

@@ -19,7 +19,7 @@ class ProposalRevision extends Migration
             $table->string('number_revision');
             $table->date('data_committee');
             $table->enum('type_price', ['global', 'unity', 'menu']);
-            $table->float('medium_histogram');
+            $table->float('medium_histogram')->nullable();
             $table->float('global_price');
             $table->float('gross_margin');
             $table->float('bdi');

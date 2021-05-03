@@ -1,7 +1,9 @@
-<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} proposta {{ data?.cod_lyon}} <button mat-icon-button
+<h1 mat-dialog-title>{{this.createForm ? 'Nova' : 'Atualizar'}} proposta {{ data?.cod_lyon}} 
+    <button mat-icon-button
         [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>more_vert</mat-icon>
-    </button></h1>
+    </button>
+</h1>
 
 <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="createClient()">
@@ -56,6 +58,19 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Data confirm. participação</mat-label>
+                        <input matInput [matDatepicker]="dateCon" formControlName="deadline_date_confirme">
+                        <mat-datepicker-toggle matSuffix [for]="dateCon"></mat-datepicker-toggle>
+                        <mat-datepicker #dateCon></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+                <div class="two-col">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Hora</mat-label>
+                        <input matInput type="text" mask="99:99" formControlName="deadline_time_confirme">
+                    </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth *ngIf="!createForm">
                         <mat-label>Status</mat-label>
                         <mat-select formControlName="status">
@@ -64,9 +79,7 @@
                             <mat-option value="lost">Perdido</mat-option>
                             <mat-option value="draft">Rascunho</mat-option>
                             <mat-option value="canceled">Cancelado</mat-option>
-                            <mat-option value="finished">Finalizado</mat-option>
                             <mat-option value="winner">Ganho</mat-option>
-
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -86,17 +99,39 @@
                     <mat-datepicker #pickerTec></mat-datepicker>
                 </mat-form-field>
                 <ng-template matStepLabel>Responsável aréa Técnica</ng-template>
-                <!-- <mat-checkbox class="example-margin" *ngFor="let user of this.userListTec"></mat-checkbox> -->
-                <div class="list-users" *ngIf="dateTec.value">
-                    <div class="title"> Usuários</div>
-                    <ul>
-                        <li *ngFor="let user of this.userListTec">
-                            <mat-checkbox [checked]="hasUserTec(user)" (change)="addOrRemoveTec($event, user)">
-                                {{user.name}}
-                            </mat-checkbox>
-                        </li>
-                    </ul>
-                </div>
+                <ng-template [ngIf]="dateTec.value">
+                    <div class="list-users" *ngIf="dateTec.value">
+                        <div class="title"> Responsáveis</div>
+                        <ul>
+                            <li *ngFor="let user of this.userListTec">
+                                <mat-checkbox [checked]="hasUserTec(user)" (change)="addOrRemoveTec($event, user)">
+                                    {{user.name}}
+                                </mat-checkbox>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="two-col">
+                        <mat-form-field appearance="outline" fullWidth>
+                            <mat-label>Data visita técnica</mat-label>
+                            <input #dateTecVis matInput [matDatepicker]="dateTechniqueVisit"
+                                formControlName="date_technique_visit">
+                            <mat-datepicker-toggle matSuffix [for]="dateTechniqueVisit"></mat-datepicker-toggle>
+                            <mat-datepicker #dateTechniqueVisit></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fullWidth>
+                            <mat-label>Hora</mat-label>
+                            <input matInput type="text" required mask="99:99" formControlName="time_technique_visit">
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Local visita técnica</mat-label>
+                        <input matInput type="text" formControlName="local_technique_visit">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Detalhes visita técnica</mat-label>
+                        <textarea matInput rows="5" formControlName="details_technique_visit"></textarea>
+                    </mat-form-field>
+                </ng-template>
                 <div>
                     <button mat-button matStepperPrevious>Voltar</button>
                     <button mat-button matStepperNext>Próximo</button>
@@ -172,28 +207,7 @@
                         <input matInput required formControlName="place_to_deploys_services">
                     </mat-form-field>
                 </div>
-                <div class="two-col">
-                    <mat-form-field appearance="outline" fullWidth>
-                        <mat-label>Data visita técnica</mat-label>
-                        <input #dateTecVis matInput [matDatepicker]="dateTechniqueVisit"
-                            formControlName="date_technique_visit">
-                        <mat-datepicker-toggle matSuffix [for]="dateTechniqueVisit"></mat-datepicker-toggle>
-                        <mat-datepicker #dateTechniqueVisit></mat-datepicker>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" fullWidth *ngIf="dateTecVis.value">
-                        <mat-label>Hora</mat-label>
-                        <input matInput type="text" required mask="99:99" formControlName="time_technique_visit">
-                    </mat-form-field>
 
-                </div>
-                <mat-form-field appearance="outline" fullWidth *ngIf="dateTecVis.value">
-                    <mat-label>Local visita técnica</mat-label>
-                    <input matInput type="text" formControlName="local_technique_visit">
-                </mat-form-field>
-                <mat-form-field appearance="outline" fullWidth *ngIf="dateTecVis.value">
-                    <mat-label>Detalhes visita técnica</mat-label>
-                    <textarea matInput rows="5" formControlName="details_technique_visit"></textarea>
-                </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Voltar</button>
                     <button mat-button matStepperNext>Próximo</button>
@@ -203,18 +217,6 @@
         <mat-step [stepControl]="formDeploy">
             <form [formGroup]="formDeploy">
                 <ng-template matStepLabel>Prestação de serviço</ng-template>
-                <div class="two-col">
-                    <mat-form-field appearance="outline" fullWidth>
-                        <mat-label>Data confirm. participação</mat-label>
-                        <input matInput [matDatepicker]="dateCon" formControlName="deadline_date_confirme">
-                        <mat-datepicker-toggle matSuffix [for]="dateCon"></mat-datepicker-toggle>
-                        <mat-datepicker #dateCon></mat-datepicker>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" fullWidth>
-                        <mat-label>Hora</mat-label>
-                        <input matInput type="text" mask="99:99" formControlName="deadline_time_confirme">
-                    </mat-form-field>
-                </div>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Histograma Médio</mat-label>
                     <input matInput required formControlName="medium_histogram">

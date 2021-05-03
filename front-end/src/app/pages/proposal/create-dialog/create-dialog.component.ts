@@ -67,9 +67,15 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       type_service_id: [this.data?.type_service_id || '', Validators.required],
       number_client_request: [this?.data?.number_client_request || '', Validators.required],
       status: [this?.data?.status || ''],
+      deadline_date_confirme: [this?.data?.deadline_date_confirme || '', Validators.required],
+      deadline_time_confirme: [this?.data?.deadline_time_confirme || '', Validators.required],
     });
     this.formTec = this.fb.group({
       date_delivery_technique_proposal: [this?.data?.date_delivery_technique_proposal || ''],
+      date_technique_visit: [this?.data?.date_technique_visit || ''],
+      time_technique_visit: [this?.data?.time_technique_visit || ''],
+      local_technique_visit: [this?.data?.local_technique_visit || ''],
+      details_technique_visit: [this?.data?.local_technique_visit || ''],
     });
     this.formCom = this.fb.group({
       date_delivery_comercial_proposal: [this?.data?.date_delivery_comercial_proposal || ''],
@@ -84,14 +90,8 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.formExe = this.fb.group({
       place_to_deploys_services: [this?.data?.place_to_deploys_services || '', Validators.required],
       months_exec: [this?.data?.months_exec || '', Validators.required],
-      date_technique_visit: [this?.data?.date_technique_visit || ''],
-      time_technique_visit: [this?.data?.time_technique_visit || ''],
-      local_technique_visit: [this?.data?.local_technique_visit || ''],
-      details_technique_visit: [this?.data?.local_technique_visit || ''],
     });
     this.formDeploy = this.fb.group({
-      deadline_date_confirme: [this?.data?.deadline_date_confirme || '', Validators.required],
-      deadline_time_confirme: [this?.data?.deadline_time_confirme || '', Validators.required],
       medium_histogram: [this?.data?.medium_histogram || '', Validators.required],
       observations: [this?.data?.observations || ''],
 

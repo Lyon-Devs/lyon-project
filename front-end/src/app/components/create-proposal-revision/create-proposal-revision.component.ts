@@ -14,6 +14,7 @@ export class CreateProposalRevisionComponent implements OnInit {
   public createForm: boolean;
   public passMsg: string;
   public formType: FormGroup;
+  private disableMediumHistogram: boolean;
   constructor(
     public fb: FormBuilder,
     public dialogRef: MatDialogRef<CreateProposalRevisionComponent>,
@@ -28,7 +29,7 @@ export class CreateProposalRevisionComponent implements OnInit {
       number_revision: [this.data?.number_revision || '', Validators.required],
       data_committee: [this.data?.data_committee || '', Validators.required],
       type_price: [this.data?.type_price || '', Validators.required],
-      medium_histogram: [this.data?.medium_histogram || '', Validators.required],
+      medium_histogram: [{ value: this.data?.medium_histogram || ''}],
       global_price: [this.data?.global_price || '', Validators.required],
       gross_margin: [this.data?.gross_margin || '', Validators.required],
       bdi: [this.data?.bdi || '', Validators.required],
@@ -37,6 +38,14 @@ export class CreateProposalRevisionComponent implements OnInit {
       type_warning: [this.data?.type_warning || '', Validators.required],
       risks: [this.data?.risks || '', Validators.required],
       financial_taxis: [this.data?.financial_taxis || '', Validators.required],
+    });
+    this.formType.controls.type_price.valueChanges.subscribe(value => {
+      if (value === 'menu') {
+        this.formType.controls.medium_histogram.disable({ emitEvent: true });
+        this.formType.controls.medium_histogram.setValue(null);
+      } else {
+        this.formType.controls.medium_histogram.enable({ emitEvent: false });
+      }
 
     });
   }
@@ -49,9 +58,8 @@ export class CreateProposalRevisionComponent implements OnInit {
     form.proposal_id = this.data.proposal_id;
     if (this.createForm) {
       this.proposalRevisionService.create(form).subscribe(user => {
-        console.log(user);
         this.dialogRef.close('created');
-        this.snackBar.open('Revisão criado com sucesso');
+        this.snackBar.open('Revisão criada com sucesso');
       });
     } else {
       form.id = this.data.id;

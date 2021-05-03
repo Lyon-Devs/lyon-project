@@ -42,6 +42,9 @@ class ProposalRevisionController extends Controller
         ]);
         $proposalRevision->fill($request->all());
         $proposalRevision->save();
+        $proposal = $proposalRevision->proposal;
+        $proposal->status = 'committee_2';
+        $proposal->save();
         return $proposalRevision;
     }
 

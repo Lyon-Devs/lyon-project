@@ -26,8 +26,8 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
   paginateItems: Paginate<Proposal>;
   displayedColumns: string[] = [
     'cod_lyon', 'client_id', 'type_service_id',
-    'status', 'deadline_date_confirme',
-    'summary_scope', 'months_exec', 'actions'
+    'status', 'deadline_date_confirme', 'date_delivery_technique_proposal',
+    'date_delivery_comercial_proposal', 'summary_scope', 'months_exec', 'actions'
   ];
   pageEvent: PageEvent;
 
@@ -88,7 +88,6 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
       lost: 'Perdido',
       draft: 'Rascunho',
       canceled: 'Cancelado',
-      finished: 'Finalizado',
       winner: 'Ganho'
 
     };
