@@ -7,6 +7,24 @@
             </button>
         </div>
     </div>
+
+    <div class="filter">
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>Cod. Lyon</mat-label>
+            <input matInput type="text" [formControl]=codLyonFc>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>Status</mat-label>
+            <mat-select multiple [formControl]=statusFc>
+                <mat-option value="committee_1">Comitê 1</mat-option>
+                <mat-option value="committee_2">Comitê 2</mat-option>
+                <mat-option value="lost">Perdido</mat-option>
+                <mat-option value="draft">Rascunho</mat-option>
+                <mat-option value="canceled">Cancelado</mat-option>
+                <mat-option value="winner">Ganho</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <table mat-table [dataSource]="paginateItems?.data">
         <ng-container matColumnDef="cod_lyon">
             <th mat-header-cell *matHeaderCellDef> Cod  </th>

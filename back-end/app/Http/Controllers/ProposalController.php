@@ -6,6 +6,8 @@ use App\Models\Proposal;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ProposalController extends Controller
 {
@@ -16,10 +18,16 @@ class ProposalController extends Controller
      */
     public function index(Request $request): Paginator
     {
+
         $paginate = $request->has('per_page') ? $request->per_page : 20;
-        return Proposal::with([
-            'client', 'typeService', 'users'
-        ])->paginate($paginate);
+        return QueryBuilder::for(Proposal::class)
+            ->allowedFilters([
+                AllowedFilter::exact('status'),
+                AllowedFilter::partial('cod_lyon'),
+            ])
+            ->with([
+                'client', 'typeService', 'users'
+            ])->paginate($paginate);
     }
 
     public function allItens()

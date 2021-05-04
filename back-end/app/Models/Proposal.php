@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -61,4 +62,10 @@ class Proposal extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    // public function scopeStatus(Builder $query, $status): Builder
+    // {
+    //     dd($status);
+    //     return $query->whereIn('status', $status);
+    // }
 }

@@ -9,6 +9,9 @@ import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { ProposalService } from '../../services/proposal/proposal.service';
 import { PaginateService } from '@services/paginate/paginate.service';
 import { ConfirmComponent } from '../../components/confirm/confirm.component';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FilterQuery } from '../../models/filter-query.model';
 
 @Component({
   selector: 'app-proposal',
@@ -23,13 +26,16 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
     private proposalService: ProposalService,
     private paginateService: PaginateService<Proposal>,
   ) { }
-  paginateItems: Paginate<Proposal>;
-  displayedColumns: string[] = [
+  public paginateItems: Paginate<Proposal>;
+  public displayedColumns: string[] = [
     'cod_lyon', 'client_id', 'type_service_id',
     'status', 'deadline_date_confirme', 'date_delivery_technique_proposal',
     'date_delivery_comercial_proposal', 'summary_scope', 'months_exec', 'actions'
   ];
-  pageEvent: PageEvent;
+  public pageEvent: PageEvent;
+  public filter: FilterQuery[] = [];
+  public codLyonFc: FormControl;
+  public statusFc: FormControl;
 
   handlePageEvent(event: PageEvent = this.pageEvent): void {
     this.pageEvent = event;
@@ -58,7 +64,6 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
       if (event) {
         this.proposalService.delete(item).subscribe(resUser => {
           this.paginateItems = this.paginateService.removeItem(item, this.paginateItems);
-          console.log('item', item)
           this.snackBar.open(`Proposta ${item.cod_lyon} removida!`);
         });
       }
@@ -74,8 +79,8 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
       this.handlePageEvent();
     });
   }
-  getPage(page: number = 0, perPage: number = 10): void {
-    this.proposalService.list(page, perPage).subscribe(paginate => {
+  getPage(page: number = 0, perPage: number = 10, filter: FilterQuery[] = this.filter): void {
+    this.proposalService.list(page, perPage, filter).subscribe(paginate => {
       this.paginateItems = paginate;
     });
   }
@@ -96,7 +101,47 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
   }
 
   ngOnInit(): void {
-    this.getPage();
+    this.codLyonFc = new FormControl();
+    this.statusFc = new FormControl(['committee_1', 'committee_2', 'draft']);
+    this.codLyonFc.valueChanges
+      .pipe(
+        debounceTime(600),
+        distinctUntilChanged()
+      )
+      .subscribe(res => {
+        this.addFilter('cod_lyon', res);
+        this.getPage(0, 10, this.filter);
+      });
+
+    this.statusFc.valueChanges
+      .pipe(
+        debounceTime(600),
+        distinctUntilChanged()
+      )
+      .subscribe(res => {
+        this.addFilter('status', res);
+        this.getPage(0, 10, this.filter);
+      });
+    this.addFilter('status', this.statusFc.value);
+    this.getPage(0, 10, this.filter);
+  }
+  private addFilter(filter: string, value: any): void {
+    if (this.filter.some(filterEl => filterEl.filter === filter)) {
+      this.filter.map(filterEl => {
+        if (filterEl.filter === filter) {
+          filterEl.value = value;
+        }
+        return filterEl;
+      });
+    } else {
+      this.filter.push({
+        filter,
+        value
+      });
+    }
+  }
+  public searchCod(event): void {
+    console.log(event);
   }
 
 }
