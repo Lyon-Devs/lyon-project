@@ -66,9 +66,4 @@ class Proposal extends Model
     {
         return $this->hasMany(ProposalFiles::class);
     }
-    // public function scopeStatus(Builder $query, $status): Builder
-    // {
-    //     dd($status);
-    //     return $query->whereIn('status', $status);
-    // }
 }
