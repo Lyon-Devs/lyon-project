@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Contract;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ContractController extends Controller
 {
@@ -16,7 +18,13 @@ class ContractController extends Controller
     public function index(Request $request): Paginator
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
-        return Contract::with(['proposal'])->paginate($paginate);
+        return QueryBuilder::for(Contract::class)
+            ->allowedFilters([
+                AllowedFilter::partial('center_of_cost'),
+                AllowedFilter::scope('active'),
+                AllowedFilter::scope('client')
+            ])
+            ->with(['proposal'])->paginate($paginate);
     }
     /**
      * Store a newly created resource in storage.

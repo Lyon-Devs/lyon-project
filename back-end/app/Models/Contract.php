@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,7 +37,6 @@ class Contract extends Model
     {
         return $this->belongsTo(Proposal::class);
     }
-
     public function additives()
     {
         return $this->hasMany(ContractAdditive::class);
@@ -43,5 +44,20 @@ class Contract extends Model
     public function renegotiation()
     {
         return $this->hasMany(ContractRenegotiation::class);
+    }
+    public function scopeClient($query, $client)
+    {
+        return $query->whereHas('proposal', function (Builder $query) use ($client) {
+            return $query->whereHas('client', function (Builder $query) use ($client) {
+                return $query->where('id', $client);
+            });
+        });
+    }
+
+    public function scopeActive($query, $active)
+    {
+        if ($active) {
+            return $query->where('date_end', '>=', new Carbon());
+        }
     }
 }

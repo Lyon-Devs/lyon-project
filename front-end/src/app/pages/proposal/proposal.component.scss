@@ -1,1 +1,7 @@
-@import 'src/assets/scss/default_crud.scss'
+@import 'src/assets/scss/default_crud.scss';
+.filter {
+    * {
+      margin-left: 5px;
+    }
+  }
+  

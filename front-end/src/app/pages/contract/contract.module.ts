@@ -9,13 +9,16 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DetailComponent } from './detail/detail.component';
 import { MatListModule } from '@angular/material/list';
 import { ContractRenegotiationComponent } from './contract-renegotiation/contract-renegotiation.component';
 import { ContractAdditiveComponent } from './contract-additive/contract-additive.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -29,11 +32,16 @@ import { ContractAdditiveComponent } from './contract-additive/contract-additive
     MatTableModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
     MaterialFileInputModule,
     ReactiveFormsModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatListModule
+    MatListModule,
+    MatSlideToggleModule
+
   ]
 })
 export class ContractModule { }

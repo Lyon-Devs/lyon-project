@@ -7,41 +7,56 @@
             </button>
         </div>
     </div>
+    <div class="filter">
+        <mat-form-field appearance="outline">
+            <mat-label>Centro de custo</mat-label>
+            <input matInput [formControl]="centerOfCostFc">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Cliente</mat-label>
+            <mat-select [formControl]="clientFc">
+                <mat-option>None</mat-option>
+                <mat-option [value]="client.id" *ngFor="let client of clients">{{client.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-slide-toggle [formControl]="activesFc">Ativos</mat-slide-toggle>
+       
+    </div>
     <table mat-table [dataSource]="paginateItems?.data">
         <ng-container matColumnDef="center_of_cost">
-            <th mat-header-cell *matHeaderCellDef> Centro de custo  </th>
+            <th mat-header-cell *matHeaderCellDef> Centro de custo </th>
             <td mat-cell *matCellDef="let element"> {{element.center_of_cost}} </td>
         </ng-container>
         <ng-container matColumnDef="contract_number">
-            <th mat-header-cell *matHeaderCellDef> Nº contrato  </th>
+            <th mat-header-cell *matHeaderCellDef> Nº contrato </th>
             <td mat-cell *matCellDef="let element"> {{element.contract_number}} </td>
         </ng-container>
         <ng-container matColumnDef="purchase_order">
-            <th mat-header-cell *matHeaderCellDef> Ordem de compra   </th>
+            <th mat-header-cell *matHeaderCellDef> Ordem de compra </th>
             <td mat-cell *matCellDef="let element"> {{element.purchase_order}} </td>
         </ng-container>
         <ng-container matColumnDef="manager_lyon">
-            <th mat-header-cell *matHeaderCellDef> Gerente Lyon  </th>
+            <th mat-header-cell *matHeaderCellDef> Gerente Lyon </th>
             <td mat-cell *matCellDef="let element"> {{element.manager_lyon}} </td>
         </ng-container>
         <ng-container matColumnDef="manager_client">
-            <th mat-header-cell *matHeaderCellDef> Gerente Client   </th>
+            <th mat-header-cell *matHeaderCellDef> Gerente Client </th>
             <td mat-cell *matCellDef="let element"> {{element.manager_lyon}} </td>
         </ng-container>
         <ng-container matColumnDef="date_start">
-            <th mat-header-cell *matHeaderCellDef> Data início    </th>
+            <th mat-header-cell *matHeaderCellDef> Data início </th>
             <td mat-cell *matCellDef="let element"> {{element.date_start | date: 'dd/MM/y' : 'z'}} </td>
         </ng-container>
         <ng-container matColumnDef="date_end">
-            <th mat-header-cell *matHeaderCellDef> Data fim    </th>
+            <th mat-header-cell *matHeaderCellDef> Data fim </th>
             <td mat-cell *matCellDef="let element"> {{element.date_end | date: 'dd/MM/y' : 'z'}} </td>
         </ng-container>
         <ng-container matColumnDef="readjustment_base_date">
-            <th mat-header-cell *matHeaderCellDef> Data base reajuste    </th>
-            <td mat-cell *matCellDef="let element"> {{element.readjustment_base_date  | date: 'dd/MM/y' : 'z'}} </td>
+            <th mat-header-cell *matHeaderCellDef> Data base reajuste </th>
+            <td mat-cell *matCellDef="let element"> {{element.readjustment_base_date | date: 'dd/MM/y' : 'z'}} </td>
         </ng-container>
         <ng-container matColumnDef="proposal">
-            <th mat-header-cell *matHeaderCellDef> Proposta   </th>
+            <th mat-header-cell *matHeaderCellDef> Proposta </th>
             <td mat-cell *matCellDef="let element"> {{element.proposal.cod_lyon}} </td>
         </ng-container>
         <ng-container matColumnDef="actions">
@@ -61,6 +76,6 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="paginateItems?.total" [pageSize]="paginateItems?.per_page"
-        [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="paginateItems?.total"
+        [pageSize]="paginateItems?.per_page" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

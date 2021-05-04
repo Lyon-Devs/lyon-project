@@ -9,6 +9,12 @@ import { ContractService } from '../../services/contract/contract.service';
 import { PaginateService } from '@services/paginate/paginate.service';
 import { CreateContractComponent } from '@components/create-contract/create-contract.component';
 import { ConfirmComponent } from '@components/confirm/confirm.component';
+import { ClientsService } from '../../services/clients/clients.service';
+import { Clients } from '../../models/clients.model';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FilterQuery } from '../../models/filter-query.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-contract',
@@ -21,7 +27,9 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private contractService: ContractService,
+    private clientService: ClientsService,
     private paginateService: PaginateService<Contract>,
+
   ) { }
   public paginateItems: Paginate<Contract>;
   public displayedColumns: string[] = [
@@ -31,7 +39,12 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
     'readjustment_base_date', 'actions'
   ];
   public pageEvent: PageEvent;
-  handlePageEvent(event: PageEvent  = this.pageEvent): void {
+  public clients: Clients[];
+  public clientFc: FormControl;
+  public centerOfCostFc: FormControl;
+  public activesFc: FormControl;
+  public filter: FilterQuery[] = [];
+  handlePageEvent(event: PageEvent = this.pageEvent): void {
     this.pageEvent = event;
     this.getPage(event?.pageIndex + 1, event?.pageSize);
   }
@@ -73,14 +86,56 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
       this.handlePageEvent();
     });
   }
-  public getPage(page: number = 0, perPage: number = 10): void {
-    this.contractService.list(page, perPage).subscribe(paginate => {
+  public getPage(page: number = 0, perPage: number = 10, filter: FilterQuery[] = this.filter): void {
+    this.contractService.list(page, perPage, filter).subscribe(paginate => {
       this.paginateItems = paginate;
     });
   }
 
   ngOnInit(): void {
+    this.clientFc = new FormControl();
+    this.centerOfCostFc = new FormControl();
+    this.activesFc = new FormControl(true);
+    this.clientFc.valueChanges
+      .subscribe(res => {
+        this.addFilter('client', res);
+        this.getPage(0, 10, this.filter);
+      });
+
+    this.activesFc.valueChanges
+      .subscribe(res => {
+        this.addFilter('active', res);
+        this.getPage(0, 10, this.filter);
+      });
+    this.centerOfCostFc.valueChanges
+      .pipe(
+        debounceTime(600),
+        distinctUntilChanged()
+      )
+      .subscribe(res => {
+        this.addFilter('center_of_cost', res);
+        this.getPage(0, 10, this.filter);
+      });
+    this.addFilter('active', true);
     this.getPage();
+    this.clientService.all().subscribe(clients => {
+      this.clients = clients;
+    });
+  }
+  private addFilter(filter: string, value: any): void {
+    if (this.filter.some(filterEl => filterEl.filter === filter)) {
+      this.filter.map(filterEl => {
+        if (filterEl.filter === filter) {
+          filterEl.value = value;
+        }
+        return filterEl;
+      });
+    } else {
+      this.filter.push({
+        filter,
+        value
+      });
+    }
   }
 
 }
