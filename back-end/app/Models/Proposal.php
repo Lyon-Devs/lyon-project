@@ -62,7 +62,10 @@ class Proposal extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
+    public function files()
+    {
+        return $this->hasMany(ProposalFiles::class);
+    }
     // public function scopeStatus(Builder $query, $status): Builder
     // {
     //     dd($status);

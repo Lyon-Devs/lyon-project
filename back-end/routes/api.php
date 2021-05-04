@@ -10,6 +10,7 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\ContractRenegotiationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\ProposalFilesController;
 use App\Http\Controllers\ProposalRevisionController;
 use App\Mail\ProposalCommittee1;
 use App\Models\Proposal;
@@ -65,9 +66,15 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
     ])->parameters([
         'branch' => 'actingBranch'
     ]);
+    Route::resource('proposal.files', ProposalFilesController::class)->except(['edit'])
+        ->parameters([
+            'proposal' => 'proposal',
+            'files' => 'proposalFiles'
+        ]);
     Route::resource('proposal/revision', ProposalRevisionController::class)->except(['edit'])->parameters([
         'revision' => 'proposalRevision'
     ]);
+
 
     Route::get('proposal/all', [ProposalController::class, 'allItens'])->name('proposal.all');
 

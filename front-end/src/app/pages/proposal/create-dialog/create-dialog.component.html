@@ -1,6 +1,5 @@
-<h1 mat-dialog-title>{{this.createForm ? 'Nova' : 'Atualizar'}} proposta {{ data?.cod_lyon}} 
-    <button mat-icon-button
-        [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+<h1 mat-dialog-title>{{this.createForm ? 'Nova' : 'Atualizar'}} proposta {{ data?.cod_lyon}}
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>more_vert</mat-icon>
     </button>
 </h1>
@@ -223,8 +222,22 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Anexos</mat-label>
-                    <ngx-mat-file-input multiple (change)="uploadDocument($event)"></ngx-mat-file-input>
+                    <ngx-mat-file-input multiple (change)="selectDocumentToUpload($event)"></ngx-mat-file-input>
                 </mat-form-field>
+                <mat-list>
+                    <mat-list-item *ngFor="let file of data?.files">
+                        <mat-icon mat-list-icon>article</mat-icon>
+                        <div mat-line> {{file.name}} </div>
+                        <div mat-line> {{file.updated_at | date: 'dd/MM/y' : 'z'}} </div>
+                        <div>
+                            <button mat-button (click)="deleteFile(file)">
+                                <mat-icon mat-list-icon>delete</mat-icon>
+                            </button>
+                        </div>
+
+
+                    </mat-list-item>
+                </mat-list>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Considerações finais</mat-label>
                     <textarea matInput formControlName="observations"></textarea>

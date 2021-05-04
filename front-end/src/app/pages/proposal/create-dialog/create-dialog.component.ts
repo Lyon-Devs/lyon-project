@@ -15,6 +15,9 @@ import { Clients } from '@models/clients.model';
 import { TypeServices as Type } from '@models/type-service';
 import { CreateDialogComponent as CreateDialogClientComponent } from '../../admin/client/create-dialog/create-dialog.component';
 import { CreateDialogComponent as CreateDialogBuyerComponent } from '../../admin/buyer/create-dialog/create-dialog.component';
+import { ProposalFilesService } from '../../../services/proposal-files/proposal-files.service';
+import { ProposalFiles } from '@models/proposal-files.model';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -52,6 +55,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     private typeService: TypeServices,
     private proposalServices: ProposalService,
     private cdr: ChangeDetectorRef,
+    private proposalFilesService: ProposalFilesService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
   ngAfterViewChecked(): void {
@@ -60,6 +64,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     // this.selectedUserTec = this.data.users
     this.createForm = this.data?.id ? false : true;
+    this.proposalFilesService.setContract(this.data?.id);
     this.formBasic = this.fb.group({
       client_id: [this.data?.client?.id || '', Validators.required],
       buyer_id: [this.data?.buyer_id || '', Validators.required],
@@ -150,28 +155,10 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       }
     });
   }
-
   public onNoClick(): void {
     this.dialogRef.close();
   }
   public onSubmit(): void {
-    // console.log('this.formBasic', this.formBasic);
-    // console.log('this.formTec', this.formTec);
-    // console.log('this.formCom', this.formCom);
-    // console.log('this.formSummaryScope', this.formSummaryScope);
-    // console.log('this.formScope', this.formScope);
-    // console.log('this.formExe', this.formExe);
-    // console.log('this.formDeploy', this.formDeploy);
-
-
-    // console.log('\n\n\n');
-    // console.log('this.formBasic', this.formBasic.value);
-    // console.log('this.formTec', this.formTec.value);
-    // console.log('this.formCom', this.formCom.value);
-    // console.log('this.formSummaryScope', this.formSummaryScope.value);
-    // console.log('this.formScope', this.formScope.value);
-    // console.log('this.formExe', this.formExe.value);
-    // console.log('this.formDeploy', this.formDeploy.value);
     const form = {
       ...this.formBasic.value,
       ...this.formTec.value,
@@ -198,7 +185,6 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     } else {
       form.deadline_time_confirme = form.deadline_time_confirme?.replaceAll(':', '');
     }
-
     // clean properties
     Object.keys(form).forEach((k) => {
       if (form[k] == null || form[k] === '') {
@@ -213,23 +199,44 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     });
     if (this.createForm) {
       this.proposalServices.create(form).subscribe(res => {
-        this.dialogRef.close('created');
-        this.snackBar.open('Proposta criada com sucesso');
+        if (this.filesToUpload.length) {
+          this.proposalFilesService.setContract(res.id);
+          this.uploadDocument().subscribe(() => {
+            this.dialogRef.close('created');
+            this.snackBar.open('Proposta criada com sucesso');
+          }, error => this.traitError(error) );
+        } else {
+          this.dialogRef.close('created');
+          this.snackBar.open('Proposta criada com sucesso');
+        }
       });
     } else {
       form.id = this.data.id;
       this.proposalServices.update(form).subscribe(res => {
-        this.dialogRef.close('updated');
-        this.snackBar.open('Proposta atualizada com sucesso');
+        if (this.filesToUpload.length) {
+          this.uploadDocument().subscribe(() => {
+            this.dialogRef.close('created');
+            this.snackBar.open('Proposta criada com sucesso');
+          } , error => this.traitError(error) );
+        } else {
+          this.dialogRef.close('updated');
+          this.snackBar.open('Proposta atualizada com sucesso');
+        }
       });
+
     }
-
-
-    // console.log('this.filesToUpload', this.filesToUpload);
-
   }
-  public uploadDocument(event): void {
+  public selectDocumentToUpload(event): void {
     this.filesToUpload = event.target.files;
+  }
+
+  private uploadDocument(): Observable<ProposalFiles> {
+    // this.filesToUpload = event.target.files;
+    const form = new FormData();
+    for (const file of this.filesToUpload) {
+      form.append(file.name, file);
+    }
+    return this.proposalFilesService.create(form);
   }
   public hasUserTec(hasUser: User): boolean {
     return this.selectedUserTec?.filter(user => user.id === hasUser.id).length ? true : false;
@@ -237,6 +244,13 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
   public hasUserCom(hasUser: User): boolean {
     return this.selectedUserCom?.filter(user => user.id === hasUser.id).length ? true : false;
+  }
+
+  public deleteFile(file: ProposalFiles): void {
+    this.proposalFilesService.delete(file).subscribe(res => {
+      // console.log('res', res);
+      this.snackBar.open('Arquivo removido com sucesso');
+    }, error => this.traitError(error) );
   }
   private getBuyer(): void {
     this.buyerService.all().subscribe(buyers => {
@@ -250,6 +264,11 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
   }
   private filterRole(user: any, roleSlug: string): any {
     return user.roles.filter(role => role.slug === roleSlug).length > 0;
+  }
+
+  private traitError(error): void {
+    const msg =  error?.error?.message || error?.statusText || 'Aconteceu algum error no servidor tente de novo.';
+    this.snackBar.open(msg, 'ok');
   }
 
 }

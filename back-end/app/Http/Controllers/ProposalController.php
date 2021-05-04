@@ -26,7 +26,7 @@ class ProposalController extends Controller
                 AllowedFilter::partial('cod_lyon'),
             ])
             ->with([
-                'client', 'typeService', 'users'
+                'client', 'typeService', 'users', 'files'
             ])->paginate($paginate);
     }
 
