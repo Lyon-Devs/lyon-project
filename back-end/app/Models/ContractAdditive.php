@@ -11,7 +11,8 @@ class ContractAdditive extends Model
 
     protected $dates = [
         'date_end',
-        'date_start'
+        'date_start',
+        'deadline'
     ];
     protected $fillable = [
         'number_additive',
@@ -19,6 +20,7 @@ class ContractAdditive extends Model
         'date_start',
         'date_end',
         'value',
-        'description'
+        'description',
+        'deadline'
     ];
 }

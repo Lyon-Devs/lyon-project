@@ -19,7 +19,8 @@ class CreateContractAdditivesTable extends Migration
             $table->enum('type', ['deadline', 'value', 'deadline_value', 'others']);
             $table->date('date_start');
             $table->date('date_end');
-            $table->float('value');
+            $table->float('value')->nullable();
+            $table->date('deadline')->nullable();
             $table->mediumText('description');
             $table->unsignedBigInteger('contract_id');
             $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('cascade');

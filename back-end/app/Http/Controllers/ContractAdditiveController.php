@@ -44,7 +44,6 @@ class ContractAdditiveController extends Controller
             'type' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
-            'value' => 'required',
             'description' => 'required',
             'contract_id' => 'required|exists:contracts,id'
         ]);
@@ -79,7 +78,6 @@ class ContractAdditiveController extends Controller
             'type' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
-            'value' => 'required',
             'description' => 'required',
             'contract_id' => 'required|exists:contracts,id'
         ]);

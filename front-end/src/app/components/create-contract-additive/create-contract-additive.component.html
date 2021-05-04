@@ -5,19 +5,27 @@
             <mat-label>Nº do aditivo</mat-label>
             <input matInput required formControlName="number_additive">
         </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Tipo de aditivo</mat-label>
+            <mat-select formControlName="type" #typeadditives>
+                <mat-option value="deadline">Prazo</mat-option>
+                <mat-option value="value">Valor</mat-option>
+                <mat-option value="deadline_value">Prazo e valor</mat-option>
+                <mat-option value="others">Outros</mat-option>
+            </mat-select>
+        </mat-form-field>
         <div class="two-col">
-            <mat-form-field appearance="outline">
-                <mat-label>Tipo de aditivo</mat-label>
-                <mat-select formControlName="type">
-                    <mat-option value="deadline">Prazo</mat-option>
-                    <mat-option value="value">Valor</mat-option>
-                    <mat-option value="deadline_value">Prazo e valor</mat-option>
-                    <mat-option value="others">Outros</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline" fullWidth>
+            <mat-form-field appearance="outline" fullWidth
+                *ngIf="typeadditives.value === 'value' || typeadditives.value === 'deadline_value'  ">
                 <mat-label>Valor do aditivo</mat-label>
                 <input matInput type="number" step="0.01" required formControlName="value">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fullWidth
+                *ngIf="typeadditives.value === 'deadline' || typeadditives.value === 'deadline_value'  ">
+                <mat-label>Prazo</mat-label>
+                <input matInput [matDatepicker]="pickerDate" formControlName="deadline">
+                <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
+                <mat-datepicker #pickerDate></mat-datepicker>
             </mat-form-field>
         </div>
 

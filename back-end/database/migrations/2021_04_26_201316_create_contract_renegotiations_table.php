@@ -18,7 +18,7 @@ class CreateContractRenegotiationsTable extends Migration
             $table->string('number_renegotiation');
             $table->string('year');
             $table->date('purchasing_period');
-            $table->enum('readjustment_base', ['parametric_formula', 'financial_index']);
+            $table->enum('readjustment_base', ['parametric_formula', 'financial_index', 'inpc']);
             $table->float('required');
             $table->float('approved');
             $table->unsignedBigInteger('contract_id');
