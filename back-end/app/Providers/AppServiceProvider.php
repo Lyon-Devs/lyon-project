@@ -7,6 +7,7 @@ use App\Models\Proposal;
 use App\Observers\ClientObserver;
 use App\Observers\ProposalObserver;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
         $this->registerPolicies();
         if (!$this->app->routesAreCached()) {
             Passport::enableImplicitGrant();
