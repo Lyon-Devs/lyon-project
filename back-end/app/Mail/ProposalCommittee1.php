@@ -18,8 +18,7 @@ class ProposalCommittee1 extends Mailable
      * @return void
      */
     public function __construct(
-        private Proposal $proposal,
-        private string $file,
+        private Proposal $proposal
     ) {
     }
 
@@ -31,6 +30,13 @@ class ProposalCommittee1 extends Mailable
     public function build()
     {
         $this->subject('Propostas na primeira fase');
-        return $this->markdown('emails.committee1')->attach($this->file);
+        $email = $this->markdown('emails.committee1', ['proposal' => $this->proposal]);
+        $files = $this->proposal->files;
+        if (count($files)) {
+            foreach ($files as $file) {
+                $email->attach(storage_path('app/public/' . $file->path));
+            }
+        }
+        return $this->markdown('emails.committee1', ['proposal' => $this->proposal]);
     }
 }

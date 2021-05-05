@@ -36,11 +36,13 @@ Route::get('test', function () {
     $proposalCommittee1 = Proposal::where('status', 'committee_1')->get();
     foreach ($proposalCommittee1 as $proposal) {
         $emails = $proposal->typeService->emails;
-        $pdf = PDF::loadView('reports.proposal', ['proposal' => $proposal]);
-        $fileName = $proposal->cod_lyon . '.pdf';
-        Storage::disk('private')->put($fileName, $pdf->output());
-        $file = storage_path('app/private/' . $fileName);
-        Mail::to($emails)->send(new ProposalCommittee1($proposal, $file));
+        // $pdf = PDF::loadView('reports.proposal', ['proposal' => $proposal]);
+        // $fileName = $proposal->cod_lyon . '.pdf';
+        // Storage::disk('private')->put($fileName, $pdf->output());
+        // $file = storage_path('app/private/' . $fileName);
+        $email = new ProposalCommittee1($proposal);
+        return $email->render();
+        Mail::to($emails)->send(new ProposalCommittee1($proposal));
     }
 });
 
