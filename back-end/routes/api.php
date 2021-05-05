@@ -56,6 +56,7 @@ Route::get('client/all', [ClientController::class, 'allItens'])->name('client.al
 Route::get('buyer/all', [BuyerController::class, 'allItens'])->name('buyer.all');
 Route::get('buyer', [BuyerController::class, 'index'])->name('client.index');
 Route::get('home/all', [HomeController::class, 'index'])->name('home.all');
+Route::get('proposal/{proposal}/files/{proposalFiles}', [ProposalFilesController::class, 'show']);
 // 'auth:api', 'role:administrator'
 
 Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
@@ -66,7 +67,7 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
     ])->parameters([
         'branch' => 'actingBranch'
     ]);
-    Route::resource('proposal.files', ProposalFilesController::class)->except(['edit'])
+    Route::resource('proposal.files', ProposalFilesController::class)->except(['edit', 'show'])
         ->parameters([
             'proposal' => 'proposal',
             'files' => 'proposalFiles'

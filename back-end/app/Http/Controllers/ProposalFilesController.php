@@ -54,9 +54,9 @@ class ProposalFilesController extends Controller
      * @param  \App\Models\ProposalFiles  $proposalFiles
      * @return \Illuminate\Http\Response
      */
-    public function show(ProposalFiles $proposalFiles)
+    public function show(Proposal $proposal, ProposalFiles $proposalFiles)
     {
-        //
+        return Storage::download("public/" . $proposalFiles->path, $proposalFiles->name);
     }
 
     /**

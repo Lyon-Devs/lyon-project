@@ -20,6 +20,7 @@ import { ProposalFiles } from '@models/proposal-files.model';
 import { Observable } from 'rxjs';
 
 
+
 @Component({
   selector: 'app-create-dialog',
   templateUrl: './create-dialog.component.html',
@@ -204,7 +205,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
           this.uploadDocument().subscribe(() => {
             this.dialogRef.close('created');
             this.snackBar.open('Proposta criada com sucesso');
-          }, error => this.traitError(error) );
+          }, error => this.traitError(error));
         } else {
           this.dialogRef.close('created');
           this.snackBar.open('Proposta criada com sucesso');
@@ -217,7 +218,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
           this.uploadDocument().subscribe(() => {
             this.dialogRef.close('created');
             this.snackBar.open('Proposta criada com sucesso');
-          } , error => this.traitError(error) );
+          }, error => this.traitError(error));
         } else {
           this.dialogRef.close('updated');
           this.snackBar.open('Proposta atualizada com sucesso');
@@ -250,7 +251,11 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.proposalFilesService.delete(file).subscribe(res => {
       // console.log('res', res);
       this.snackBar.open('Arquivo removido com sucesso');
-    }, error => this.traitError(error) );
+    }, error => this.traitError(error));
+  }
+
+  public downloadFile(file: ProposalFiles): void {
+    window.open(`/api/proposal/${this.data.id}/files/${file.id}`, '_blank');
   }
   private getBuyer(): void {
     this.buyerService.all().subscribe(buyers => {
@@ -267,7 +272,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
   }
 
   private traitError(error): void {
-    const msg =  error?.error?.message || error?.statusText || 'Aconteceu algum error no servidor tente de novo.';
+    const msg = error?.error?.message || error?.statusText || 'Aconteceu algum error no servidor tente de novo.';
     this.snackBar.open(msg, 'ok');
   }
 
