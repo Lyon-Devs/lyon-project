@@ -18,6 +18,7 @@ import { CreateDialogComponent as CreateDialogBuyerComponent } from '../../admin
 import { ProposalFilesService } from '../../../services/proposal-files/proposal-files.service';
 import { ProposalFiles } from '@models/proposal-files.model';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 
@@ -66,6 +67,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     // this.selectedUserTec = this.data.users
     this.createForm = this.data?.id ? false : true;
     this.proposalFilesService.setContract(this.data?.id);
+
     this.formBasic = this.fb.group({
       client_id: [this.data?.client?.id || '', Validators.required],
       buyer_id: [this.data?.buyer_id || '', Validators.required],
@@ -180,8 +182,6 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       form.time_technique_visit = form.time_technique_visit?.replaceAll(':', '');
     }
     if (form.deadline_time_confirme && form.deadline_time_confirme.length < 8) {
-      console.log('form.deadline_time_confirme', form.deadline_time_confirme);
-      // console.log('regexSecond.exec(form.deadline_time_confirme)', !regexSecond.test(form.deadline_time_confirme));
       form.deadline_time_confirme += '00';
     } else {
       form.deadline_time_confirme = form.deadline_time_confirme?.replaceAll(':', '');
@@ -200,7 +200,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     });
     if (this.createForm) {
       this.proposalServices.create(form).subscribe(res => {
-        if (this.filesToUpload.length) {
+        if (this.filesToUpload?.length) {
           this.proposalFilesService.setContract(res.id);
           this.uploadDocument().subscribe(() => {
             this.dialogRef.close('created');
@@ -214,7 +214,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     } else {
       form.id = this.data.id;
       this.proposalServices.update(form).subscribe(res => {
-        if (this.filesToUpload.length) {
+        if (this.filesToUpload?.length) {
           this.uploadDocument().subscribe(() => {
             this.dialogRef.close('created');
             this.snackBar.open('Proposta criada com sucesso');
@@ -249,7 +249,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
   public deleteFile(file: ProposalFiles): void {
     this.proposalFilesService.delete(file).subscribe(res => {
-      // console.log('res', res);
+      this.data.files = this.data.files.filter(hasFile => hasFile.id !== file.id);
       this.snackBar.open('Arquivo removido com sucesso');
     }, error => this.traitError(error));
   }
