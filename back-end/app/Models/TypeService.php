@@ -19,6 +19,9 @@ class TypeService extends Model
 
     public function getEmailsAttribute()
     {
-        return explode(',', $this->email_group);
+        if ($this->email_group) {
+            return explode(',',  $this->email_group);
+        }
+        return [];
     }
 }

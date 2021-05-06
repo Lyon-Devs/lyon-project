@@ -2,9 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\ProposalCommittee1;
 use App\Models\Proposal;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class proposalCommitteeOneCommand extends Command
 {
@@ -40,10 +43,18 @@ class proposalCommitteeOneCommand extends Command
     public function handle()
     {
 
-        $proposalCommittee1 = Proposal::where('status', 'committee_1')->get();
-        $users = User::where()->get();
-
-
+        $defaultEmails = env('DEFAULT_USER_COMMITTEE_1', null);
+        $mainEmails = [];
+        if ($defaultEmails) {
+            $mainEmails = explode(',', $defaultEmails);
+        }
+        $today = new Carbon();
+        $proposalCommittee1 = Proposal::where('status', 'committee_1')->where('updated_at', '>=', $today->subHours(24))->get();
+        foreach ($proposalCommittee1 as $proposal) {
+            $emails = $proposal->typeService->emails;
+            $mergeEmails = array_merge(count($mainEmails) ? $mainEmails : [], count($emails) ? $emails : []);
+            Mail::to($mergeEmails)->send(new ProposalCommittee1($proposal));
+        }
         return 0;
     }
 }

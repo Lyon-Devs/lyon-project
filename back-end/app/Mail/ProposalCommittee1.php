@@ -12,14 +12,15 @@ class ProposalCommittee1 extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private Proposal $proposal;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(
-        private Proposal $proposal
-    ) {
+    public function __construct($proposal)
+    {
+        $this->proposal = $proposal;
     }
 
     /**
