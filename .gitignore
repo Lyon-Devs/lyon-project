@@ -21,6 +21,9 @@ testem.log
 .DS_Store
 Thumbs.db
 back-end/package-lock.json
-back-end/public/js/app.js
-back-end/package-lock.json
-back-end/public/js/app.js
+back-end/public/mix-manifest.json
+back-end/public/css/*
+back-end/public/js/*
+docker/nginx/nginx.conf
+front-end/src/environments/environment.prod.ts
+front-end/src/environments/environment.ts
