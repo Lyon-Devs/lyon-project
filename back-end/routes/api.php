@@ -13,12 +13,18 @@ use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ProposalFilesController;
 use App\Http\Controllers\ProposalRevisionController;
 use App\Mail\ProposalCommittee1;
+use App\Models\Contract;
 use App\Models\Proposal;
+use App\Models\User;
+use App\Notifications\ContractDeadlineNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -32,30 +38,19 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-
-Route::get('test', function () {
-    $defaultEmails = env('DEFAULT_USER_COMMITTEE_1', null);
-    $mainEmails = [];
-    if ($defaultEmails) {
-        $mainEmails = explode(',', $defaultEmails);
-    }
-
-
-    $today = new Carbon();
-    $proposalCommittee1 = Proposal::where('status', 'committee_1')->where('updated_at', '>=', $today->subHours(24))->get();
-    foreach ($proposalCommittee1 as $proposal) {
-        $emails = $proposal->typeService->emails;
-        $mergeEmails = array_merge(count($mainEmails) ? $mainEmails : [], count($emails) ? $emails : []);
-
-        dd($mergeEmails);
-        // $pdf = PDF::loadView('reports.proposal', ['proposal' => $proposal]);
-        // $fileName = $proposal->cod_lyon . '.pdf';
-        // Storage::disk('private')->put($fileName, $pdf->output());
-        // $file = storage_path('app/private/' . $fileName);
-        // $email = new ProposalCommittee1($proposal);
-        // return $email->render();
-        Mail::to($emails)->send(new ProposalCommittee1($proposal));
-    }
+Route::get('test/contract', function () {
+    $contracts = Contract::whereRaw('datediff(date_end, now()) <= ?', 15)
+        ->whereRaw('datediff(date_end, now()) >= ?', 15)
+        ->where('date_end', '>', Carbon::now())
+        // ->selectRaw('*, datediff(date_end, now())')
+        // ->whereRaw('datediff(date_end, now())', '<', 15)
+        // whereRaw('datediff(now(), date_end) > ?', 15)
+        ->get();
+    // $user = User::make(['email' => 'test@gmail.com', 'name' => 'asdasdas']);
+    dd($contracts);
+    $users = User::withRoles('comercial')->get();
+    Notification::send($users, new ContractDeadlineNotification($contracts));
+    dd($contracts);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
