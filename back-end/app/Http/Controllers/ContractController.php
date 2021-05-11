@@ -24,6 +24,7 @@ class ContractController extends Controller
                 AllowedFilter::scope('active'),
                 AllowedFilter::scope('client')
             ])
+            ->OrWhereNull('date_start')
             ->with(['proposal'])->paginate($paginate);
     }
     /**

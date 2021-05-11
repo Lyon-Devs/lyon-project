@@ -227,7 +227,7 @@
                 <mat-list>
                     <mat-list-item *ngFor="let file of data?.files">
                         <mat-icon mat-list-icon>article</mat-icon>
-                        
+
                         <div mat-line> {{file.name}} </div>
                         <div mat-line> {{file.updated_at | date: 'dd/MM/y' : 'z'}} </div>
                         <div>
@@ -252,12 +252,13 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step>
+        <mat-step *ngIf="createForm">
             <ng-template matStepLabel>Ação</ng-template>
             <div>
                 <button mat-button matStepperPrevious>Voltar</button>
-                <button mat-button (click)="stepper.reset()" *ngIf="createForm">Resetar</button>
-                <button mat-button (click)="onSubmit()">{{ createForm ? 'Criar': 'Atualizar'}}</button>
+                <button mat-raised-button color="warn" (click)="stepper.reset()" *ngIf="createForm">Resetar</button>
+                <button mat-raised-button color="primary" (click)="onSubmit()">{{ createForm ? 'Criar':
+                    'Atualizar'}}</button>
             </div>
         </mat-step>
     </mat-vertical-stepper>
@@ -267,6 +268,6 @@
 
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">cancelar</button>
-    <!-- <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">salvar</button> -->
+    <button mat-raised-button color="warn" (click)="onNoClick()">cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!createForm">Atualizar</button>
 </div>

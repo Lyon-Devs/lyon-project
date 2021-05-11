@@ -8,10 +8,21 @@ class ProposalObserver
 {
     public function created(Proposal $proposal)
     {
-        $clientId = str_pad($proposal->client_id, 5, "0", STR_PAD_LEFT);
+        $clientId = str_pad($proposal->client->code, 5, "0", STR_PAD_LEFT);
         $proposalIdFilled = str_pad($proposal->id, 5, "0", STR_PAD_LEFT);
         $year = date('Y');
-        $proposal->cod_lyon = "$clientId-$proposalIdFilled-$year";
+        $proposal->cod_lyon = "LY-$clientId-$proposalIdFilled-$year";
         $proposal->save();
+    }
+
+
+    public function updated(Proposal $proposal)
+    {
+
+        if ($proposal->isDirty('status')) {
+            if ($proposal->status === 'committee_2') {
+                $proposal->contracts()->create();
+            }
+        }
     }
 }

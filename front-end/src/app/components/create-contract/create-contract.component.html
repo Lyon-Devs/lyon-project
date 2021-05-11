@@ -4,9 +4,9 @@
         <mat-form-field appearance="outline">
             <mat-label>Proposta</mat-label>
             <mat-select formControlName="proposal_id">
-              <mat-option *ngFor="let prop of proposal" [value]="prop.id">{{prop.cod_lyon}}</mat-option>
+                <mat-option *ngFor="let prop of proposal" [value]="prop.id">{{prop.cod_lyon}}</mat-option>
             </mat-select>
-          </mat-form-field>
+        </mat-form-field>
         <div class="two-col">
             <mat-form-field appearance="outline" fullWidth>
                 <mat-label>Centro de custo</mat-label>
@@ -43,24 +43,26 @@
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
-        <mat-form-field appearance="outline" fullWidth>
-            <mat-label>Gerente Lyon</mat-label>
-            <input matInput required formControlName="manager_lyon">
-        </mat-form-field>
-        <mat-form-field appearance="outline" fullWidth>
-            <mat-label>E-mail gerente Lyon</mat-label>
-            <input matInput required formControlName="manager_lyon_email">
-        </mat-form-field>
-        <mat-form-field appearance="outline" fullWidth>
-            <mat-label>Gerente client</mat-label>
-            <input matInput required formControlName="manager_client">
-        </mat-form-field>
-        <mat-form-field appearance="outline" fullWidth>
-            <mat-label>E-mail gerente</mat-label>
-            <input matInput required formControlName="manager_client_email">
-        </mat-form-field>
-       
-
+        <div class="two-col">
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Gerente Lyon</mat-label>
+                <input matInput required formControlName="manager_lyon">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>E-mail gerente Lyon</mat-label>
+                <input matInput required formControlName="manager_lyon_email">
+            </mat-form-field>
+        </div>
+        <div class="two-col">
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Gerente client</mat-label>
+                <input matInput required formControlName="manager_client">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>E-mail gerente</mat-label>
+                <input matInput required formControlName="manager_client_email">
+            </mat-form-field>
+        </div>
     </form>
 
 </div>

@@ -15,13 +15,13 @@ class CreateContractTable extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->string('center_of_cost');
-            $table->string('contract_number');
-            $table->string('purchase_order');
-            $table->string('manager_lyon');
-            $table->string('manager_lyon_email');
-            $table->string('manager_client');
-            $table->string('manager_client_email');
+            $table->string('center_of_cost')->nullable();
+            $table->string('contract_number')->nullable();
+            $table->string('purchase_order')->nullable();
+            $table->string('manager_lyon')->nullable();
+            $table->string('manager_lyon_email')->nullable();
+            $table->string('manager_client')->nullable();
+            $table->string('manager_client_email')->nullable();
             $table->date('date_start')->nullable();
             $table->date('date_end')->nullable();
             $table->date('readjustment_base_date')->nullable();

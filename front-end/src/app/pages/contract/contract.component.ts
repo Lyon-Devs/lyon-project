@@ -51,6 +51,7 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
   create(): void {
     const dialogRef = this.dialog.open(CreateContractComponent, {
       width: '500px',
+      height: '56vh',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(event => {
@@ -79,6 +80,7 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
   update(item: Contract): void {
     const dialogRef = this.dialog.open(CreateContractComponent, {
       width: '500px',
+      height: '56vh',
       data: item
     });
 

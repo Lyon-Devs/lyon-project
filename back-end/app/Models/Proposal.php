@@ -66,4 +66,9 @@ class Proposal extends Model
     {
         return $this->hasMany(ProposalFiles::class);
     }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
 }

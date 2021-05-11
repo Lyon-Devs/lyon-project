@@ -107,8 +107,8 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
     // Get all user tec and comercial
     this.userService.all().subscribe(userList => {
-      this.userListTec = userList.filter(user => this.filterRole(user, 'technical'));
-      this.userListCom = userList.filter(user => this.filterRole(user, 'comercial'));
+      this.userListTec = userList;
+      this.userListCom = userList;
 
       this.selectedUserTec = this.data?.users?.filter(user => this.filterRole(user, 'technical')) || [];
       this.selectedUserCom = this.data?.users?.filter(user => this.filterRole(user, 'comercial')) || [];
