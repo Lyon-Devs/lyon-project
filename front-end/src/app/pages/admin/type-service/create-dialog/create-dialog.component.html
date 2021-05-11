@@ -12,9 +12,9 @@
     <mat-form-field appearance="outline" fullWidth>
         <mat-label>Grupo de email</mat-label>
         <input matInput required placeholder="engenharia@lyon.com.br;ti@lyon.com.br" formControlName="email_group">
+        <mat-hint>Use ; para separar os emails</mat-hint>
       </mat-form-field>
   </form>
-
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">cancelar</button>

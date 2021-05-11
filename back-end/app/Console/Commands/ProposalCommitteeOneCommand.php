@@ -46,7 +46,7 @@ class proposalCommitteeOneCommand extends Command
         $defaultEmails = env('DEFAULT_USER_COMMITTEE_1', null);
         $mainEmails = [];
         if ($defaultEmails) {
-            $mainEmails = explode(',', $defaultEmails);
+            $mainEmails = explode(';', $defaultEmails);
         }
         $today = new Carbon();
         $proposalCommittee1 = Proposal::where('status', 'committee_1')->where('updated_at', '>=', $today->subHours(24))->get();
