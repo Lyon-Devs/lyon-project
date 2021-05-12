@@ -13,6 +13,7 @@ use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ProposalFilesController;
 use App\Http\Controllers\ProposalRevisionController;
 use App\Mail\ProposalCommittee1;
+use App\Mail\ProposalCommittee2;
 use App\Models\Contract;
 use App\Models\Proposal;
 use App\Models\User;
@@ -38,19 +39,15 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('test/contract', function () {
-    $contracts = Contract::whereRaw('datediff(date_end, now()) <= ?', 15)
-        ->whereRaw('datediff(date_end, now()) >= ?', 15)
-        ->where('date_end', '>', Carbon::now())
-        // ->selectRaw('*, datediff(date_end, now())')
-        // ->whereRaw('datediff(date_end, now())', '<', 15)
-        // whereRaw('datediff(now(), date_end) > ?', 15)
-        ->get();
-    // $user = User::make(['email' => 'test@gmail.com', 'name' => 'asdasdas']);
-    dd($contracts);
-    $users = User::withRoles('comercial')->get();
-    Notification::send($users, new ContractDeadlineNotification($contracts));
-    dd($contracts);
+Route::get('test', function () {
+    $today = new Carbon();
+    $proposalCommittee1 = Proposal::where('status', 'committee_2')->where('updated_at', '>=', $today->subHours(24))->get();
+    foreach ($proposalCommittee1 as $proposal) {
+        $emails = $proposal->ownersComercial->load('user');
+        dd($emails->pluck('user.email'));
+        return (new ProposalCommittee2($proposal));
+        Mail::to($emails)->send(new ProposalCommittee2($proposal));
+    }
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -62,6 +62,19 @@ class Proposal extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function owners()
+    {
+        return $this->hasMany(ProposalUser::class);
+    }
+    public function ownersTechnical()
+    {
+        return $this->hasMany(ProposalUser::class)->where('type', 'technical');
+    }
+    public function ownersComercial()
+    {
+        return $this->hasMany(ProposalUser::class)->where('type', 'comercial');
+    }
     public function files()
     {
         return $this->hasMany(ProposalFiles::class);
@@ -70,5 +83,10 @@ class Proposal extends Model
     public function contracts()
     {
         return $this->hasMany(Contract::class);
+    }
+
+    public function revisions()
+    {
+        return $this->hasMany(ProposalRevision::class);
     }
 }

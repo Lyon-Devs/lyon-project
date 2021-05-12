@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Proposal;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -26,7 +27,7 @@ class ProposalController extends Controller
                 AllowedFilter::partial('cod_lyon'),
             ])
             ->with([
-                'client', 'typeService', 'users', 'files'
+                'client', 'typeService', 'owners.user', 'files'
             ])->paginate($paginate);
     }
 
@@ -60,14 +61,20 @@ class ProposalController extends Controller
 
         if ($request->has('selectedUserTec')) {
             foreach ($request->selectedUserTec as $user) {
-                $hasUser = User::find($user['id']);
-                $proposal->users()->attach($hasUser);
+                $proposal->owners()->updateOrInsert([
+                    'user_id' => $user['id'],
+                    'type' => 'technical',
+                    'proposal_id' => $proposal->id
+                ]);
             }
         }
         if ($request->has('selectedUserCom')) {
             foreach ($request->selectedUserCom as $user) {
-                $hasUser = User::find($user['id']);
-                $proposal->users()->attach($hasUser);
+                $proposal->owners()->updateOrInsert([
+                    'user_id' => $user['id'],
+                    'type' => 'comercial',
+                    'proposal_id' => $proposal->id
+                ]);
             }
         }
 
@@ -112,27 +119,34 @@ class ProposalController extends Controller
         $proposal->fill($request->all());
         $proposal->save();
 
-        $userProposal = $proposal->users;
         if ($request->has('selectedUserTec')) {
+            $userProposal = $proposal->ownersTechnical;
+
             $userProposal->each(function ($user) use ($proposal) {
-                if ($user->hasRole('technical')) {
-                    $proposal->users()->detach($user);
-                }
+                $user->delete();
             });
+
             foreach ($request->selectedUserTec as $user) {
-                $hasUser = User::find($user['id']);
-                $proposal->users()->attach($hasUser);
+
+                $proposal->owners()->updateOrInsert([
+                    'user_id' => $user['id'],
+                    'type' => 'technical',
+                    'proposal_id' => $proposal->id
+                ]);
             }
         }
         if ($request->has('selectedUserCom')) {
+            $userProposal = $proposal->ownersComercial;
             $userProposal->each(function ($user) use ($proposal) {
-                if ($user->hasRole('comercial')) {
-                    $proposal->users()->detach($user);
-                }
+                $user->delete();
             });
             foreach ($request->selectedUserCom as $user) {
-                $hasUser = User::find($user['id']);
-                $proposal->users()->attach($hasUser);
+
+                $proposal->owners()->updateOrInsert([
+                    'user_id' => $user['id'],
+                    'type' => 'comercial',
+                    'proposal_id' => $proposal->id
+                ]);
             }
         }
 

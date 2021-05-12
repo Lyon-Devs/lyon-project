@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ProposalCommittee1 extends Mailable
+class ProposalCommittee2 extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,14 +30,15 @@ class ProposalCommittee1 extends Mailable
      */
     public function build()
     {
-        $this->subject('Propostas em comitê um');
-        $email = $this->markdown('emails.committee1', ['proposal' => $this->proposal]);
+        $this->subject('Propostas em comitê dois');
+        $email = $this->markdown('emails.committee2', ['proposal' => $this->proposal]);
+        // return $email;
         $files = $this->proposal->files;
         if (count($files)) {
             foreach ($files as $file) {
                 $email->attach(storage_path('app/public/' . $file->path));
             }
         }
-        return $this->markdown('emails.committee1', ['proposal' => $this->proposal]);
+        return $this->markdown('emails.committee2', ['proposal' => $this->proposal]);
     }
 }

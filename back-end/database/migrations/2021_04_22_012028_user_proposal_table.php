@@ -16,6 +16,7 @@ class UserProposalTable extends Migration
         Schema::create('proposal_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->enum('type', ['comercial', 'technical']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('proposal_id');
             $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('cascade');

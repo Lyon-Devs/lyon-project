@@ -39,8 +39,8 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
   public formDeploy: FormGroup;
   public formScope: FormGroup;
   public userListTec: User[];
-  public selectedUserTec: User[] = [];
-  public selectedUserCom: User[] = [];
+  public selectedUserTec: any[] = [];
+  public selectedUserCom: any[] = [];
   public filesToUpload: any[];
   public userListCom: User[];
   public clients: Clients[];
@@ -110,8 +110,15 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       this.userListTec = userList;
       this.userListCom = userList;
 
-      this.selectedUserTec = this.data?.users?.filter(user => this.filterRole(user, 'technical')) || [];
-      this.selectedUserCom = this.data?.users?.filter(user => this.filterRole(user, 'comercial')) || [];
+      this.selectedUserTec = this.data?.owners?.filter(owner => owner.type === 'technical');
+      if (this.selectedUserTec.length) {
+        this.selectedUserTec = this.selectedUserTec.map(owner => owner.user);
+      }
+
+      this.selectedUserCom = this.data?.owners?.filter(owner => owner.type === 'comercial');
+      if (this.selectedUserCom.length) {
+        this.selectedUserCom = this.selectedUserCom.map(owner => owner.user);
+      }
     });
 
 
@@ -240,11 +247,11 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     return this.proposalFilesService.create(form);
   }
   public hasUserTec(hasUser: User): boolean {
-    return this.selectedUserTec?.filter(user => user.id === hasUser.id).length ? true : false;
+    return this.selectedUserTec?.filter(user => user?.id === hasUser.id).length ? true : false;
   }
 
   public hasUserCom(hasUser: User): boolean {
-    return this.selectedUserCom?.filter(user => user.id === hasUser.id).length ? true : false;
+    return this.selectedUserCom?.filter(user => user?.id === hasUser.id).length ? true : false;
   }
 
   public deleteFile(file: ProposalFiles): void {
@@ -267,8 +274,8 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       this.clients = clients;
     });
   }
-  private filterRole(user: any, roleSlug: string): any {
-    return user.roles.filter(role => role.slug === roleSlug).length > 0;
+  private filterOwner(owner: any, roleSlug: string): any {
+    return owner.roles.filter(role => role.slug === roleSlug).length > 0;
   }
 
   private traitError(error): void {
