@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Mail\ProposalCommittee2;
 use App\Models\Proposal;
+use App\Services\ProposalCommitteeTwoService;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
@@ -15,7 +16,7 @@ class ProposalCommitteeTwoCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'proposal:committee-two';
+    protected $signature = 'proposal:committee-two {proposalId}';
 
     /**
      * The console command description.
@@ -41,13 +42,9 @@ class ProposalCommitteeTwoCommand extends Command
      */
     public function handle()
     {
-        $today = new Carbon();
-        $proposalCommittee1 = Proposal::where('status', 'committee_2')->where('updated_at', '>=', $today->subHours(24))->get();
-        foreach ($proposalCommittee1 as $proposal) {
-            $emails = $proposal->ownersComercial->load('user');
-            $emails = $emails->pluck('user.email');
-            Mail::to($emails)->send(new ProposalCommittee2($proposal));
-        }
+        $proposal = Proposal::find($this->argument('proposalId'));
+        $services  = new ProposalCommitteeTwoService($proposal);
+        $services->handle();
         return 0;
     }
 }

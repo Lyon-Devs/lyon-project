@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Proposal;
+use App\Services\ProposalCommitteeOneService;
+use App\Services\ProposalCommitteeTwoService;
 
 class ProposalObserver
 {
@@ -20,8 +22,13 @@ class ProposalObserver
     {
 
         if ($proposal->isDirty('status')) {
-            if ($proposal->status === 'committee_2') {
+            if ($proposal->status === 'committee_1') {
+                $services  = new ProposalCommitteeOneService($proposal);
+                $services->handle();
+            } elseif ($proposal->status === 'committee_2') {
                 $proposal->contracts()->create();
+                $services  = new ProposalCommitteeTwoService($proposal);
+                $services->handle();
             }
         }
     }
