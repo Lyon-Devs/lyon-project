@@ -20,8 +20,8 @@ class ProposalRevision extends Migration
             $table->date('data_committee');
             $table->enum('type_price', ['global', 'unity', 'menu']);
             $table->float('medium_histogram')->nullable();
-            $table->float('global_price');
-            $table->float('gross_margin');
+            $table->decimal('global_price', 20, 2);
+            $table->decimal('gross_margin', 20, 2);
             $table->float('bdi');
             $table->float('taxes');
             $table->float('charge');
