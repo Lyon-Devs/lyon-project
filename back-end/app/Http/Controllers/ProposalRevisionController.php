@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proposal;
 use App\Models\ProposalRevision;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,10 @@ class ProposalRevisionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Proposal $proposal)
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
-        return ProposalRevision::paginate($paginate);
+        return $proposal->revisions()->paginate($paginate);
     }
     /**
      * Store a newly created resource in storage.
@@ -23,7 +24,7 @@ class ProposalRevisionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ProposalRevision $proposalRevision)
+    public function store(Request $request, Proposal $proposal, ProposalRevision $proposalRevision)
     {
         $request->validate([
             'number_revision' => 'required',
@@ -68,7 +69,7 @@ class ProposalRevisionController extends Controller
      * @param  \App\Models\ProposalRevision  $proposalRevision
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProposalRevision $proposalRevision)
+    public function update(Request $request, Proposal $proposal, ProposalRevision $proposalRevision)
     {
         $request->validate([
             'number_revision' => 'required',
@@ -96,7 +97,7 @@ class ProposalRevisionController extends Controller
      * @param  \App\Models\ProposalRevision  $proposalRevision
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProposalRevision $proposalRevision)
+    public function destroy(Proposal $proposal, ProposalRevision $proposalRevision)
     {
         $proposalRevision->delete();
         return $proposalRevision;

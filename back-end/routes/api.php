@@ -39,17 +39,6 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('test', function () {
-    $today = new Carbon();
-    $proposalCommittee1 = Proposal::where('status', 'committee_2')->where('updated_at', '>=', $today->subHours(24))->get();
-    foreach ($proposalCommittee1 as $proposal) {
-        $emails = $proposal->ownersComercial->load('user');
-        dd($emails->pluck('user.email'));
-        return (new ProposalCommittee2($proposal));
-        Mail::to($emails)->send(new ProposalCommittee2($proposal));
-    }
-});
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -78,7 +67,7 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
             'proposal' => 'proposal',
             'files' => 'proposalFiles'
         ]);
-    Route::resource('proposal/revision', ProposalRevisionController::class)->except(['edit'])->parameters([
+    Route::resource('proposal.revision', ProposalRevisionController::class)->except(['edit'])->parameters([
         'revision' => 'proposalRevision'
     ]);
 

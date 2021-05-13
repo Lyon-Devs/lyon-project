@@ -92,11 +92,11 @@ export class DetailComponent implements OnInit, CrudPage<ProposalRevision> {
     return parseTypes[type];
   }
   ngOnInit(): void {
-
     this.route.data.subscribe(params => {
       this.proposal = params.ProposalResolve;
       this.subtitle = `gerênciamento da proposta ${this.proposal.cod_lyon}`;
     });
+    this.proposalRevisionService.setContract(this.proposal.id);
     this.getPage();
 
   }
