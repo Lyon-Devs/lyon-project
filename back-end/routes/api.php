@@ -18,6 +18,7 @@ use App\Models\Contract;
 use App\Models\Proposal;
 use App\Models\User;
 use App\Notifications\ContractDeadlineNotification;
+use App\Services\ProposalCommitteeOneService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,13 @@ use Illuminate\Support\Facades\Storage;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// Route::get('test', function () {
+//     $proposal = Proposal::find(1);
+//     // $services  = new ProposalCommitteeOneService($proposal);
+//     $services = new ProposalCommittee1($proposal);
+//     return $services;
+// });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

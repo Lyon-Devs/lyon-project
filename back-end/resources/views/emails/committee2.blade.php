@@ -1,4 +1,5 @@
-@component('mail::message')
+@extends('emails.default')
+@section('content')
 <style>
     .table {
         width: 100%;
@@ -43,8 +44,11 @@ Segue documentação para aprovação de proposta
     </thead>
     <thead>
         <tr>
-            <td colspan="7" style="color: #fff !important;padding:10px 5px">
+            <td style="color: #fff !important;padding:10px 5px">
                 Data limite para confirmação de participação:
+            </td>
+            <td style="color: #fff !important;padding:10px 5px">
+                {{$proposal->deadline_date_confirme->format('d/m/Y')}}
             </td>
         </tr>
     </thead>
@@ -178,6 +182,18 @@ Segue documentação para aprovação de proposta
     </tr>
     <thead>
         <tr>
+            <td colspan="2" style="color: #fff !important;padding:10px 5px">
+                Escopo detalhado
+            </td>
+        </tr>
+    </thead>
+    <tr>
+        <td colspan="2">
+            {{$proposal->scope}}
+        </td>
+    </tr>
+    <thead>
+        <tr>
             <td colspan="7" style="color: #fff !important;padding:10px 5px">
                 Obserservações do setor de propostas
             </td>
@@ -247,11 +263,11 @@ Segue documentação para aprovação de proposta
         </td>
     </tr>
     @empty
-        <tr>
-            <td colspan="7">Sem Revisões</td>
-        </tr>
+    <tr>
+        <td colspan="7">Sem Revisões</td>
+    </tr>
     @endforelse
 </table>
 Att,<br>
 SGP LYON
-@endcomponent
+@endsection

@@ -1,4 +1,5 @@
-@component('mail::message')
+@extends('emails.default')
+@section('content')
 <style>
     .table {
         width: 100%;
@@ -31,6 +32,7 @@
 Olá,
 
 Segue documentação para aprovação de proposta
+<br><br>
 
 
 <table class="table" cellspacing="0" cellpadding="0">
@@ -43,8 +45,11 @@ Segue documentação para aprovação de proposta
     </thead>
     <thead>
         <tr>
-            <td colspan="2" style="color: #fff !important;padding:10px 5px">
+            <td  style="color: #fff !important;padding:10px 5px">
                 Data limite para confirmação de participação:
+            </td>
+            <td style="color: #fff !important;padding:10px 5px">
+                {{$proposal->deadline_date_confirme->format('d/m/Y')}}
             </td>
         </tr>
     </thead>
@@ -79,7 +84,7 @@ Segue documentação para aprovação de proposta
             Tipo de serviço
         </td>
         <td>
-            {{$proposal->typeService->name}}
+            {{$proposal->typeService->unity_business}}
         </td>
     </tr>
     <tr>
@@ -179,6 +184,18 @@ Segue documentação para aprovação de proposta
     <thead>
         <tr>
             <td colspan="2" style="color: #fff !important;padding:10px 5px">
+                Escopo detalhado
+            </td>
+        </tr>
+    </thead>
+    <tr>
+        <td colspan="2">
+            {{$proposal->scope}}
+        </td>
+    </tr>
+    <thead>
+        <tr>
+            <td colspan="2" style="color: #fff !important;padding:10px 5px">
                 Obserservações do setor de propostas
             </td>
         </tr>
@@ -188,8 +205,7 @@ Segue documentação para aprovação de proposta
             {{$proposal->observations}}
         </td>
     </tr>
-
 </table>
-Att,<br>
+<br>Att,<br>
 SGP LYON
-@endcomponent
+@endsection

@@ -31,14 +31,13 @@ class ProposalCommittee2 extends Mailable
     public function build()
     {
         $this->subject('Propostas em comitê dois');
-        $email = $this->markdown('emails.committee2', ['proposal' => $this->proposal]);
-        // return $email;
+        $email = $this->view('emails.committee2', ['proposal' => $this->proposal]);
         $files = $this->proposal->files;
         if (count($files)) {
             foreach ($files as $file) {
                 $email->attach(storage_path('app/public/' . $file->path));
             }
         }
-        return $this->markdown('emails.committee2', ['proposal' => $this->proposal]);
+        return $email;
     }
 }
