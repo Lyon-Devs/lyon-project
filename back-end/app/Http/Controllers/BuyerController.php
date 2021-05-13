@@ -16,7 +16,7 @@ class BuyerController extends Controller
     public function index(Request $request): Paginator
     {
         $paginate = $request->has('per_page') ? $request->per_page : 20;
-        return Buyer::paginate($paginate);
+        return Buyer::orderBy('name', 'desc')->paginate($paginate);
     }
 
 
@@ -70,6 +70,6 @@ class BuyerController extends Controller
      */
     public function allItens()
     {
-        return Buyer::all();
+        return Buyer::orderBy('name', 'asc')->get();
     }
 }

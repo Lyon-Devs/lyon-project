@@ -71,6 +71,6 @@ class ClientController extends Controller
 
     public function allItens()
     {
-        return Client::withActingBranches()->get();
+        return Client::withActingBranches()->orderBy('name', 'asc')->get();
     }
 }
