@@ -15,6 +15,9 @@ export class PaginateService<t> {
     if (removedItem.length) {
       paginate.data = removedItem;
       paginate.total--;
+    }else {
+      paginate.data = [];
+      paginate.total = 0;
     }
     return paginate;
   }

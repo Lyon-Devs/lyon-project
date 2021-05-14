@@ -19,8 +19,12 @@
                 <mat-option [value]="client.id" *ngFor="let client of clients">{{client.name}}</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-slide-toggle [formControl]="activesFc">Ativos</mat-slide-toggle>
-       
+        <div class="active-contract">
+            <mat-slide-toggle [formControl]="activesFc">Ativos</mat-slide-toggle>
+            <p>Contratos ativos são todos cuja a data de fim seja menor que data atual</p>
+        </div>
+
+
     </div>
     <table mat-table [dataSource]="paginateItems?.data">
         <ng-container matColumnDef="center_of_cost">

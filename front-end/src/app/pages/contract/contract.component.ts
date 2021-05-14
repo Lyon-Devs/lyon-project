@@ -65,14 +65,16 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
       width: '600px',
       data: {
         title: `Exclusão contrato`,
-        body: `Confirmar exclusão do contrato <b>${item.contract_number}</b>`,
+        body: `Confirmar exclusão do contrato <b>${item.contract_number || 'Sem número'}</b>`,
       }
     });
     dialogRef.afterClosed().subscribe(event => {
       if (event) {
-        this.contractService.delete(item).subscribe(resUser => {
+        this.contractService.delete(item).subscribe(() => {
           this.paginateItems = this.paginateService.removeItem(item, this.paginateItems);
           this.snackBar.open(`Proposta ${item.contract_number} removida!`);
+        }, error => {
+          this.paginateItems = this.paginateService.removeItem(item, this.paginateItems);
         });
       }
     });
