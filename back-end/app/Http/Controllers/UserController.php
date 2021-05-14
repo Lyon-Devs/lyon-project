@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\Acl\Models\Role;
 
 class UserController extends Controller
 {
@@ -85,25 +86,13 @@ class UserController extends Controller
         if ($request->has('password')) {
             $user->password = Hash::make($request->password);
         }
-        $addRoles = $request->role;
-        $removeRoles = $user->roles->filter(function ($role) use ($addRoles) {
-            $hasRole = array_filter($addRoles, function ($addRole) use ($role) {
-                if ($addRole == $role->slug) {
-                    return $addRole;
-                }
-            });
-            if (!$hasRole) {
-                return $role;
-            }
-        });
-        foreach ($removeRoles as $role) {
-            $user->revokeRoleBySlug($role->slug);
+        $user->revokeAllRoles();
+        foreach ($request->role as $role) {
+            $role = Role::where('slug', $role)->first();
+            $user->roles()->attach($role);
         }
-        foreach ($addRoles as $role) {
-            $user->attachRoleBySlug($role);
-        }
-        $user->save();
         return $user;
+        $user->save();
     }
 
     /**
