@@ -26,9 +26,12 @@ class ProposalObserver
                 $services  = new ProposalCommitteeOneService($proposal);
                 $services->handle();
             } elseif ($proposal->status === 'committee_2') {
-                $proposal->contracts()->create();
                 $services  = new ProposalCommitteeTwoService($proposal);
                 $services->handle();
+            } elseif ($proposal->status === 'winner') {
+                if (count($proposal->contracts) === 0) {
+                    $proposal->contracts()->create();
+                }
             }
         }
     }

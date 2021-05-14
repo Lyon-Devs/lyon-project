@@ -128,7 +128,8 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Detalhes visita técnica</mat-label>
-                        <textarea matInput #details_technique_visit maxlength="65535" rows="5" formControlName="details_technique_visit"></textarea>
+                        <textarea matInput #details_technique_visit maxlength="65535" rows="5"
+                            formControlName="details_technique_visit"></textarea>
                         <mat-hint align="end">{{details_technique_visit.value?.length }} / 65535</mat-hint>
                     </mat-form-field>
                 </ng-template>
@@ -187,7 +188,7 @@
                 <ng-template matStepLabel>Escopo</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Escopo</mat-label>
-                    <textarea #scope maxlength="65535"  matInput required rows="25" formControlName="scope"></textarea>
+                    <textarea #scope maxlength="65535" matInput required rows="25" formControlName="scope"></textarea>
                     <mat-hint align="end">{{scope.value?.length }} / 65535</mat-hint>
                 </mat-form-field>
                 <div>
@@ -206,7 +207,8 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Local</mat-label>
-                        <input matInput #place_to_deploys_services maxlength="190" required formControlName="place_to_deploys_services">
+                        <input matInput #place_to_deploys_services maxlength="190" required
+                            formControlName="place_to_deploys_services">
                         <mat-hint align="end">{{place_to_deploys_services.value?.length }} / 190</mat-hint>
                     </mat-form-field>
                 </div>
@@ -261,8 +263,11 @@
             <ng-template matStepLabel>Ação</ng-template>
             <div>
                 <button mat-button matStepperPrevious>Voltar</button>
-                <button mat-raised-button color="primary" (click)="onSubmit()">{{ createForm ? 'Criar':
-                    'Atualizar'}}</button>
+                <button mat-raised-button color="primary" 
+                    (click)="onSubmit()"
+                    [disabled]="this.submitting"
+                    >{{ createForm ? 'Criar':'Atualizar'}}
+                </button>
             </div>
         </mat-step>
     </mat-vertical-stepper>
@@ -273,5 +278,7 @@
 </div>
 <div mat-dialog-actions>
     <button mat-raised-button color="warn" (click)="onNoClick()">cancelar</button>
-    <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!createForm">Atualizar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!createForm" [disabled]="this.submitting">
+        Atualizar
+    </button>
 </div>

@@ -30,7 +30,7 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
   public displayedColumns: string[] = [
     'cod_lyon', 'client_id', 'type_service_id',
     'status', 'deadline_date_confirme', 'date_delivery_technique_proposal',
-    'date_delivery_comercial_proposal', 'summary_scope', 'months_exec', 'actions'
+    'date_delivery_comercial_proposal', 'months_exec', 'actions'
   ];
   public pageEvent: PageEvent;
   public filter: FilterQuery[] = [];

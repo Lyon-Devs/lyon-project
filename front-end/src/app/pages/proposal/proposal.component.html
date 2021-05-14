@@ -54,10 +54,10 @@
             <th mat-header-cell *matHeaderCellDef> Pro. Comercial </th>
             <td mat-cell *matCellDef="let element"> {{element.date_delivery_comercial_proposal | date: 'dd/MM/y' : 'z' }} </td>
         </ng-container>
-        <ng-container matColumnDef="summary_scope">
+        <!-- <ng-container matColumnDef="summary_scope">
             <th mat-header-cell *matHeaderCellDef> Escopo </th>
-            <td mat-cell *matCellDef="let element"> {{element.summary_scope}} </td>
-        </ng-container>
+            <td mat-cell *matCellDef="let element"> {{element.summary_scope | slice:0:20}} </td>
+        </ng-container> -->
         <ng-container matColumnDef="months_exec">
             <th mat-header-cell *matHeaderCellDef> Tempo de contrato </th>
             <td mat-cell *matCellDef="let element"> {{element.months_exec}} </td>

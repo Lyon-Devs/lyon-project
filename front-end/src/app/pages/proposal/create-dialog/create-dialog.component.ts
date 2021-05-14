@@ -29,6 +29,7 @@ import { map } from 'rxjs/operators';
 })
 export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
+  public submitting: boolean = false;
   public createForm: boolean;
   public passMsg: string;
   public formBasic: FormGroup;
@@ -169,6 +170,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.dialogRef.close();
   }
   public onSubmit(): void {
+    this.submitting = true;
     const form = {
       ...this.formBasic.value,
       ...this.formTec.value,
@@ -212,8 +214,13 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
           this.uploadDocument().subscribe(() => {
             this.dialogRef.close('created');
             this.snackBar.open('Proposta criada com sucesso');
-          }, error => this.traitError(error));
+            this.submitting = false;
+          }, error => {
+            this.traitError(error);
+            this.submitting = false;
+          });
         } else {
+          this.submitting = false;
           this.dialogRef.close('created');
           this.snackBar.open('Proposta criada com sucesso');
         }
@@ -225,8 +232,13 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
           this.uploadDocument().subscribe(() => {
             this.dialogRef.close('created');
             this.snackBar.open('Proposta criada com sucesso');
-          }, error => this.traitError(error));
+            this.submitting = false;
+          }, error => {
+            this.submitting = false;
+            this.traitError(error);
+          });
         } else {
+          this.submitting = false;
           this.dialogRef.close('updated');
           this.snackBar.open('Proposta atualizada com sucesso');
         }

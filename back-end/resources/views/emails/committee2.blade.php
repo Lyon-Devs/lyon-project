@@ -31,14 +31,14 @@
 </style>
 Olá,
 
-Segue documentação para aprovação de proposta
+Segue os valores e condições acordas perante o comitê 2.
 
 
 <table class="table" cellspacing="0" cellpadding="0">
     <thead>
         <tr>
             <td colspan="7" style="color: #fff !important;padding:10px 5px">
-                COMITÊ 01 - DEFINIÇÃO DE PARTICIPAÇÃO EM CONCORRÊNCIA
+                COMITÊ 02 - VALORES COMERCIAS APRESENTADOS AO CLIENTE
             </td>
         </tr>
     </thead>
