@@ -20,7 +20,7 @@ class ProposalCommitteeOneService
         $defaultEmails = env('DEFAULT_USER_COMMITTEE_1', null);
         $mainEmails = [];
         if ($defaultEmails) {
-            $mainEmails = explode(';', $defaultEmails);
+            $mainEmails = explode(';', trim($defaultEmails));
         }
         $proposal = $this->proposal;
         $emails = $proposal->typeService->emails;
