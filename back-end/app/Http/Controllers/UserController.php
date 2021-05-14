@@ -91,8 +91,8 @@ class UserController extends Controller
             $role = Role::where('slug', $role)->first();
             $user->roles()->attach($role);
         }
-        return $user;
         $user->save();
+        return $user;
     }
 
     /**
