@@ -29,9 +29,10 @@
         font-weight: 600;
     }
 </style>
-Olá,
+Olá,<br><br>
 
 Segue os valores e condições acordas perante o comitê 2.
+<br><br>
 
 
 <table class="table" cellspacing="0" cellpadding="0">
@@ -156,19 +157,19 @@ Segue os valores e condições acordas perante o comitê 2.
     </tr>
     @if(!empty($proposal->date_technique_visit))
     <tr>
-        <td class="sub" colspan="1">
+        <td class="sub">
             Local visita técnica:
         </td>
-        <td colspan="6">
-            {{$proposal->place_to_deploys_services}}
+        <td>
+            {{$proposal->local_technique_visit}}
         </td>
     </tr>
     <tr>
-        <td class="sub" colspan="1">
+        <td class="sub">
             Detalhes visita técnica:
         </td>
-        <td colspan="6">
-            {{$proposal->place_to_deploys_services}}
+        <td>
+            {{$proposal->details_technique_visit}}
         </td>
     </tr>
     @endif
@@ -268,6 +269,6 @@ Segue os valores e condições acordas perante o comitê 2.
     </tr>
     @endforelse
 </table>
-Att,<br>
+<br><br>Att,<br>
 SGP LYON
 @endsection

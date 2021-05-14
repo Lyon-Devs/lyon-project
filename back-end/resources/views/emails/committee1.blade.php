@@ -161,7 +161,7 @@ Segue documentação para aprovação de proposta
             Local visita técnica:
         </td>
         <td>
-            {{$proposal->place_to_deploys_services}}
+            {{$proposal->local_technique_visit}}
         </td>
     </tr>
     <tr>
@@ -169,7 +169,7 @@ Segue documentação para aprovação de proposta
             Detalhes visita técnica:
         </td>
         <td>
-            {{$proposal->place_to_deploys_services}}
+            {{$proposal->details_technique_visit}}
         </td>
     </tr>
     @endif
