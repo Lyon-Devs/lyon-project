@@ -96,11 +96,11 @@ class UserController extends Controller
                 return $role;
             }
         });
-        foreach ($addRoles as $role) {
-            $user->attachRoleBySlug($role);
-        }
         foreach ($removeRoles as $role) {
             $user->revokeRoleBySlug($role->slug);
+        }
+        foreach ($addRoles as $role) {
+            $user->attachRoleBySlug($role);
         }
         $user->save();
         return $user;
