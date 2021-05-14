@@ -51,7 +51,7 @@
         </ng-container>
         <ng-container matColumnDef="global_price">
             <th mat-header-cell *matHeaderCellDef> Preço global </th>
-            <td mat-cell *matCellDef="let element"> R$ {{element.global_price / 100 | number: '1.2-2' }} </td>
+            <td mat-cell *matCellDef="let element"> R$ {{element.global_price / 100 | number: '1.2-2' | pointReplacer }} </td>
         </ng-container>
         <ng-container matColumnDef="medium_histogram">
             <th mat-header-cell *matHeaderCellDef> Histograma médio </th>

@@ -11,7 +11,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProposalRevisionComponent } from '../../../components/create-proposal-revision/create-proposal-revision.component';
 import { ConfirmComponent } from '@components/confirm/confirm.component';
-import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-detail',
