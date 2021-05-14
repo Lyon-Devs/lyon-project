@@ -128,7 +128,8 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Detalhes visita técnica</mat-label>
-                        <textarea matInput rows="5" formControlName="details_technique_visit"></textarea>
+                        <textarea matInput #details_technique_visit maxlength="65535" rows="5" formControlName="details_technique_visit"></textarea>
+                        <mat-hint align="end">{{details_technique_visit.value.length }} / 65535</mat-hint>
                     </mat-form-field>
                 </ng-template>
                 <div>
@@ -171,7 +172,8 @@
                 <ng-template matStepLabel>Escopo resumido</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Escopo resumido</mat-label>
-                    <textarea matInput required rows="3" formControlName="summary_scope"></textarea>
+                    <input matInput maxlength="190" #summary_scope required formControlName="summary_scope">
+                    <mat-hint align="end">{{summary_scope.value.length}} / 190</mat-hint>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Voltar</button>
@@ -185,7 +187,8 @@
                 <ng-template matStepLabel>Escopo</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Escopo</mat-label>
-                    <textarea matInput required rows="25" formControlName="scope"></textarea>
+                    <textarea #scope maxlength="65535"  matInput required rows="25" formControlName="scope"></textarea>
+                    <mat-hint align="end">{{scope.value.length }} / 65535</mat-hint>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Voltar</button>
@@ -203,7 +206,8 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>Local</mat-label>
-                        <input matInput required formControlName="place_to_deploys_services">
+                        <input matInput #place_to_deploys_services maxlength="190" required formControlName="place_to_deploys_services">
+                        <mat-hint align="end">{{place_to_deploys_services.value.length }} / 190</mat-hint>
                     </mat-form-field>
                 </div>
 
@@ -244,11 +248,12 @@
                 </mat-list>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Considerações finais</mat-label>
-                    <textarea matInput formControlName="observations"></textarea>
+                    <textarea matInput #observations maxlength="65535" formControlName="observations"></textarea>
+                    <mat-hint align="end">{{observations.value.length }} / 65535</mat-hint>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Voltar</button>
-                    <button mat-button matStepperNext>Próximo</button>
+                    <button mat-button matStepperNext *ngIf="createForm">Próximo</button>
                 </div>
             </form>
         </mat-step>
@@ -256,7 +261,6 @@
             <ng-template matStepLabel>Ação</ng-template>
             <div>
                 <button mat-button matStepperPrevious>Voltar</button>
-                <button mat-raised-button color="warn" (click)="stepper.reset()" *ngIf="createForm">Resetar</button>
                 <button mat-raised-button color="primary" (click)="onSubmit()">{{ createForm ? 'Criar':
                     'Atualizar'}}</button>
             </div>

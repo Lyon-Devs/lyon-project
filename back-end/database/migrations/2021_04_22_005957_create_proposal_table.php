@@ -29,15 +29,15 @@ class CreateProposalTable extends Migration
             $table->date('date_technique_visit')->nullable();
             $table->date('deadline_date_confirme')->nullable();
             $table->time('deadline_time_confirme')->nullable();
-            $table->mediumText('details_technique_visit')->nullable();
+            $table->text('details_technique_visit')->nullable();
             $table->string('local_technique_visit')->nullable();
             $table->string('medium_histogram')->nullable();
             $table->integer('months_exec')->nullable();
             $table->string('number_client_request')->nullable();
-            $table->longText('observations')->nullable();
+            $table->text('observations')->nullable();
             $table->string('place_to_deploys_services')->nullable();
-            $table->longText('scope')->nullable();
-            $table->mediumText('summary_scope')->nullable();
+            $table->text('scope')->nullable();
+            $table->string('summary_scope')->nullable();
             $table->time('time_technique_visit')->nullable();
             $table->enum('status', [
                 'committee_1', 'committee_2', 'draft',
