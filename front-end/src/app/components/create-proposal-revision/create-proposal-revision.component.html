@@ -28,7 +28,14 @@
       </mat-form-field>
       <mat-form-field appearance="outline" fullWidth>
         <mat-label>Preço global</mat-label>
-        <input matInput type="number" step="0.01" required formControlName="global_price">
+        <input matInput type='text' required formControlName="global_price"
+        prefix="R$"
+        maxIntegerDigits="12"
+        thousandsSeparator=","
+        angularFormsCurrency
+        
+        
+        >
       </mat-form-field>
     </div>
     <div class="two-col">

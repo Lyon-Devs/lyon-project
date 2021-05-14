@@ -51,31 +51,31 @@
         </ng-container>
         <ng-container matColumnDef="global_price">
             <th mat-header-cell *matHeaderCellDef> Preço global </th>
-            <td mat-cell *matCellDef="let element"> {{element.global_price }} </td>
+            <td mat-cell *matCellDef="let element"> R${{element.global_price | number: '.1-2' }} </td>
         </ng-container>
         <ng-container matColumnDef="medium_histogram">
             <th mat-header-cell *matHeaderCellDef> Histograma médio </th>
-            <td mat-cell *matCellDef="let element"> {{element.medium_histogram }} </td>
+            <td mat-cell *matCellDef="let element"> {{element.medium_histogram | number: '.1-2' }} </td>
         </ng-container>
         <ng-container matColumnDef="gross_margin">
             <th mat-header-cell *matHeaderCellDef> Margem bruta </th>
-            <td mat-cell *matCellDef="let element"> {{element.gross_margin }} </td>
+            <td mat-cell *matCellDef="let element"> {{element.gross_margin  | number: '.1-2'}}%</td>
         </ng-container>
         <ng-container matColumnDef="financial_taxis">
             <th mat-header-cell *matHeaderCellDef> Taxa financeira </th>
-            <td mat-cell *matCellDef="let element"> {{element.financial_taxis }} </td>
+            <td mat-cell *matCellDef="let element"> {{element.financial_taxis | number: '.1-2' }} </td>
         </ng-container>
         <ng-container matColumnDef="bdi">
             <th mat-header-cell *matHeaderCellDef> BDI </th>
-            <td mat-cell *matCellDef="let element"> {{ element.bdi }} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.bdi | number: '.1-2' }}%</td>
         </ng-container>
         <ng-container matColumnDef="taxes">
             <th mat-header-cell *matHeaderCellDef> Imposto </th>
-            <td mat-cell *matCellDef="let element"> {{ element.taxes }} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.taxes  | number: '.1-2'}}%</td>
         </ng-container>
         <ng-container matColumnDef="charge">
             <th mat-header-cell *matHeaderCellDef> Encargo </th>
-            <td mat-cell *matCellDef="let element"> {{ element.charge }} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.charge | number: '.1-2' }}%</td>
         </ng-container>
         <ng-container matColumnDef="type_price">
             <th mat-header-cell *matHeaderCellDef> Precificação </th>

@@ -20,11 +20,16 @@ import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateModule } from '@angular/material-moment-adapter';
 import { CreateContractAdditiveComponent } from './create-contract-additive/create-contract-additive.component';
 import { CreateContractRenegotiationComponent } from './create-contract-renegotiation/create-contract-renegotiation.component';
+import { NgxMaskModule } from 'ngx-mask';
+import { AngularFormsInputMasksModule } from 'angular-forms-input-masks';
 // import { MY_MOMENT_DATE_FORMATS } from '@pages/proposal/proposal.module';
 
 
 @NgModule({
-  declarations: [CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent, CreateContractComponent, CreateContractAdditiveComponent, CreateContractRenegotiationComponent],
+  declarations: [
+    CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent,
+    CreateContractComponent, CreateContractAdditiveComponent, CreateContractRenegotiationComponent
+  ],
   imports: [
     CommonModule,
     MainModule,
@@ -41,7 +46,8 @@ import { CreateContractRenegotiationComponent } from './create-contract-renegoti
     MatDatepickerModule,
     MatNativeDateModule,
     MomentDateModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    AngularFormsInputMasksModule,
   ],
   exports: [
     MainModule,

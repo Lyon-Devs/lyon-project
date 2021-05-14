@@ -22,8 +22,8 @@ export class DetailComponent implements OnInit, CrudPage<ProposalRevision> {
   public proposal: Proposal;
   public paginateItems: Paginate<ProposalRevision>;
   public displayedColumns: string[] = [
-    'medium_histogram', 'number_revision', 'global_price', 'gross_margin',
-    'bdi', 'taxes', 'charge', 'financial_taxis', 'type_price', 'data_committee', 'actions'
+    'number_revision', 'data_committee', 'global_price', 'medium_histogram', 'gross_margin',
+    'bdi', 'taxes', 'charge', 'financial_taxis', 'type_price', 'actions'
   ];
   public pageEvent: PageEvent;
   constructor(

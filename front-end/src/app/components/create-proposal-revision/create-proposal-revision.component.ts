@@ -29,7 +29,7 @@ export class CreateProposalRevisionComponent implements OnInit {
       number_revision: [this.data?.number_revision || '', Validators.required],
       data_committee: [this.data?.data_committee || '', Validators.required],
       type_price: [this.data?.type_price || '', Validators.required],
-      medium_histogram: [{ value: this.data?.medium_histogram || ''}],
+      medium_histogram: [this.data?.medium_histogram || ''],
       global_price: [this.data?.global_price || '', Validators.required],
       gross_margin: [this.data?.gross_margin || '', Validators.required],
       bdi: [this.data?.bdi || '', Validators.required],
