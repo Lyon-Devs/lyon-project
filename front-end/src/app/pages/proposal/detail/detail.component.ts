@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProposalRevisionComponent } from '../../../components/create-proposal-revision/create-proposal-revision.component';
 import { ConfirmComponent } from '@components/confirm/confirm.component';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-detail',
@@ -61,7 +62,6 @@ export class DetailComponent implements OnInit, CrudPage<ProposalRevision> {
       if (event) {
         this.proposalRevisionService.delete(item).subscribe(resUser => {
           this.paginateItems = this.paginateService.removeItem(item, this.paginateItems);
-          console.log('item', item)
           this.snackBar.open(`Revisão ${item.number_revision} removida!`);
         });
       }
@@ -96,6 +96,7 @@ export class DetailComponent implements OnInit, CrudPage<ProposalRevision> {
       this.proposal = params.ProposalResolve;
       this.subtitle = `gerênciamento da proposta ${this.proposal.cod_lyon}`;
     });
+
     this.proposalRevisionService.setContract(this.proposal.id);
     this.getPage();
 

@@ -111,12 +111,12 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       this.userListCom = userList;
 
       this.selectedUserTec = this.data?.owners?.filter(owner => owner.type === 'technical');
-      if (this.selectedUserTec.length) {
+      if (this.selectedUserTec?.length) {
         this.selectedUserTec = this.selectedUserTec.map(owner => owner.user);
       }
 
       this.selectedUserCom = this.data?.owners?.filter(owner => owner.type === 'comercial');
-      if (this.selectedUserCom.length) {
+      if (this.selectedUserCom?.length) {
         this.selectedUserCom = this.selectedUserCom.map(owner => owner.user);
       }
     });
