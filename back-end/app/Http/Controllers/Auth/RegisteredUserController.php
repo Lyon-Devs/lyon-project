@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Yajra\Acl\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -33,7 +34,10 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
-        $user->attachRoleBySlug($request->role);
+        foreach ($request->role as $role) {
+            $role = Role::where('slug', $role)->first();
+            $user->roles()->attach($role);
+        }
 
 
         event(new Registered($user));
