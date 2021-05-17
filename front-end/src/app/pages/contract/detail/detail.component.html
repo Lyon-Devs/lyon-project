@@ -8,9 +8,15 @@
         <mat-card-content>
             <mat-list>
                 <mat-list-item>
+                    <span><b>Código solicitação</b> {{contract.proposal.number_client_request}}</span>
+                    <span><b>Centro de custo </b> {{contract.center_of_cost }}</span>
+                    <span><b>Número do contrato.</b> {{contract.contract_number}}</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
                     <span><b>Comprador</b> {{contract.proposal.buyer.name}}</span>
                     <span><b>Data Solicitação</b> {{contract.proposal.date_request | date: 'd/MM/y':'z'}}</span>
-                    <span><b>Código solicitação</b> {{contract.proposal.number_client_request}}</span>
+                    <span><b>Ordem de compra</b> {{contract.purchase_order}} </span>
                 </mat-list-item>
 
                 <mat-divider></mat-divider>
@@ -30,26 +36,23 @@
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item>
-                    <span><b>Ordem de compra</b> {{contract.purchase_order}} </span>
-                </mat-list-item>
-                <ng-template [ngIf]="contract.proposal.date_delivery_technique_proposal">
-                    <mat-divider></mat-divider>
-                    <mat-list-item>
+                    <ng-template [ngIf]="contract.proposal.date_delivery_technique_proposal">
                         <span>
-                            <b>Proposta técnica data entrega</b>
+                            <b>Data de Entrega, Proposta Técnica</b>
                             {{contract.proposal.date_delivery_technique_proposal | date:'d/MM/y':'z'}}
                         </span>
-                    </mat-list-item>
-                </ng-template>
-                <ng-template [ngIf]="contract.proposal.date_delivery_comercial_proposal">
-                    <mat-divider></mat-divider>
-                    <mat-list-item>
+                    </ng-template>
+                    <ng-template [ngIf]="contract.proposal.date_delivery_comercial_proposal">
                         <span>
-                            <b>Proposta comercial, data entrega</b>
+                            <b>Data de Entrega, Proposta Comercial</b>
                             {{contract.proposal.date_delivery_comercial_proposal | date:'d/MM/y':'z'}}
                         </span>
-                    </mat-list-item>
-                </ng-template>
+                    </ng-template>
+                    <span>
+                        <b>Escopo resumido</b>
+                        {{contract.proposal.summary_scope}}
+                    </span>
+                </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item>
                     <span><b>Prazo execução(Meses)</b> {{contract.proposal.months_exec}} </span>
