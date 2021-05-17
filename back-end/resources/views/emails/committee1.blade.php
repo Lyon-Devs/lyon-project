@@ -6,7 +6,7 @@
     }
 
     .table thead {
-        background-color: #000;
+        background-color: #8D6851;
     }
 
     .table thead tr {

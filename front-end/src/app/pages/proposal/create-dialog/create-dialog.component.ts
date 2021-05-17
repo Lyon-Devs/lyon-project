@@ -86,7 +86,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       date_technique_visit: [this?.data?.date_technique_visit || ''],
       time_technique_visit: [this?.data?.time_technique_visit || ''],
       local_technique_visit: [this?.data?.local_technique_visit || ''],
-      details_technique_visit: [this?.data?.local_technique_visit || ''],
+      details_technique_visit: [this?.data?.details_technique_visit || ''],
     });
     this.formCom = this.fb.group({
       date_delivery_comercial_proposal: [this?.data?.date_delivery_comercial_proposal || ''],
@@ -96,7 +96,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       summary_scope: [this?.data?.summary_scope || '', Validators.required],
     });
     this.formScope = this.fb.group({
-      scope: [this?.data?.summary_scope || '', Validators.required],
+      scope: [this?.data?.scope || '', Validators.required],
     });
     this.formExe = this.fb.group({
       place_to_deploys_services: [this?.data?.place_to_deploys_services || '', Validators.required],
