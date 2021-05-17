@@ -66,6 +66,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.cdr.detectChanges();
   }
   ngOnInit(): void {
+
     // this.selectedUserTec = this.data.users
     this.createForm = this.data?.id ? false : true;
     this.proposalFilesService.setContract(this.data?.id);
@@ -120,6 +121,8 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
       this.selectedUserCom = this.data?.owners?.filter(owner => owner.type === 'comercial');
       if (this.selectedUserCom?.length) {
         this.selectedUserCom = this.selectedUserCom.map(owner => owner.user);
+      } else {
+        this.selectedUserCom = [];
       }
     });
 
