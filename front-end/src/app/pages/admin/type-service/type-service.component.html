@@ -10,11 +10,11 @@
     </div>
     <table mat-table [dataSource]="paginateItems?.data">
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Descrição  </th>
+            <th mat-header-cell *matHeaderCellDef> Unidade de negócio   </th>
             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
         <ng-container matColumnDef="unity_business">
-            <th mat-header-cell *matHeaderCellDef> Unidade de negócio </th>
+            <th mat-header-cell *matHeaderCellDef> Tipo de serviço</th>
             <td mat-cell *matCellDef="let element"> {{element.unity_business}} </td>
         </ng-container>
         <ng-container matColumnDef="email_group">

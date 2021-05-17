@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} Revisão</h1>
 <div mat-dialog-content>
-  <form [formGroup]="formType">
+  <form [formGroup]="formType" autocomplete="off">
     <mat-form-field appearance="outline" fullWidth>
       <mat-label>Nª Revisão da proposta consolidada</mat-label>
       <input matInput required formControlName="number_revision">

@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} Repactuação</h1>
     <div mat-dialog-content>
-        <form [formGroup]="formType">
+        <form [formGroup]="formType" autocomplete="off">
             <div class="two-col">
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Nº da repactuação</mat-label>

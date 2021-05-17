@@ -17,7 +17,7 @@
 <div mat-dialog-content>
     <mat-vertical-stepper [linear]="createForm" #stepper>
         <mat-step [stepControl]="formBasic">
-            <form [formGroup]="formBasic">
+            <form [formGroup]="formBasic" autocomplete="off">
                 <ng-template matStepLabel>Informações básicas</ng-template>
                 <div class="two-col">
                     <mat-form-field appearance="outline">
@@ -88,7 +88,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formTec" optional="true">
-            <form [formGroup]="formTec">
+            <form [formGroup]="formTec" autocomplete="off">
                 <ng-template matStepLabel>Proposta técnica</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Data entrega</mat-label>
@@ -140,7 +140,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formCom" optional>
-            <form [formGroup]="formCom">
+            <form [formGroup]="formCom" autocomplete="off">
                 <ng-template matStepLabel>Proposta comercial</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Data entrega</mat-label>
@@ -169,7 +169,7 @@
         </mat-step>
 
         <mat-step [stepControl]="formSummaryScope">
-            <form [formGroup]="formSummaryScope">
+            <form [formGroup]="formSummaryScope" autocomplete="off">
                 <ng-template matStepLabel>Escopo resumido</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Escopo resumido</mat-label>
@@ -184,7 +184,7 @@
         </mat-step>
 
         <mat-step [stepControl]="formScope">
-            <form [formGroup]="formScope">
+            <form [formGroup]="formScope" autocomplete="off">
                 <ng-template matStepLabel>Escopo</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Escopo</mat-label>
@@ -198,7 +198,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formExe">
-            <form [formGroup]="formExe">
+            <form [formGroup]="formExe" autocomplete="off">
                 <ng-template matStepLabel>Execução</ng-template>
                 <div class="two-col">
                     <mat-form-field appearance="outline" fullWidth>
@@ -220,7 +220,7 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="formDeploy">
-            <form [formGroup]="formDeploy">
+            <form [formGroup]="formDeploy" autocomplete="off">
                 <ng-template matStepLabel>Prestação de serviço</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Histograma Médio</mat-label>
