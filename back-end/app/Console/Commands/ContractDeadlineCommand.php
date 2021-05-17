@@ -49,6 +49,13 @@ class ContractDeadlineCommand extends Command
         if (count($contracts)) {
             $users = User::withRoles('comercial')->get();
             Notification::send($users, new ContractDeadlineNotification($contracts));
+
+            foreach ($contracts as $contract) {
+                $managerUsers = [];
+                $managerUsers[] = User::make(['name' => $contract->manager_lyon, "email" => $contract->manager_lyon_email]);
+                $managerUsers[] = User::make(['name' => $contract->manager_client, "email" => $contract->manager_client_email]);
+                Notification::send($managerUsers, new ContractDeadlineNotification($contracts));
+            }
         }
         return 0;
     }
