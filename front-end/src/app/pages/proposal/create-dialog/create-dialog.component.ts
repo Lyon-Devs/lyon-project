@@ -46,6 +46,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
   public userListCom: User[];
   public clients: Clients[];
   public buyers: Buyer[];
+  public buyersFiltered: Buyer[];
   public types: Type[];
   constructor(
     public fb: FormBuilder,
@@ -130,6 +131,11 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     });
 
     this.getClients();
+
+    this.formBasic.controls.client_id.valueChanges.subscribe(client_id => {
+      this.buyersFiltered = this.buyers.filter(buyer => buyer.client_id === client_id);
+    });
+
   }
   public addOrRemoveTec(event: any, user: User): void {
     if (event.checked) {
@@ -279,6 +285,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
   private getBuyer(): void {
     this.buyerService.all().subscribe(buyers => {
       this.buyers = buyers;
+      this.buyersFiltered = this.buyers;
     });
   }
   private getClients(): void {

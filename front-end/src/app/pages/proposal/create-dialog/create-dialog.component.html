@@ -37,7 +37,7 @@
                         <mat-label>Comprador</mat-label>
                         <mat-select formControlName="buyer_id" required>
                             <mat-option>None</mat-option>
-                            <mat-option [value]="buyer.id" *ngFor="let buyer of buyers">{{buyer.name}}</mat-option>
+                            <mat-option [value]="buyer.id" *ngFor="let buyer of buyersFiltered">{{buyer.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="outline" fullWidth>
