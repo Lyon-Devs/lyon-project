@@ -133,7 +133,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
     this.getClients();
 
     this.formBasic.controls.client_id.valueChanges.subscribe(client_id => {
-      this.buyersFiltered = this.buyers.filter(buyer => buyer.client_id === client_id);
+      this.buyersFiltered = this.buyers?.filter(buyer => buyer.client_id === client_id);
     });
 
   }
