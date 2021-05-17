@@ -46,9 +46,10 @@ class ContractDeadlineCommand extends Command
             ->whereRaw('datediff(date_end, now()) >= ?', 15)
             ->where('date_end', '>', Carbon::now())
             ->get();
-        // $user = User::make(['email' => 'test@gmail.com', 'name' => 'asdasdas']);
-        $users = User::withRoles('comercial')->get();
-        Notification::send($users, new ContractDeadlineNotification($contracts));
+        if (count($contracts)) {
+            $users = User::withRoles('comercial')->get();
+            Notification::send($users, new ContractDeadlineNotification($contracts));
+        }
         return 0;
     }
 }
