@@ -308,7 +308,6 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
   private traitError(error): void {
     const msg = error?.error?.message || error?.statusText || 'Aconteceu algum error no servidor tente de novo.';
-    console.log('msg', msg)
     this.snackBar.open(msg, 'ok');
   }
 
