@@ -21,12 +21,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { DateAdapter, MatDateFormats, MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS,  MomentDateModule } from '@angular/material-moment-adapter';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateModule } from '@angular/material-moment-adapter';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { NgxMaskModule } from 'ngx-mask';
 import { DetailComponent } from './detail/detail.component';
 import { PointReplacerPipe } from '../../pipes/point-replacer.pipe';
-
+import { PipesModule } from '../../pipes/pipes.module';
 
 export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
   parse: {
@@ -40,7 +40,7 @@ export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
   },
 };
 @NgModule({
-  declarations: [ProposalComponent, CreateDialogComponent, DetailComponent, PointReplacerPipe],
+  declarations: [ProposalComponent, CreateDialogComponent, DetailComponent],
   imports: [
     CommonModule,
     ComponentsModule,
@@ -65,13 +65,13 @@ export const MY_MOMENT_DATE_FORMATS: MatDateFormats = {
     MatMenuModule,
     MaterialFileInputModule,
     NgxMaskModule,
-    MatListModule
+    MatListModule,
+    PipesModule
   ],
   providers: [
     // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_MOMENT_DATE_FORMATS },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    PointReplacerPipe
   ],
   exports: [
   ]

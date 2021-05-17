@@ -19,6 +19,8 @@ import { ContractAdditiveComponent } from './contract-additive/contract-additive
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { PointReplacerPipe } from 'src/app/pipes/point-replacer.pipe';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 
 @NgModule({
@@ -40,8 +42,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatPaginatorModule,
     MatSnackBarModule,
     MatListModule,
-    MatSlideToggleModule
-
+    MatSlideToggleModule,
+    PipesModule
+  ],
+  providers : [
+    
   ]
 })
 export class ContractModule { }

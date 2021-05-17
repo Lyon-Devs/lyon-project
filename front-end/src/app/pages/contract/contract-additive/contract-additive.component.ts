@@ -86,6 +86,15 @@ export class ContractAdditiveComponent implements OnInit, CrudPage<ContractAddit
     });
   }
 
+  public getType(type: string): string {
+    const types = {
+      deadline: 'Prazo',
+      value: 'Valor',
+      deadline_value: 'Prazo e valor',
+      others: 'Outros'
+    };
+    return types[type];
+  }
   ngOnInit(): void {
     this.contractAdditiveService.setContract(this.contract.id);
     this.getPage();

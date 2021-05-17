@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { UsersComponent } from './admin/users/users.component';
 import { ProposalComponent } from './proposal/proposal.component';
 import { ContractComponent } from './contract/contract.component';
-
+import { PointReplacerPipe } from '../pipes/point-replacer.pipe';
 
 @NgModule({
   declarations: [LoginModule, HomeModule, UsersComponent, ProposalComponent, ContractComponent],
@@ -25,7 +25,5 @@ import { ContractComponent } from './contract/contract.component';
     MatCardModule,
     MatButtonModule
   ],
-  exports: [],
-
 })
 export class PagesModule { }
