@@ -101,7 +101,6 @@ class ProposalController extends Controller
      */
     public function update(Request $request, Proposal $proposal)
     {
-
         $request->validate([
             'type_service_id' => 'required',
             'buyer_id' => 'required',
@@ -127,12 +126,13 @@ class ProposalController extends Controller
             });
 
             foreach ($request->selectedUserTec as $user) {
-
-                $proposal->owners()->updateOrInsert([
-                    'user_id' => $user['id'],
-                    'type' => 'technical',
-                    'proposal_id' => $proposal->id
-                ]);
+                if (isset($user['id'])) {
+                    $proposal->owners()->updateOrInsert([
+                        'user_id' => $user['id'],
+                        'type' => 'technical',
+                        'proposal_id' => $proposal->id
+                    ]);
+                }
             }
         }
         if ($request->has('selectedUserCom')) {
@@ -141,12 +141,13 @@ class ProposalController extends Controller
                 $user->delete();
             });
             foreach ($request->selectedUserCom as $user) {
-
-                $proposal->owners()->updateOrInsert([
-                    'user_id' => $user['id'],
-                    'type' => 'comercial',
-                    'proposal_id' => $proposal->id
-                ]);
+                if (isset($user['id'])) {
+                    $proposal->owners()->updateOrInsert([
+                        'user_id' => $user['id'],
+                        'type' => 'comercial',
+                        'proposal_id' => $proposal->id
+                    ]);
+                }
             }
         }
 

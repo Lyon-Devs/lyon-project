@@ -244,6 +244,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
             this.dialogRef.close('created');
             this.snackBar.open('Proposta criada com sucesso');
             this.submitting = false;
+
           }, error => {
             this.submitting = false;
             this.traitError(error);
@@ -253,6 +254,9 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
           this.dialogRef.close('updated');
           this.snackBar.open('Proposta atualizada com sucesso');
         }
+      }, error => {
+        this.submitting = false;
+        this.traitError(error);
       });
 
     }
@@ -304,6 +308,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
   private traitError(error): void {
     const msg = error?.error?.message || error?.statusText || 'Aconteceu algum error no servidor tente de novo.';
+    console.log('msg', msg)
     this.snackBar.open(msg, 'ok');
   }
 
