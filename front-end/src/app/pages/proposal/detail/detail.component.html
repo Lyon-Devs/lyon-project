@@ -12,24 +12,25 @@
                     <span><b>Data Solicitação</b> {{proposal.date_request | date: 'd/MM/y':'z'}}</span>
                     <span><b>Código solicitação</b> {{proposal.number_client_request}}</span>
                 </mat-list-item>
-                <ng-template [ngIf]="proposal.date_delivery_technique_proposal">
-                    <mat-divider></mat-divider>
-                    <mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <ng-template [ngIf]="proposal.date_delivery_technique_proposal">
                         <span>
-                            <b>Proposta técnica data entrega</b> 
+                            <b>Data de Entrega, Proposta Técnica</b>
                             {{proposal.date_delivery_technique_proposal | date:'d/MM/y':'z'}}
                         </span>
-                    </mat-list-item>
-                </ng-template>
-                <ng-template [ngIf]="proposal.date_delivery_comercial_proposal">
-                    <mat-divider></mat-divider>
-                    <mat-list-item>
+                    </ng-template>
+                    <ng-template [ngIf]="proposal.date_delivery_comercial_proposal">
                         <span>
-                            <b>Proposta comercial, data entrega</b> 
+                            <b>Data de Entrega, Proposta Comercial</b>
                             {{proposal.date_delivery_comercial_proposal | date:'d/MM/y':'z'}}
                         </span>
-                    </mat-list-item>
-                </ng-template>
+                    </ng-template>
+                    <span>
+                        <b>Escopo resumido</b>
+                        {{proposal.summary_scope}}
+                    </span>
+                </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item>
                     <span><b>Prazo execução(Meses)</b> {{proposal.months_exec}} </span>
@@ -39,19 +40,20 @@
         </mat-card-content>
     </mat-card>
 
-    <h2 class="revision">Revisões 
+    <h2 class="revision">Revisões
         <button mat-mini-fab aria-label="Example icon button with a home icon" color="primary" (click)="create()">
             <mat-icon>add</mat-icon>
         </button>
     </h2>
     <table mat-table [dataSource]="paginateItems?.data">
         <ng-container matColumnDef="number_revision">
-            <th mat-header-cell *matHeaderCellDef> Revisão  </th>
+            <th mat-header-cell *matHeaderCellDef> Revisão </th>
             <td mat-cell *matCellDef="let element"> {{element?.number_revision}} </td>
         </ng-container>
         <ng-container matColumnDef="global_price">
             <th mat-header-cell *matHeaderCellDef> Preço global </th>
-            <td mat-cell *matCellDef="let element"> R$ {{element.global_price / 100 | number: '1.2-2' | pointReplacer }} </td>
+            <td mat-cell *matCellDef="let element"> R$ {{element.global_price / 100 | number: '1.2-2' | pointReplacer }}
+            </td>
         </ng-container>
         <ng-container matColumnDef="medium_histogram">
             <th mat-header-cell *matHeaderCellDef> Histograma médio </th>
@@ -59,7 +61,7 @@
         </ng-container>
         <ng-container matColumnDef="gross_margin">
             <th mat-header-cell *matHeaderCellDef> Margem bruta </th>
-            <td mat-cell *matCellDef="let element"> {{element.gross_margin  | number: '.1-2'}}%</td>
+            <td mat-cell *matCellDef="let element"> {{element.gross_margin | number: '.1-2'}}%</td>
         </ng-container>
         <ng-container matColumnDef="financial_taxis">
             <th mat-header-cell *matHeaderCellDef> Taxa financeira </th>
@@ -71,7 +73,7 @@
         </ng-container>
         <ng-container matColumnDef="taxes">
             <th mat-header-cell *matHeaderCellDef> Imposto </th>
-            <td mat-cell *matCellDef="let element"> {{ element.taxes  | number: '.1-2'}}%</td>
+            <td mat-cell *matCellDef="let element"> {{ element.taxes | number: '.1-2'}}%</td>
         </ng-container>
         <ng-container matColumnDef="charge">
             <th mat-header-cell *matHeaderCellDef> Encargo </th>
@@ -100,8 +102,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="paginateItems?.total" [pageSize]="paginateItems?.per_page"
-        [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="paginateItems?.total"
+        [pageSize]="paginateItems?.per_page" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 
 </div>
