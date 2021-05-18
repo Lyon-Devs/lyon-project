@@ -16,7 +16,7 @@ class ContractDeadlineCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'contract:deadline';
+    protected $signature = 'contract:deadline {days}';
 
     /**
      * The console command description.
@@ -42,19 +42,20 @@ class ContractDeadlineCommand extends Command
      */
     public function handle()
     {
-        $contracts = Contract::whereRaw('datediff(date_end, now()) <= ?', 15)
-            ->whereRaw('datediff(date_end, now()) >= ?', 15)
+        $days = $this->argument('days');
+        $contracts = Contract::whereRaw('datediff(date_end, now()) <= ?', $days)
+            ->whereRaw('datediff(date_end, now()) >= ?', $days)
             ->where('date_end', '>', Carbon::now())
             ->get();
         if (count($contracts)) {
             $users = User::withRoles('comercial')->get();
-            Notification::send($users, new ContractDeadlineNotification($contracts));
+            Notification::send($users, new ContractDeadlineNotification($contracts, $days));
 
             foreach ($contracts as $contract) {
                 $managerUsers = [];
                 $managerUsers[] = User::make(['name' => $contract->manager_lyon, "email" => $contract->manager_lyon_email]);
                 $managerUsers[] = User::make(['name' => $contract->manager_client, "email" => $contract->manager_client_email]);
-                Notification::send($managerUsers, new ContractDeadlineNotification($contracts));
+                Notification::send($managerUsers, new ContractDeadlineNotification($contracts, $days));
             }
         }
         return 0;

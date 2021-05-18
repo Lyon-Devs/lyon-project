@@ -13,14 +13,16 @@ class ContractDeadlineNotification extends Notification
     use Queueable;
 
     private $contracts;
+    private $days;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($contracts)
+    public function __construct($contracts, $days)
     {
         $this->contracts = $contracts;
+        $this->days = $days;
     }
 
     /**
@@ -45,7 +47,7 @@ class ContractDeadlineNotification extends Notification
         $mailMessage =  (new MailMessage)
             ->greeting('Olá!!')
             ->subject('Contratos com vencimento próximo')
-            ->line('Segue os contratos com vencimento nos próximos quinze dias:');
+            ->line("Segue os contratos com vencimento nos próximos " . $this->days . " dias:");
         foreach ($this->contracts as $contract) {
             $client = $contract->proposal->client;
             $mailMessage->line("Cliente {$client->name}, Nª. Contrato {$contract->contract_number}, vencimento {$contract->date_end->format('d/m/y')}");

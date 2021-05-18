@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('contract:deadline')->dailyAt('23:00');
+        $schedule->command('contract:deadline 45')->dailyAt('23:00');
+        $schedule->command('contract:deadline 30')->dailyAt('23:00');
+        $schedule->command('contract:deadline 15')->dailyAt('23:00');
     }
 
     /**
