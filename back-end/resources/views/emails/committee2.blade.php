@@ -103,11 +103,15 @@ Segue os valores e condições acordas perante o comitê 2.
             {{$proposal->client->actingBranches->name}}
         </td>
     </tr>
+    <thead>
+        <tr>
+            <td colspan="2" style="color: #fff !important;padding:10px 5px">
+                Escopo resumido
+            </td>
+        </tr>
+    </thead>
     <tr>
-        <td colspan="1">
-            Escopo resumido
-        </td>
-        <td colspan="6">
+        <td colspan="2">
             {{$proposal->summary_scope}}
         </td>
     </tr>

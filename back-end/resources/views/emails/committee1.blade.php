@@ -103,20 +103,16 @@ Segue documentação para aprovação de proposta
             {{$proposal->client->actingBranches->name}}
         </td>
     </tr>
+    <thead>
+        <tr>
+            <td colspan="2" style="color: #fff !important;padding:10px 5px">
+                Escopo resumido
+            </td>
+        </tr>
+    </thead>
     <tr>
-        <td>
-            Escopo resumido
-        </td>
-        <td>
+        <td colspan="2">
             {{$proposal->summary_scope}}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Prazo execução
-        </td>
-        <td>
-            {{$proposal->months_exec}} (meses)
         </td>
     </tr>
     <tr>
