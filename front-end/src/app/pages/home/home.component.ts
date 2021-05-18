@@ -17,10 +17,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.homeService.all().subscribe(home => {
-      console.log(home);
-      // this.home = homeData[0];
       this.home = home;
-      // console.
     });
   }
 

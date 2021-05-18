@@ -29,7 +29,7 @@ import { map } from 'rxjs/operators';
 })
 export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
-  public submitting: boolean = false;
+  public submitting = false;
   public createForm: boolean;
   public passMsg: string;
   public formBasic: FormGroup;
@@ -137,6 +137,7 @@ export class CreateDialogComponent implements OnInit, AfterViewChecked {
 
     this.getClients();
 
+    // tslint:disable-next-line: variable-name
     this.formBasic.controls.client_id.valueChanges.subscribe(client_id => {
       this.buyersFiltered = this.buyers?.filter(buyer => buyer.client_id === client_id);
     });

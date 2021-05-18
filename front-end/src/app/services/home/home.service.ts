@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService  {
+export class HomeService {
   protected url = `${environment.apiUrl}home`;
   constructor(public http: HttpClient) {
   }
