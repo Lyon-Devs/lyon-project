@@ -127,7 +127,9 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
     });
   }
   private addFilter(filter: string, value: any): void {
-    if (this.filter.some(filterEl => filterEl.filter === filter)) {
+    if (value === undefined || value === null || value === '') {
+      this.filter = this.filter.filter(filterEl => filterEl.filter !== filter);
+    } else if (this.filter.some(filterEl => filterEl.filter === filter)) {
       this.filter.map(filterEl => {
         if (filterEl.filter === filter) {
           filterEl.value = value;

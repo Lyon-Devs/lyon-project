@@ -58,6 +58,8 @@ class Contract extends Model
     {
         if ($active) {
             return $query->where('date_end', '>=', new Carbon());
+        } else {
+            return $query->where('date_end', '<', new Carbon());
         }
     }
 }

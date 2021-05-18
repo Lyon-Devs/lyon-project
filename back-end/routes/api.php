@@ -40,12 +40,12 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-// Route::get('test', function () {
-//     $proposal = Proposal::find(1);
-//     // $services  = new ProposalCommitteeOneService($proposal);
-//     $services = new ProposalCommittee2($proposal);
-//     return $services;
-// });
+Route::get('test', function () {
+    $proposal = Proposal::find(1);
+    // $services  = new ProposalCommitteeOneService($proposal);
+    $services = new ProposalCommittee1($proposal);
+    return $services;
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
