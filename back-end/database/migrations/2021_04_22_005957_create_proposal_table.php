@@ -37,7 +37,7 @@ class CreateProposalTable extends Migration
             $table->text('observations')->nullable();
             $table->string('place_to_deploys_services')->nullable();
             $table->mediumText('scope')->nullable();
-            $table->string('summary_scope')->nullable();
+            $table->text('summary_scope')->nullable();
             $table->time('time_technique_visit')->nullable();
             $table->enum('status', [
                 'committee_1', 'committee_2', 'draft',

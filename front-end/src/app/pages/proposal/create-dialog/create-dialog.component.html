@@ -173,8 +173,8 @@
                 <ng-template matStepLabel>Escopo resumido</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Escopo resumido</mat-label>
-                    <input matInput maxlength="190" #summary_scope required formControlName="summary_scope">
-                    <mat-hint align="end">{{summary_scope.value?.length}} / 190</mat-hint>
+                    <textarea matInput maxlength="500" rows="3" #summary_scope required formControlName="summary_scope"></textarea>
+                    <mat-hint align="end">{{summary_scope.value?.length}} / 500</mat-hint>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Voltar</button>
@@ -188,8 +188,8 @@
                 <ng-template matStepLabel>Escopo</ng-template>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Escopo</mat-label>
-                    <textarea #scope maxlength="65535" matInput required rows="25" formControlName="scope"></textarea>
-                    <mat-hint align="end">{{scope.value?.length }} / 65535</mat-hint>
+                    <textarea #scope maxlength="20000" matInput required rows="25" formControlName="scope"></textarea>
+                    <mat-hint align="end">{{scope.value?.length }} / 20000</mat-hint>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious>Voltar</button>

@@ -28,7 +28,7 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
   ) { }
   public paginateItems: Paginate<Proposal>;
   public displayedColumns: string[] = [
-    'cod_lyon', 'client_id', 'type_service_id',
+    'cod_lyon', 'type_service_id',
     'status', 'deadline_date_confirme', 'date_delivery_technique_proposal',
     'date_delivery_comercial_proposal', 'months_exec', 'actions'
   ];

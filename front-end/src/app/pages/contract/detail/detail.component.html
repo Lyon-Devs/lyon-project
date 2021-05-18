@@ -48,15 +48,16 @@
                             {{contract.proposal.date_delivery_comercial_proposal | date:'d/MM/y':'z'}}
                         </span>
                     </ng-template>
-                    <span>
-                        <b>Escopo resumido</b>
-                        {{contract.proposal.summary_scope}}
-                    </span>
+
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item>
                     <span><b>Prazo execução(Meses)</b> {{contract.proposal.months_exec}} </span>
                     <span><b>Local execução</b> {{contract.proposal.place_to_deploys_services}} </span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <b>Escopo resumido</b>:{{contract.proposal.summary_scope}}
                 </mat-list-item>
             </mat-list>
         </mat-card-content>
