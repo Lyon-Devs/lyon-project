@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { AuthService } from '@services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../../../models/users.model';
+import { ErrorService } from '../../../../services/error/error.service';
 @Component({
   selector: 'app-create-dialog',
   templateUrl: './create-dialog.component.html',
@@ -19,6 +20,7 @@ export class CreateDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateDialogComponent>,
     private authService: AuthService,
     private snackBar: MatSnackBar,
+    private errorService: ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -53,6 +55,8 @@ export class CreateDialogComponent implements OnInit {
       this.authService.registerUser(newUser).subscribe(user => {
         this.dialogRef.close('created');
         this.snackBar.open('Usuário criado com sucesso');
+      }, error => {
+        this.errorService.traitError(error.error?.error?.message || error.error?.errors || 'Error no servidor tente novamente');
       });
     } else {
 
@@ -72,7 +76,9 @@ export class CreateDialogComponent implements OnInit {
       this.authService.updateUser(newUser).subscribe(user => {
         this.dialogRef.close('updated');
         this.snackBar.open('Usuário atualizado com sucesso');
-      }, error => console.log('error', error));
+      }, error => {
+        this.errorService.traitError(error.error?.error?.message || error.error?.errors || 'Error no servidor tente novamente');
+      });
     }
 
   }

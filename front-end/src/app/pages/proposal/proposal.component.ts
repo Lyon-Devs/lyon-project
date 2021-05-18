@@ -140,8 +140,5 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
       });
     }
   }
-  public searchCod(event): void {
-    console.log(event);
-  }
 
 }

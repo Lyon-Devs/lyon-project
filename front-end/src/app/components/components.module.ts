@@ -22,13 +22,14 @@ import { CreateContractAdditiveComponent } from './create-contract-additive/crea
 import { CreateContractRenegotiationComponent } from './create-contract-renegotiation/create-contract-renegotiation.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { AngularFormsInputMasksModule } from 'angular-forms-input-masks';
+import { ErrorComponent } from './error/error.component';
 // import { MY_MOMENT_DATE_FORMATS } from '@pages/proposal/proposal.module';
 
 
 @NgModule({
   declarations: [
     CommonTitleComponent, ConfirmComponent, CreateProposalRevisionComponent,
-    CreateContractComponent, CreateContractAdditiveComponent, CreateContractRenegotiationComponent
+    CreateContractComponent, CreateContractAdditiveComponent, CreateContractRenegotiationComponent, ErrorComponent
   ],
   imports: [
     CommonModule,
