@@ -30,7 +30,7 @@ class ProposalCommittee2 extends Mailable
      */
     public function build()
     {
-        $this->subject('Propostas em comitê dois');
+        $this->subject($this->proposal->cod_lyon . ' COMITÊ 2');
         return $this->view('emails.committee2', ['proposal' => $this->proposal]);
     }
 }

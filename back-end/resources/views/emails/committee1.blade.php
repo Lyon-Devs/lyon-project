@@ -1,6 +1,6 @@
 @extends('emails.default')
 @section('content')
-<style>
+{{-- <style>
     .table {
         width: 100%;
     }
@@ -28,54 +28,61 @@
         color: #fff !important;
         font-weight: 600;
     }
-</style>
+</style> --}}
 Olá,
 
 Segue documentação para aprovação de proposta
 <br><br>
 
 
-<table class="table" cellspacing="0" cellpadding="0">
+<html>
+
+<head></head>
+
+
+
+
+<table cellspacing="0" cellpadding="4" style="border-collapse:collapse;color:#1f2240;border:1px solid #000">
     <thead>
-        <tr>
-            <td colspan="2" style="color: #fff !important;padding:10px 5px">
+        <tr bgcolor="#8D6851">
+            <td colspan="2">
                 COMITÊ 01 - DEFINIÇÃO DE PARTICIPAÇÃO EM CONCORRÊNCIA
             </td>
         </tr>
     </thead>
-    <thead>
-        <tr>
-            <td  style="color: #fff !important;padding:10px 5px">
+    <thead >
+        <tr style="border:1px solid #000">
+            <td bgcolor="#8D6851" style="border:1px solid #000">
                 Data limite para confirmação de participação:
             </td>
-            <td style="color: #fff !important;padding:10px 5px">
+            <td bgcolor="#8D6851" style="border:1px solid #000">
                 {{$proposal->deadline_date_confirme->format('d/m/Y')}}
             </td>
         </tr>
     </thead>
-    <tr>
-        <td>
+    <tr >
+        <td style="border:1px solid #000">
             Nº SDC / CVT:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->number_client_request}}
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="border:1px solid #000">
             Data da SCD / CVT:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             @if(empty($proposal->date_request))
             Não informado
             @else {{$proposal->date_request->format('d/m/Y')}} @endif
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="border:1px solid #000">
             Nº Proposta LYON:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->cod_lyon}}
         </td>
     </tr>
@@ -83,43 +90,31 @@ Segue documentação para aprovação de proposta
         <td>
             Tipo de serviço
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->typeService->unity_business}}
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="border:1px solid #000">
             Cliente
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->client->name}}
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="border:1px solid #000">
             Ramo de atuação
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->client->actingBranches->name}}
         </td>
     </tr>
-    <thead>
-        <tr>
-            <td colspan="2" style="color: #fff !important;padding:10px 5px">
-                Escopo resumido
-            </td>
-        </tr>
-    </thead>
     <tr>
-        <td colspan="2">
-            {{$proposal->summary_scope}}
-        </td>
-    </tr>
-    <tr>
-        <td>
+        <td style="border:1px solid #000">
             Proposta técnica:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             @if(empty($proposal->date_delivery_technique_proposal))
             não
             @else
@@ -128,10 +123,10 @@ Segue documentação para aprovação de proposta
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="border:1px solid #000">
             Proposta comercial:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             @if(empty($proposal->date_delivery_comercial_proposal))
             não
             @else
@@ -140,10 +135,10 @@ Segue documentação para aprovação de proposta
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="border:1px solid #000">
             Visita Técnica:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             @if(empty($proposal->date_technique_visit))
             não
             @else
@@ -153,51 +148,63 @@ Segue documentação para aprovação de proposta
     </tr>
     @if(!empty($proposal->date_technique_visit))
     <tr>
-        <td class="sub">
+        <td style="border:1px solid #000" class="sub">
             Local visita técnica:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->local_technique_visit}}
         </td>
     </tr>
     <tr>
-        <td class="sub">
+        <td style="border:1px solid #000" class="sub">
             Detalhes visita técnica:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->details_technique_visit}}
         </td>
     </tr>
     @endif
     <tr>
-        <td>
+        <td style="border:1px solid #000">
             Local da prestação de serviço
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->place_to_deploys_services}}
         </td>
     </tr>
     <thead>
         <tr>
-            <td colspan="2" style="color: #fff !important;padding:10px 5px">
+            <td style="border:1px solid #000" colspan="2" bgcolor="#8D6851">
+                Escopo resumido
+            </td>
+        </tr>
+    </thead>
+    <tr>
+        <td style="border:1px solid #000;word-break:break-word" colspan="2">
+            {{$proposal->summary_scope}}
+        </td>
+    </tr>
+    <thead>
+        <tr>
+            <td style="border:1px solid #000;" colspan="2" bgcolor="#8D6851">
                 Escopo detalhado
             </td>
         </tr>
     </thead>
     <tr>
-        <td colspan="2">
+        <td style="border:1px solid #000;word-break:break-word" colspan="2">
             {{$proposal->scope}}
         </td>
     </tr>
     <thead>
         <tr>
-            <td colspan="2" style="color: #fff !important;padding:10px 5px">
+            <td style="border:1px solid #000" colspan="2" bgcolor="#8D6851">
                 Obserservações do setor de propostas
             </td>
         </tr>
     </thead>
     <tr>
-        <td colspan="2">
+        <td style="border:1px solid #000" colspan="2">
             {{$proposal->observations}}
         </td>
     </tr>

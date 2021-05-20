@@ -30,7 +30,7 @@ class ProposalCommittee1 extends Mailable
      */
     public function build()
     {
-        $this->subject('Propostas em comitê um');
+        $this->subject($this->proposal->cod_lyon . ' COMITÊ 1');
         $email = $this->view('emails.committee1', ['proposal' => $this->proposal]);
         $files = $this->proposal->files;
         if (count($files)) {

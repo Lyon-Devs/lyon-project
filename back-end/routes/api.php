@@ -43,7 +43,7 @@ use Illuminate\Support\Facades\Storage;
 Route::get('test', function () {
     $proposal = Proposal::find(1);
     // $services  = new ProposalCommitteeOneService($proposal);
-    $services = new ProposalCommittee1($proposal);
+    $services = new ProposalCommittee2($proposal);
     return $services;
 });
 

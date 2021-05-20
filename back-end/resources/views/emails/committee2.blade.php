@@ -1,133 +1,85 @@
 @extends('emails.default')
 @section('content')
-<style>
-    .table {
-        width: 100%;
-    }
 
-    .table thead {
-        background-color: #8D6851;
-    }
-
-    .table thead tr {
-        padding: 5px;
-        font-weight: 600;
-    }
-
-    .table tbody tr td {
-        border: 1px solid black;
-        padding-left: 5px !important;
-    }
-
-    .table tbody tr td:first-child {
-        background-color: #e3e4e5;
-    }
-
-    .table tbody tr .sub {
-        background-color: #9c9d9e !important;
-        color: #fff !important;
-        font-weight: 600;
-    }
-</style>
 Olá,<br><br>
 
 Segue os valores e condições acordas perante o comitê 2.
 <br><br>
 
 
-<table class="table" cellspacing="0" cellpadding="0">
+<table cellspacing="0" cellpadding="4" style="border-collapse:collapse;color:#1f2240;border:1px solid #000">
     <thead>
-        <tr>
-            <td colspan="7" style="color: #fff !important;padding:10px 5px">
-                COMITÊ 02 - VALORES COMERCIAS APRESENTADOS AO CLIENTE
+        <tr bgcolor="#8D6851">
+            <td colspan="2">
+                COMITÊ 01 - DEFINIÇÃO DE PARTICIPAÇÃO EM CONCORRÊNCIA
             </td>
         </tr>
     </thead>
     <thead>
-        <tr>
-            <td style="color: #fff !important;padding:10px 5px">
+        <tr style="border:1px solid #000">
+            <td bgcolor="#8D6851" style="border:1px solid #000">
                 Data limite para confirmação de participação:
             </td>
-            <td style="color: #fff !important;padding:10px 5px">
+            <td bgcolor="#8D6851" style="border:1px solid #000">
                 {{$proposal->deadline_date_confirme->format('d/m/Y')}}
             </td>
         </tr>
     </thead>
     <tr>
-        <td colspan="1">
+        <td style="border:1px solid #000">
             Nº SDC / CVT:
         </td>
-        <td colspan="6">
+        <td style="border:1px solid #000">
             {{$proposal->number_client_request}}
         </td>
     </tr>
     <tr>
-        <td colspan="1">
+        <td style="border:1px solid #000">
             Data da SCD / CVT:
         </td>
-        <td colspan="6">
+        <td style="border:1px solid #000">
             @if(empty($proposal->date_request))
             Não informado
             @else {{$proposal->date_request->format('d/m/Y')}} @endif
         </td>
     </tr>
     <tr>
-        <td colspan="1">
+        <td style="border:1px solid #000">
             Nº Proposta LYON:
         </td>
-        <td colspan="6">
+        <td style="border:1px solid #000">
             {{$proposal->cod_lyon}}
         </td>
     </tr>
     <tr>
-        <td colspan="1">
+        <td>
             Tipo de serviço
         </td>
-        <td colspan="6">
-            {{$proposal->typeService->name}}
+        <td style="border:1px solid #000">
+            {{$proposal->typeService->unity_business}}
         </td>
     </tr>
     <tr>
-        <td colspan="1">
+        <td style="border:1px solid #000">
             Cliente
         </td>
-        <td colspan="6">
+        <td style="border:1px solid #000">
             {{$proposal->client->name}}
         </td>
     </tr>
     <tr>
-        <td colspan="1">
+        <td style="border:1px solid #000">
             Ramo de atuação
         </td>
-        <td colspan="6">
+        <td style="border:1px solid #000">
             {{$proposal->client->actingBranches->name}}
         </td>
     </tr>
-    <thead>
-        <tr>
-            <td colspan="2" style="color: #fff !important;padding:10px 5px">
-                Escopo resumido
-            </td>
-        </tr>
-    </thead>
     <tr>
-        <td colspan="2">
-            {{$proposal->summary_scope}}
-        </td>
-    </tr>
-    <tr>
-        <td colspan="1">
-            Prazo execução
-        </td>
-        <td colspan="6">
-            {{$proposal->months_exec}} (meses)
-        </td>
-    </tr>
-    <tr>
-        <td colspan="1">
+        <td style="border:1px solid #000">
             Proposta técnica:
         </td>
-        <td colspan="6">
+        <td style="border:1px solid #000">
             @if(empty($proposal->date_delivery_technique_proposal))
             não
             @else
@@ -136,10 +88,10 @@ Segue os valores e condições acordas perante o comitê 2.
         </td>
     </tr>
     <tr>
-        <td colspan="1">
+        <td style="border:1px solid #000">
             Proposta comercial:
         </td>
-        <td colspan="6">
+        <td style="border:1px solid #000">
             @if(empty($proposal->date_delivery_comercial_proposal))
             não
             @else
@@ -148,10 +100,10 @@ Segue os valores e condições acordas perante o comitê 2.
         </td>
     </tr>
     <tr>
-        <td colspan="1">
+        <td style="border:1px solid #000">
             Visita Técnica:
         </td>
-        <td colspan="6">
+        <td style="border:1px solid #000">
             @if(empty($proposal->date_technique_visit))
             não
             @else
@@ -161,117 +113,127 @@ Segue os valores e condições acordas perante o comitê 2.
     </tr>
     @if(!empty($proposal->date_technique_visit))
     <tr>
-        <td class="sub">
+        <td style="border:1px solid #000" class="sub">
             Local visita técnica:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->local_technique_visit}}
         </td>
     </tr>
     <tr>
-        <td class="sub">
+        <td style="border:1px solid #000" class="sub">
             Detalhes visita técnica:
         </td>
-        <td>
+        <td style="border:1px solid #000">
             {{$proposal->details_technique_visit}}
         </td>
     </tr>
     @endif
     <tr>
-        <td colspan="1">
+        <td style="border:1px solid #000">
             Local da prestação de serviço
         </td>
-        <td colspan="6">
+        <td style="border:1px solid #000">
             {{$proposal->place_to_deploys_services}}
         </td>
     </tr>
     <thead>
         <tr>
-            <td colspan="2" style="color: #fff !important;padding:10px 5px">
+            <td style="border:1px solid #000" colspan="2" bgcolor="#8D6851">
+                Escopo resumido
+            </td>
+        </tr>
+    </thead>
+    <tr>
+        <td style="border:1px solid #000;word-break:break-word" colspan="2">
+            {{$proposal->summary_scope}}
+        </td>
+    </tr>
+    <thead>
+        <tr>
+            <td style="border:1px solid #000;" colspan="2" bgcolor="#8D6851">
                 Escopo detalhado
             </td>
         </tr>
     </thead>
     <tr>
-        <td colspan="2">
+        <td style="border:1px solid #000;word-break:break-word" colspan="2">
             {{$proposal->scope}}
         </td>
     </tr>
     <thead>
         <tr>
-            <td colspan="7" style="color: #fff !important;padding:10px 5px">
+            <td style="border:1px solid #000" colspan="2" bgcolor="#8D6851">
                 Obserservações do setor de propostas
             </td>
         </tr>
     </thead>
     <tr>
-        <td colspan="7">
+        <td style="border:1px solid #000" colspan="2">
             {{$proposal->observations}}
         </td>
     </tr>
-
 </table>
-
-<table class="table" cellspacing="0" cellpadding="0">
-    <thead>
-        <tr>
-            <td colspan="7" style="color: #fff !important;padding:10px 5px">
-                Revisões
-            </td>
-        </tr>
-    </thead>
+<table width="100%" cellspacing="0" cellpadding="4"
+    style="border-collapse:collapse;color:#1f2240;border:1px solid #000;margin-top:15px">
     <tr>
-        <td width="14">
+        <td colspan="7" scope="colgroup" bgcolor="#8D6851">
+            Revisões
+        </td>
+    </tr>
+    <tr>
+        <td style="border:1px solid #000">
             Revisão
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             Preço global
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             Margem bruta
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             BDI
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             Imposto
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             Data comitê
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             Taxa Financeira
         </td>
     </tr>
-    @forelse ($proposal->revisions as $revision)
+  @forelse ($proposal->revisions as $revision)
     <tr>
-        <td width="14">
+        <td style="border:1px solid #000">
             {{$revision->number_revision}}
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             {{$revision->global_price}}
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             {{$revision->gross_margin}}
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             {{$revision->bdi}}
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             {{$revision->taxes}}
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             {{$revision->data_committee->format('d/m/y')}}
         </td>
-        <td width="14">
+        <td style="border:1px solid #000">
             {{$revision->financial_taxis}}
         </td>
     </tr>
     @empty
     <tr>
-        <td colspan="7">Sem Revisões</td>
+        <td style="border:1px solid #000" colspan="7">Sem Revisões</td>
     </tr>
     @endforelse
+
 </table>
 <br><br>Att,<br>
 SGP LYON
