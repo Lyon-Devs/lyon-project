@@ -26,7 +26,7 @@ class ProposalRevision extends Migration
             $table->float('taxes');
             $table->float('charge');
             $table->string('type_warning');
-            $table->string('risks');
+            $table->text('risks');
             $table->string('financial_taxis');
 
             $table->unsignedBigInteger('proposal_id');

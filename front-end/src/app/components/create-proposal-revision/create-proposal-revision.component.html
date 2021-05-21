@@ -70,13 +70,14 @@
     </mat-form-field>
     <mat-form-field appearance="outline" fullWidth>
       <mat-label>Riscos</mat-label>
-      <input matInput required formControlName="risks">
+      <textarea matInput required formControlName="risks" maxlength="500" rows="3" #summary_scope></textarea>
+      <mat-hint align="end">{{summary_scope.value?.length}} / 500</mat-hint>
     </mat-form-field>
 
   </form>
 
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">cancelar</button>
-  <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">salvar</button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button cdkFocusInitial (click)="onSubmit()" [disabled]="!formType.valid" color="primary">Salvar</button>
 </div>

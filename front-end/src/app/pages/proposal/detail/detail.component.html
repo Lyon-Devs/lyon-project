@@ -16,13 +16,13 @@
                 <mat-list-item>
                     <ng-template [ngIf]="proposal.date_delivery_technique_proposal">
                         <span>
-                            <b>Data de Entrega, Proposta Técnica</b>
+                            <b>Data Pro. Técnica</b>
                             {{proposal.date_delivery_technique_proposal | date:'d/MM/y':'z'}}
                         </span>
                     </ng-template>
                     <ng-template [ngIf]="proposal.date_delivery_comercial_proposal">
                         <span>
-                            <b>Data de Entrega, Proposta Comercial</b>
+                            <b>Data Pro. Comercial</b>
                             {{proposal.date_delivery_comercial_proposal | date:'d/MM/y':'z'}}
                         </span>
                     </ng-template>
@@ -34,8 +34,9 @@
                     <span><b>Local execução</b> {{proposal.place_to_deploys_services}} </span>
                 </mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item>
-                    <b>Escopo resumido</b>: {{proposal.summary_scope}}
+                <mat-list-item class="summary">
+                    <p mat-line><b>Escopo resumido</b></p>
+                    <p >{{proposal.summary_scope}}</p>
                 </mat-list-item>
             </mat-list>
         </mat-card-content>

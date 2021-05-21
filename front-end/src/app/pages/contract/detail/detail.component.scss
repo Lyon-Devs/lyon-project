@@ -7,4 +7,15 @@
     .revision {
         margin: 1.5rem 0 1rem;
     }
+
+    .summary {
+
+
+        height: fit-content;
+        padding-top: 15px;
+    
+        ::ng-deep .mat-list-item-content {
+          display: block !important;
+        }
+      }
 }

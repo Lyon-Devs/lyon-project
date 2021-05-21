@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Proposal } from '@models/proposal.model';
 import { ProposalRevisionService } from '@services/proposal-revision/proposal-revision.service';
@@ -15,7 +15,8 @@ import { ConfirmComponent } from '@components/confirm/confirm.component';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  styleUrls: ['./detail.component.scss'],
+  
 })
 export class DetailComponent implements OnInit, CrudPage<ProposalRevision> {
   public subtitle: string;
@@ -39,7 +40,9 @@ export class DetailComponent implements OnInit, CrudPage<ProposalRevision> {
   }
   create(): void {
     const dialogRef = this.dialog.open(CreateProposalRevisionComponent, {
-      width: '450px', data: {
+      width: '500px',
+      height: '56vh',
+      data: {
         proposal_id: this.proposal.id
       }
     });
@@ -68,7 +71,9 @@ export class DetailComponent implements OnInit, CrudPage<ProposalRevision> {
   }
   update(item: ProposalRevision): void {
     const dialogRef = this.dialog.open(CreateProposalRevisionComponent, {
-      width: '450px', data: item
+      width: '500px',
+      height: '56vh',
+      data: item
     });
     dialogRef.afterClosed().subscribe(event => {
       if (event) {
