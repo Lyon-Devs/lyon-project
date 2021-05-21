@@ -173,68 +173,83 @@ Segue os valores e condições acordas perante o comitê 2.
             {{$proposal->observations}}
         </td>
     </tr>
-</table>
-<table width="100%" cellspacing="0" cellpadding="4"
-    style="border-collapse:collapse;color:#1f2240;border:1px solid #000;margin-top:15px">
     <tr>
-        <td colspan="7" scope="colgroup" bgcolor="#8D6851">
-            Revisões
-        </td>
-    </tr>
-    <tr>
-        <td style="border:1px solid #000">
-            Revisão
-        </td>
-        <td style="border:1px solid #000">
-            Preço global
-        </td>
-        <td style="border:1px solid #000">
-            Margem bruta
-        </td>
-        <td style="border:1px solid #000">
-            BDI
-        </td>
-        <td style="border:1px solid #000">
-            Imposto
-        </td>
-        <td style="border:1px solid #000">
-            Data comitê
-        </td>
-        <td style="border:1px solid #000">
-            Taxa Financeira
-        </td>
-    </tr>
-  @forelse ($proposal->revisions as $revision)
-    <tr>
-        <td style="border:1px solid #000">
-            {{$revision->number_revision}}
-        </td>
-        <td style="border:1px solid #000">
-            {{$revision->global_price}}
-        </td>
-        <td style="border:1px solid #000">
-            {{$revision->gross_margin}}
-        </td>
-        <td style="border:1px solid #000">
-            {{$revision->bdi}}
-        </td>
-        <td style="border:1px solid #000">
-            {{$revision->taxes}}
-        </td>
-        <td style="border:1px solid #000">
-            {{$revision->data_committee->format('d/m/y')}}
-        </td>
-        <td style="border:1px solid #000">
-            {{$revision->financial_taxis}}
-        </td>
-    </tr>
-    @empty
-    <tr>
-        <td style="border:1px solid #000" colspan="7">Sem Revisões</td>
-    </tr>
-    @endforelse
+        <td colspan="2">
+            <table width="100%" cellspacing="0" cellpadding="4"
+                style="border-collapse:collapse;color:#1f2240;border:1px solid #000;margin-top:15px">
+                <tr>
+                    <td colspan="7" scope="colgroup" bgcolor="#8D6851">
+                        Revisões
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid #000">
+                        Revisão
+                    </td>
+                    <td style="border:1px solid #000">
+                        Preço global
+                    </td>
+                    <td style="border:1px solid #000">
+                        Margem bruta
+                    </td>
+                    <td style="border:1px solid #000">
+                        BDI
+                    </td>
+                    <td style="border:1px solid #000">
+                        Imposto
+                    </td>
+                    <td style="border:1px solid #000">
+                        Data comitê
+                    </td>
+                    <td style="border:1px solid #000">
+                        Taxa Financeira
+                    </td>
+                </tr>
+                @forelse ($proposal->revisions as $revision)
+                <tr>
+                    <td style="border:1px solid #000">
+                        {{$revision->number_revision}}
+                    </td>
+                    <td style="border:1px solid #000">
+                        R${{number_format($revision->global_price /100,2,',','.')}}
+                    </td>
+                    <td style="border:1px solid #000">
+                        {{$revision->gross_margin}}%
+                    </td>
+                    <td style="border:1px solid #000">
+                        {{$revision->bdi}}%
+                    </td>
+                    <td style="border:1px solid #000">
+                        {{$revision->taxes}}%
+                    </td>
+                    <td style="border:1px solid #000">
+                        {{$revision->data_committee->format('d/m/y')}}
+                    </td>
+                    <td style="border:1px solid #000">
+                        {{$revision->financial_taxis}}%
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7" scope="colgroup" bgcolor="#8D6851">
+                        Riscos
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7" style="border:1px solid #000">
+                        {{$revision->risks}}
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td style="border:1px solid #000" colspan="7">Sem Revisões</td>
+                </tr>
+                @endforelse
 
+            </table>
+        </td>
+    </tr>
 </table>
+
 <br><br>Att,<br>
 SGP LYON
 @endsection
