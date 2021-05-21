@@ -45,8 +45,6 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     MatSlideToggleModule,
     PipesModule
   ],
-  providers : [
-    
-  ]
+  providers : []
 })
 export class ContractModule { }

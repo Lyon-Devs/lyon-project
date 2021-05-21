@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CreateContractComponent } from './create-contract/create-contract.component';
-import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateModule } from '@angular/material-moment-adapter';
 import { CreateContractAdditiveComponent } from './create-contract-additive/create-contract-additive.component';
 import { CreateContractRenegotiationComponent } from './create-contract-renegotiation/create-contract-renegotiation.component';
@@ -71,7 +71,9 @@ import { ErrorComponent } from './error/error.component';
         },
       }
     },
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+
   ],
 
 })
