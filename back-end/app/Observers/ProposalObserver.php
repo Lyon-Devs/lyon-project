@@ -10,8 +10,8 @@ class ProposalObserver
 {
     public function created(Proposal $proposal)
     {
-        $clientId = str_pad($proposal->client->code, 5, "0", STR_PAD_LEFT);
-        $proposalIdFilled = str_pad($proposal->id, 5, "0", STR_PAD_LEFT);
+        $clientId = str_pad($proposal->client->code, 4, "0", STR_PAD_LEFT);
+        $proposalIdFilled = str_pad($proposal->id, 6, "0", STR_PAD_LEFT);
         $year = date('Y');
         $proposal->cod_lyon = "LY-$clientId-$proposalIdFilled-$year";
         $proposal->save();

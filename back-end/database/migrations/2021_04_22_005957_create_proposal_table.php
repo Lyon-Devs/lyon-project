@@ -15,7 +15,7 @@ class CreateProposalTable extends Migration
     public function up()
     {
         Schema::create('proposals', function (Blueprint $table) {
-            $table->id();
+            $table->id()->start_from(2030);
             $table->string('cod_lyon')->nullable()->index();
             $table->unsignedBigInteger('type_service_id');
             $table->foreign('type_service_id')->references('id')->on('type_services')->onDelete('cascade');
