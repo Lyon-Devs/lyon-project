@@ -55,4 +55,28 @@
     }
   }
 
+  @media (max-width:1600px) {
+
+    .card-data {
+      width: 250px !important;
+      height: 200px;
+      margin: 0 5px;
+    }
+
+  }
+
+  @media (max-width: 1300px) {
+
+    .card-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .card-data {
+      width: 200px !important;
+      height: 200px;
+      margin: 0 5px;
+    }
+
+  }
 }
