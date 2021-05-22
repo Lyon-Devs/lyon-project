@@ -1,46 +1,104 @@
+
 <div class="top-home">
-    <mat-card class="card-data success">
-        <mat-card-title>
-            Contratos Ativos
-        </mat-card-title>
-        <mat-card-content>
-            <span class="material-icons">
-                verified
-            </span>
-            <h3>{{home?.contract_ative || 0}}</h3>
-        </mat-card-content>
-    </mat-card>
-    <mat-card class="card-data danger">
-        <mat-card-title>
-            Propostas Pendentes
-        </mat-card-title>
-        <mat-card-content>
-            <span class="material-icons">
-                schedule_send
-            </span>
-            <h3>{{home?.proposal_pending}}</h3>
-        </mat-card-content>
-    </mat-card>
-    <mat-card class="card-data primary">
-        <mat-card-title>
-            Propostas Comitê 1
-        </mat-card-title>
-        <mat-card-content>
-            <span class="material-icons">
-                rule
-            </span>
-            <h3>{{home?.proposal_committee_1 || 0}}</h3>
-        </mat-card-content>
-    </mat-card>
-    <mat-card class="card-data info">
-        <mat-card-title>
-            Propostas Comitê 2
-        </mat-card-title>
-        <mat-card-content>
-            <span class="material-icons">
-                checklist_rtl
-            </span>
-            <h3>{{home?.proposal_committee_2 || 0}}</h3>
-        </mat-card-content>
-    </mat-card>
+    <div class="card-list-title">
+        <h1>Contratos</h1>
+    </div>
+    <div class="card-list">
+        <mat-card class="card-data success">
+            <mat-card-title>
+                Ativos
+            </mat-card-title>
+            <mat-card-content>
+                <span class="material-icons">
+                    verified
+                </span>
+                <h3>{{home?.contract_ative || 0}}</h3>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-data danger">
+            <mat-card-title>
+                Inativos
+            </mat-card-title>
+            <mat-card-content>
+                <span class="material-icons">
+                    schedule_send
+                </span>
+                <h3>{{home?.contract_inative}}</h3>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-data primary">
+            <mat-card-title>
+                Vencendo em 15 dias
+            </mat-card-title>
+            <mat-card-content>
+                <span class="material-icons">
+                    rule
+                </span>
+                <h3>{{home?.contract_deadline || 0}}</h3>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-data info">
+            <mat-card-title>
+                Aniversário em 15 dias
+            </mat-card-title>
+            <mat-card-content>
+                <span class="material-icons">
+                    checklist_rtl
+                </span>
+                <h3>{{home?.contract_birthday || 0}}</h3>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+<div class="top-home">
+    <div class="card-list-title">
+        <h1>Propostas</h1>
+    </div>
+    <div class="card-list">
+        <mat-card class="card-data success">
+            <mat-card-title>
+                Ganhas
+            </mat-card-title>
+            <mat-card-content>
+                <span class="material-icons">
+                    verified
+                </span>
+                <h3>{{home?.proposal_winner || 0}}</h3>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-data danger">
+            <mat-card-title>
+                Pendentes
+            </mat-card-title>
+            <mat-card-content>
+                <span class="material-icons">
+                    schedule_send
+                </span>
+                <h3>{{home?.proposal_pending}}</h3>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-data primary">
+            <mat-card-title>
+                Comitê 1
+            </mat-card-title>
+            <mat-card-content>
+                <span class="material-icons">
+                    rule
+                </span>
+                <h3>{{home?.proposal_committee_1 || 0}}</h3>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-data info">
+            <mat-card-title>
+                Comitê 2
+            </mat-card-title>
+            <mat-card-content>
+                <span class="material-icons">
+                    checklist_rtl
+                </span>
+                <h3>{{home?.proposal_committee_2 || 0}}</h3>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

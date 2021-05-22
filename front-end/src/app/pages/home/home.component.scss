@@ -1,31 +1,44 @@
 .top-home {
   padding: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
+  .card-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
 
   .card-data {
     width: 300px;
     height: 200px;
     margin: 0 5px;
+
     &.primary {
-        background-image: linear-gradient( -20deg , #2b5876 0%, #4e4376 100%);
-        color: #fff;
+      background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+      color: #fff;
     }
+
     &.danger {
-        background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
-        color: #fff;
+      background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+      color: #fff;
     }
+
     &.info {
-        background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
-        color: #fff;
+      background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+      color: #fff;
     }
+
     &.success {
-        background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
-        color: #fff;
+      background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+      color: #fff;
     }
+
     .mat-card-title {
-        text-align: center;
+      text-align: center;
     }
 
     .mat-card-content {
