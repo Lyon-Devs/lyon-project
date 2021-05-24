@@ -25,7 +25,7 @@ export class DetailComponent implements OnInit {
 
     this.route.data.subscribe(params => {
       this.contract = params.ContractResolve;
-      this.subtitle = `gerênciamento do contrato ${this.contract.contract_number} da proposta ${this.contract.proposal.cod_lyon}`;
+      this.subtitle = `Gerenciamento do contrato ${this.contract.contract_number || '######'} da proposta ${this.contract.proposal.cod_lyon}`;
     });
   }
 

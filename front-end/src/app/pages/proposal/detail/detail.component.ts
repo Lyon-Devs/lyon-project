@@ -98,7 +98,7 @@ export class DetailComponent implements OnInit, CrudPage<ProposalRevision> {
   ngOnInit(): void {
     this.route.data.subscribe(params => {
       this.proposal = params.ProposalResolve;
-      this.subtitle = `gerênciamento da proposta ${this.proposal.cod_lyon}`;
+      this.subtitle = `Gerenciamento da proposta ${this.proposal.cod_lyon}`;
     });
 
     this.proposalRevisionService.setContract(this.proposal.id);
