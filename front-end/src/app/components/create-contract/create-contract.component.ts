@@ -67,6 +67,7 @@ export class CreateContractComponent implements OnInit {
     } else {
       const newType = this.formType.value;
       newType.id = this.data.id;
+      newType.proposal_id = this.data?.proposal_id;
       this.contractService.update(newType).subscribe(user => {
         this.dialogRef.close('updated');
         this.snackBar.open('Contrato atualizado com sucesso');

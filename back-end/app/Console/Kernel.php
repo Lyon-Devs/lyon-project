@@ -27,6 +27,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('contract:deadline 45')->dailyAt('23:00');
         $schedule->command('contract:deadline 30')->dailyAt('23:00');
         $schedule->command('contract:deadline 15')->dailyAt('23:00');
+
+        $schedule->command('contract:birthday 45')->dailyAt('23:00');
+        $schedule->command('contract:birthday 30')->dailyAt('23:00');
+        $schedule->command('contract:birthday 15')->dailyAt('23:00');
     }
 
     /**
