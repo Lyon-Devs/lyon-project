@@ -49,6 +49,9 @@ export class CreateContractComponent implements OnInit {
     this.proposalService.all().subscribe(proposal => {
       this.proposal = proposal;
     });
+    if (!this.createForm) {
+      this.formType.controls.proposal_id.disable({ onlySelf: true });
+    }
   }
 
   public onNoClick(): void {

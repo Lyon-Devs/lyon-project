@@ -14,15 +14,15 @@
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item>
+                    <b>Data Pro. Técnica</b>
                     <ng-template [ngIf]="proposal.date_delivery_technique_proposal">
                         <span>
-                            <b>Data Pro. Técnica</b>
                             {{proposal.date_delivery_technique_proposal | date:'d/MM/y':'z'}}
                         </span>
                     </ng-template>
+                    <b>Data Pro. Comercial</b>
                     <ng-template [ngIf]="proposal.date_delivery_comercial_proposal">
                         <span>
-                            <b>Data Pro. Comercial</b>
                             {{proposal.date_delivery_comercial_proposal | date:'d/MM/y':'z'}}
                         </span>
                     </ng-template>
