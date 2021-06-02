@@ -40,15 +40,15 @@ class ContractRenegotiationController extends Controller
     {
         $request->validate([
             'contract_id' => 'required|exists:contracts,id',
-            'number_renegotiation' => 'required',
             'year' => 'required',
             'purchasing_period' => 'required',
             'readjustment_base' => 'required',
             'required' => 'required',
             'approved' => 'required'
         ]);
-
-        $contractRenegotiation = $contract->renegotiation()->create($request->all());
+        $data = $request->all();
+        $data['number_renegotiation'] = count($contract->renegotiation) + 1;
+        $contractRenegotiation = $contract->renegotiation()->create($data);
         return $contractRenegotiation;
     }
 
@@ -76,7 +76,6 @@ class ContractRenegotiationController extends Controller
     {
         $request->validate([
             'contract_id' => 'required|exists:contracts,id',
-            'number_renegotiation' => 'required',
             'year' => 'required',
             'purchasing_period' => 'required',
             'readjustment_base' => 'required',

@@ -27,7 +27,7 @@ export class CreateContractAdditiveComponent implements OnInit {
   ngOnInit(): void {
     this.createForm = this.data?.id ? false : true;
     this.formType = this.fb.group({
-      number_additive: [this.data?.number_additive || '', Validators.required],
+      number_additive: [this.data?.number_additive || ''],
       type: [this.data?.type || '', Validators.required],
       date_start: [this.data?.date_start || '', Validators.required],
       date_end: [this.data?.date_end || '', Validators.required],
@@ -35,6 +35,7 @@ export class CreateContractAdditiveComponent implements OnInit {
       deadline: [this.data?.deadline || ''],
       description: [this.data?.description || '', Validators.required],
     });
+    this.formType.controls.number_additive.disable({ onlySelf: true });
   }
   public onNoClick(): void {
     this.dialogRef.close();

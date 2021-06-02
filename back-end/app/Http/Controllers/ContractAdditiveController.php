@@ -40,7 +40,6 @@ class ContractAdditiveController extends Controller
     {
 
         $request->validate([
-            'number_additive' => 'required',
             'type' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',
@@ -51,8 +50,9 @@ class ContractAdditiveController extends Controller
             $contract->date_end = $request->get('deadline');
             $contract->save();
         }
-        $additives = $contract->additives()->create($request->all());
-
+        $data = $request->all();
+        $data['number_additive'] = count($contract->additives) + 1;
+        $additives = $contract->additives()->create($data);
         return $additives;
     }
 
@@ -78,7 +78,6 @@ class ContractAdditiveController extends Controller
     public function update(Request $request, Contract $contract,  ContractAdditive $contractAdditive)
     {
         $request->validate([
-            'number_additive' => 'required',
             'type' => 'required',
             'date_start' => 'required',
             'date_end' => 'required',

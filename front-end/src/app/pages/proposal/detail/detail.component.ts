@@ -91,7 +91,7 @@ export class DetailComponent implements OnInit, CrudPage<ProposalRevision> {
     const parseTypes = {
       global: 'Global',
       unity: 'Unidade',
-      menu: 'Cardápio'
+      menu: 'Catalogo'
     };
     return parseTypes[type];
   }

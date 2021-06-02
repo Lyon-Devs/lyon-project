@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} Repactuação</h1>
+<h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} Reajuste Contratual</h1>
     <div mat-dialog-content>
         <form [formGroup]="formType" autocomplete="off">
-            <div class="two-col">
-                <mat-form-field appearance="outline" fullWidth>
+            <div [ngClass]="{'two-col':!createForm}">
+                <mat-form-field appearance="outline" fullWidth *ngIf="!createForm">
                     <mat-label>Nº da repactuação</mat-label>
-                    <input matInput required formControlName="number_renegotiation" type="number" min="0">
+                    <input matInput formControlName="number_renegotiation" type="number" min="0">
                 </mat-form-field>
                 <mat-form-field appearance="outline" fullWidth>
                     <mat-label>Ano</mat-label>
@@ -17,7 +17,7 @@
                     <mat-select formControlName="readjustment_base">
                         <mat-option value="parametric_formula">Fórmula paramétrica</mat-option>
                         <mat-option value="financial_index">Índice financeiro</mat-option>
-                        <mat-option value="inpc">INPC</mat-option>
+                        <mat-option value="inpc">Outros</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fullWidth>

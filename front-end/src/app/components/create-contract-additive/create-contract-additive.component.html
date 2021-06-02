@@ -1,9 +1,9 @@
 <h1 mat-dialog-title>{{this.createForm ? 'Novo' : 'Atualizar'}} Aditivo</h1>
 <div mat-dialog-content>
     <form [formGroup]="formType" autocomplete="off">
-        <mat-form-field appearance="outline" fullWidth>
+        <mat-form-field appearance="outline" fullWidth *ngIf="!createForm">
             <mat-label>Nº do aditivo</mat-label>
-            <input matInput required formControlName="number_additive">
+            <input matInput formControlName="number_additive">
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Tipo de aditivo</mat-label>
@@ -27,6 +27,7 @@
                 <input matInput [matDatepicker]="pickerDate" formControlName="deadline">
                 <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
                 <mat-datepicker #pickerDate></mat-datepicker>
+                <mat-hint>Nova Data Fim do contrato</mat-hint>
             </mat-form-field>
         </div>
 

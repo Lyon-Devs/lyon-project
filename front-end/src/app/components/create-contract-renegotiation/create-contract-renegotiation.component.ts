@@ -26,7 +26,7 @@ export class CreateContractRenegotiationComponent implements OnInit {
     this.createForm = this.data?.id ? false : true;
     console.log(this.data);
     this.formType = this.fb.group({
-      number_renegotiation: [this.data?.number_renegotiation || '', Validators.required],
+      number_renegotiation: [this.data?.number_renegotiation || ''],
       readjustment_base: [this.data?.readjustment_base || '', Validators.required],
       year: [this.data?.year || '', Validators.required],
       purchasing_period: [this.data?.purchasing_period || '', Validators.required],
