@@ -16,9 +16,10 @@ class HomeController extends Controller
         $contractsDeadline = Contract::whereRaw('datediff(date_end, now()) <= ?', 35)
             ->where('date_end', '>', Carbon::now())
             ->count();
-        $contractsBirthday = Contract::whereRaw('datediff(readjustment_base_date, now()) <= ?', 15)
+        $contractsBirthday = Contract::whereRaw("TIMESTAMPDIFF(day, date_start ,NOW() + INTERVAL 15 DAY)%365 = 0")
             ->where('date_end', '>', Carbon::now())
             ->count();
+
         $proposalPending = Proposal::where('status', 'draft')->count();
         $proposalCommittee1 = Proposal::where('status', 'committee_1')->count();
         $proposalCommittee2 = Proposal::where('status', 'committee_2')->count();
