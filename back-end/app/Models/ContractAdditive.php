@@ -21,6 +21,7 @@ class ContractAdditive extends Model
         'date_end',
         'value',
         'description',
-        'deadline'
+        'deadline',
+        'contract_id'
     ];
 }

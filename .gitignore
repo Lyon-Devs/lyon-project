@@ -28,3 +28,4 @@ docker/nginx/nginx.conf
 front-end/src/environments/environment.prod.ts
 front-end/src/environments/environment.ts
 front-end/package-lock.json
+back-end/storage/framework/laravel-excel/*
