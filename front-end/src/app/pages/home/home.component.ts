@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../services/home/home.service';
 import { Home } from '@models/home.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,9 +13,18 @@ export class HomeComponent implements OnInit {
 
   public home: Home;
   constructor(
+    private router: Router,
     private homeService: HomeService
   ) { }
 
+
+  public navigation(params: any): void {
+    this.router.navigate(['/contrato'], {
+      queryParams: {
+        ...params
+      }
+    });
+  }
   ngOnInit(): void {
     this.homeService.all().subscribe(home => {
       this.home = home;
