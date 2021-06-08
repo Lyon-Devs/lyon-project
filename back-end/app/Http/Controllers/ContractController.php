@@ -23,6 +23,7 @@ class ContractController extends Controller
                 AllowedFilter::partial('center_of_cost'),
                 AllowedFilter::scope('active'),
                 AllowedFilter::scope('client'),
+                AllowedFilter::scope('deadline'),
                 AllowedFilter::scope('birthday')
             ])
             ->with(['proposal'])->paginate($paginate);

@@ -14,7 +14,7 @@
                 <h3>{{home?.contract_ative || 0}}</h3>
             </mat-card-content>
         </mat-card>
-        <mat-card class="card-data danger" routerLink="/contrato" [queryParams]="{contract:'false'}">
+        <mat-card class="card-data danger" [routerLink]="'/contrato'" [queryParams]="{contract:'false'}">
             <mat-card-title>
                 Encerrados
             </mat-card-title>
@@ -55,7 +55,7 @@
         <h1>Propostas</h1>
     </div>
     <div class="card-list">
-        <mat-card class="card-data success">
+        <mat-card class="card-data success" routerLink="/proposta" [queryParams]="{type:'winner'}">
             <mat-card-title>
                 Ganhas
             </mat-card-title>
@@ -66,7 +66,7 @@
                 <h3>{{home?.proposal_winner || 0}}</h3>
             </mat-card-content>
         </mat-card>
-        <mat-card class="card-data danger">
+        <mat-card class="card-data danger" routerLink="/proposta" [queryParams]="{type:'draft'}">
             <mat-card-title>
                 Pendentes
             </mat-card-title>
@@ -77,7 +77,7 @@
                 <h3>{{home?.proposal_pending}}</h3>
             </mat-card-content>
         </mat-card>
-        <mat-card class="card-data primary">
+        <mat-card class="card-data primary" routerLink="/proposta" [queryParams]="{type:'committee_1'}">
             <mat-card-title>
                 Comitê 1
             </mat-card-title>
@@ -88,7 +88,7 @@
                 <h3>{{home?.proposal_committee_1 || 0}}</h3>
             </mat-card-content>
         </mat-card>
-        <mat-card class="card-data info">
+        <mat-card class="card-data info" routerLink="/proposta" [queryParams]="{type:'committee_2'}">
             <mat-card-title>
                 Comitê 2
             </mat-card-title>

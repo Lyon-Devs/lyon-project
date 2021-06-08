@@ -68,4 +68,9 @@ class Contract extends Model
             ->whereRaw("TIMESTAMPDIFF(day, date_start ,NOW() + INTERVAL $days DAY)%365 <= $days")
             ->where('date_end', '>', Carbon::now());
     }
+
+    public function scopeDeadline($query, $days = 35)
+    {
+        return $query->whereRaw('datediff(date_end, now()) <= ?', $days);
+    }
 }

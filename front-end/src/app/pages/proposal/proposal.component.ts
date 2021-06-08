@@ -12,6 +12,7 @@ import { ConfirmComponent } from '../../components/confirm/confirm.component';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FilterQuery } from '../../models/filter-query.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-proposal',
@@ -23,6 +24,7 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    private route: ActivatedRoute,
     private proposalService: ProposalService,
     private paginateService: PaginateService<Proposal>,
   ) { }
@@ -122,7 +124,16 @@ export class ProposalComponent implements OnInit, CrudPage<Proposal> {
         this.addFilter('status', res);
         this.getPage(0, 10, this.filter);
       });
-    this.addFilter('status', this.statusFc.value);
+
+    this.route.queryParams.subscribe(params => {
+      if (params?.type) {
+        this.addFilter('status', params?.type);
+        this.statusFc.setValue([params?.type]);
+      } else {
+        this.addFilter('status', this.statusFc.value);
+      }
+    });
+
     this.getPage(0, 10, this.filter);
   }
   private addFilter(filter: string, value: any): void {

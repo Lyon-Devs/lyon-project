@@ -8,10 +8,10 @@ import { ContractResolve } from '@resolvers/contract/contract.resolve';
 
 const routes: Routes = [
   { path: '', component: ContractComponent, canActivate: [AuthGuard], data: { role: 'comercial' } },
-  { path: ':id', component: DetailComponent, canActivate: [AuthGuard], resolve: {ContractResolve}, data: { role: 'comercial' } }
+  { path: ':id', component: DetailComponent, canActivate: [AuthGuard], resolve: { ContractResolve }, data: { role: 'comercial' } }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-exports: [RouterModule]
+  exports: [RouterModule]
 })
 export class ContractRoutingModule { }

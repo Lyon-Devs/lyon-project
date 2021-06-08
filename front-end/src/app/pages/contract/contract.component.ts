@@ -127,16 +127,22 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
 
 
 
-      
-    this.route.queryParams .subscribe(params => {
+
+    this.route.queryParams.subscribe(params => {
       console.log('params?.contract', params?.contract)
 
       const contractActive = params?.contract === undefined ? true : (params?.contract === 'true' ? true : false);
       this.addFilter('active', contractActive);
+
+      if (params?.contract_birthday) {
+        this.addFilter('birthday', params?.contract_birthday);
+      }
+
+      if (params?.contract_end) {
+        this.addFilter('deadline', params?.contract_end);
+      }
       this.activesFc.setValue(contractActive);
     });
-    // this.addFilter('birthday', 35);
-    // this.addFilter('active', true);
     this.getPage();
     this.clientService.all().subscribe(clients => {
       this.clients = clients;
@@ -158,7 +164,7 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
         value
       });
     }
-    console.log('this.filter', this.filter);
+    // console.log('this.filter', this.filter);
   }
 
 }
