@@ -16,7 +16,7 @@ class HomeController extends Controller
         $contractsDeadline = Contract::whereRaw('datediff(date_end, now()) <= ?', 35)
             ->where('date_end', '>', Carbon::now())
             ->count();
-        $contractsBirthday = Contract::whereRaw("TIMESTAMPDIFF(day, date_start ,NOW() + INTERVAL 15 DAY)%365 = 0")
+        $contractsBirthday = Contract::whereRaw("TIMESTAMPDIFF(day, date_start ,NOW() + INTERVAL 15 DAY)%365 <= 15")
             ->where('date_end', '>', Carbon::now())
             ->count();
 

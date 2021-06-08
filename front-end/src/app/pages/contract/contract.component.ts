@@ -15,6 +15,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FilterQuery } from '../../models/filter-query.model';
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contract',
@@ -26,9 +27,11 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    private route: ActivatedRoute,
     private contractService: ContractService,
     private clientService: ClientsService,
     private paginateService: PaginateService<Contract>,
+
 
   ) { }
   public paginateItems: Paginate<Contract>;
@@ -120,7 +123,20 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
         this.addFilter('center_of_cost', res);
         this.getPage(0, 10, this.filter);
       });
-    this.addFilter('active', true);
+
+
+
+
+      
+    this.route.queryParams .subscribe(params => {
+      console.log('params?.contract', params?.contract)
+
+      const contractActive = params?.contract === undefined ? true : (params?.contract === 'true' ? true : false);
+      this.addFilter('active', contractActive);
+      this.activesFc.setValue(contractActive);
+    });
+    // this.addFilter('birthday', 35);
+    // this.addFilter('active', true);
     this.getPage();
     this.clientService.all().subscribe(clients => {
       this.clients = clients;
@@ -142,6 +158,7 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
         value
       });
     }
+    console.log('this.filter', this.filter);
   }
 
 }

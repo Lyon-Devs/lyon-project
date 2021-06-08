@@ -22,9 +22,9 @@ class ContractController extends Controller
             ->allowedFilters([
                 AllowedFilter::partial('center_of_cost'),
                 AllowedFilter::scope('active'),
-                AllowedFilter::scope('client')
+                AllowedFilter::scope('client'),
+                AllowedFilter::scope('birthday')
             ])
-            ->OrWhereNull('date_start')
             ->with(['proposal'])->paginate($paginate);
     }
     /**

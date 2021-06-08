@@ -58,8 +58,14 @@ class Contract extends Model
     {
         if ($active) {
             return $query->where('date_end', '>=', new Carbon());
-        } else {
-            return $query->where('date_end', '<', new Carbon());
         }
+        return $query->where('date_end', '<', new Carbon())->OrWhereNull('date_start');
+    }
+
+    public function scopeBirthday($query, $days = 35)
+    {
+        return $query
+            ->whereRaw("TIMESTAMPDIFF(day, date_start ,NOW() + INTERVAL $days DAY)%365 <= $days")
+            ->where('date_end', '>', Carbon::now());
     }
 }
