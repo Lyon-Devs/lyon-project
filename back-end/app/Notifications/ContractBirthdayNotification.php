@@ -45,7 +45,7 @@ class ContractBirthdayNotification extends Notification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->subject("ATENÇÃO! CONTRATO PRÓXIMO AO PERÍODO DE REAJUSTE ($this->days Dias) Centro custo")
+            ->subject("ATENÇÃO! CONTRATOS PRÓXIMO AO PERÍODO DE REAJUSTE ($this->days Dias)")
             ->greeting('Prezados')
             ->line("Os contratos a seguir estão próximo ao período de reajuste.")
             ->line("Gentileza atentar-se ao período de solicitação junto ao cliente, 
