@@ -47,8 +47,10 @@ class ContractAdditiveController extends Controller
             'contract_id' => 'required|exists:contracts,id'
         ]);
         if ($request->has('deadline')) {
-            $contract->date_end = $request->get('deadline');
-            $contract->save();
+            if (!empty($request->get('deadline'))) {
+                $contract->date_end = $request->get('deadline');
+                $contract->save();
+            }
         }
         $data = $request->all();
         $data['number_additive'] = count($contract->additives) + 1;
@@ -85,8 +87,10 @@ class ContractAdditiveController extends Controller
             'contract_id' => 'required|exists:contracts,id'
         ]);
         if ($request->has('deadline')) {
-            $contract->date_end = $request->get('deadline');
-            $contract->save();
+            if (!empty($request->get('deadline'))) {
+                $contract->date_end = $request->get('deadline');
+                $contract->save();
+            }
         }
         $contractAdditive->fill($request->all());
         $contractAdditive->save();
