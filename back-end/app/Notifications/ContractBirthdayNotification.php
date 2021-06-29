@@ -45,13 +45,22 @@ class ContractBirthdayNotification extends Notification
     public function toMail($notifiable)
     {
         $mailMessage = (new MailMessage)
-            ->greeting('Olá!!')
-            ->subject('Contratos com aniversário próximo')
-            ->line("Segue os contratos com aniversário nos próximos " . $this->days . " dias:");
+            ->subject("ATENÇÃO! CONTRATO PRÓXIMO AO PERÍODO DE REAJUSTE ($this->days Dias) Centro custo")
+            ->greeting('Prezados')
+            ->line("Os contratos a seguir estão próximo ao período de reajuste.")
+            ->line("Gentileza atentar-se ao período de solicitação junto ao cliente, 
+                    seguir os critérios estabelecidos contratualmente, caso o contrato 
+                    não possua uma cláusula de reajuste, entre em contato com setor Comercial Lyon.");
         foreach ($this->contracts as $contract) {
             $client = $contract->proposal->client;
-            $mailMessage->line("Cliente {$client->name}, Nª. Contrato {$contract->contract_number}, vencimento {$contract->date_end->format('d/m/y')}");
+            $mailMessage->line("
+                {$client->name},
+                Nª. Contrato {$contract->contract_number},
+                vencimento {$contract->date_end->format('d/m/y')},
+                data base reajuste {$contract->readjustment_base_date->format('d/m/y')}
+            ");
         }
+        $mailMessage->line('Att,');
         return $mailMessage;
     }
 
