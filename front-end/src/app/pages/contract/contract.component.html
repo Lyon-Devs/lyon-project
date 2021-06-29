@@ -27,6 +27,10 @@
 
     </div>
     <table mat-table [dataSource]="paginateItems?.data">
+        <ng-container matColumnDef="client">
+            <th mat-header-cell *matHeaderCellDef> Cliente </th>
+            <td mat-cell *matCellDef="let element"> {{element.proposal.client.name}} </td>
+        </ng-container>
         <ng-container matColumnDef="center_of_cost">
             <th mat-header-cell *matHeaderCellDef> Centro de custo </th>
             <td mat-cell *matCellDef="let element"> {{element.center_of_cost}} </td>

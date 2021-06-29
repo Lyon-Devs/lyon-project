@@ -57,7 +57,7 @@ class Contract extends Model
     public function scopeActive($query, $active)
     {
         if ($active) {
-            return $query->where('date_end', '>=', new Carbon());
+            return $query->where('date_end', '>=', new Carbon())->OrWhereNull('date_end')->orWhereNull('date_start');
         }
         return $query->where('date_end', '<', new Carbon())->OrWhereNull('date_start');
     }

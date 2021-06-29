@@ -26,7 +26,7 @@ class ContractController extends Controller
                 AllowedFilter::scope('deadline'),
                 AllowedFilter::scope('birthday')
             ])
-            ->with(['proposal'])->paginate($paginate);
+            ->with(['proposal.client'])->paginate($paginate);
     }
     /**
      * Store a newly created resource in storage.

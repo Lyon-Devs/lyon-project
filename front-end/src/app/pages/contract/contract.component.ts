@@ -36,7 +36,7 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
   ) { }
   public paginateItems: Paginate<Contract>;
   public displayedColumns: string[] = [
-    'proposal', 'center_of_cost', 'contract_number',
+    'proposal', 'client', 'center_of_cost', 'contract_number',
     'purchase_order', 'manager_lyon',
     'manager_client', 'date_start', 'date_end',
     'readjustment_base_date', 'actions'
@@ -129,8 +129,6 @@ export class ContractComponent implements OnInit, CrudPage<Contract> {
 
 
     this.route.queryParams.subscribe(params => {
-      console.log('params?.contract', params?.contract)
-
       const contractActive = params?.contract === undefined ? true : (params?.contract === 'true' ? true : false);
       this.addFilter('active', contractActive);
 
