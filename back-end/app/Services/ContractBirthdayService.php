@@ -19,7 +19,7 @@ class ContractBirthdayService
 
     public function handle($days = 15): void
     {
-        $contracts = Contract::whereRaw("TIMESTAMPDIFF(day, date_start ,NOW() + INTERVAL $days DAY)%365 <= $days")
+        $contracts = Contract::whereRaw("TIMESTAMPDIFF(day, date_start ,NOW() + INTERVAL $days DAY)%365 = $days")
             ->where('date_end', '>', Carbon::now())
             ->get();
         if (count($contracts)) {
