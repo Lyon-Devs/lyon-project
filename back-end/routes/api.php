@@ -62,7 +62,7 @@ Route::get('home/all', [HomeController::class, 'index'])->name('home.all');
 Route::get('proposal/{proposal}/files/{proposalFiles}', [ProposalFilesController::class, 'show']);
 // 'auth:api', 'role:administrator'
 
-Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
+Route::middleware(['auth:api', 'role:admin|comercial'])->group(function () {
     $exceptActions = ['index', 'edit'];
     Route::get('users/all', [UserController::class, 'allItens'])->name('user.all');
     Route::resource('acting/branch', ActingBranchController::class)->except([
@@ -106,18 +106,6 @@ Route::middleware(['auth:api', 'role:admin,comercial'])->group(function () {
 
 Route::middleware(['auth:api', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class)->except('edit');
-});
-
-Route::middleware(['auth:api', 'role:admin'])->get('/role/admin', function (Request $request) {
-    return 'welcome administrator';
-});
-
-Route::middleware(['auth:api', 'role:comercial'])->get('/role/comer', function (Request $request) {
-    return 'welcome comercial';
-});
-
-Route::middleware(['auth:api', 'role:user'])->get('/role/user', function (Request $request) {
-    return 'welcome user';
 });
 
 require __DIR__ . '/auth.php';
