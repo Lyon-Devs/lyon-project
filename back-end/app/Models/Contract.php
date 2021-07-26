@@ -62,10 +62,13 @@ class Contract extends Model
         return $query->where('date_end', '<', new Carbon())->OrWhereNull('date_start');
     }
 
-    public function scopeBirthday($query, $days = 35)
+    public function scopeBirthday($query, $days = 14)
     {
+        $daysMinor = $days - 1;
         return $query
-            ->whereRaw("TIMESTAMPDIFF(day, date_start ,NOW() + INTERVAL $days DAY)%365 <= $days")
+            ->whereRaw("TIMESTAMPDIFF(day, readjustment_base_date - INTERVAL $daysMinor DAY ,NOW())%365 <= $days")
+            ->whereRaw("TIMESTAMPDIFF(day, readjustment_base_date - INTERVAL $daysMinor DAY ,NOW())%365 > 0")
+            ->whereRaw("TIMESTAMPDIFF(year, readjustment_base_date ,NOW()) > 0")
             ->where('date_end', '>', Carbon::now());
     }
 
