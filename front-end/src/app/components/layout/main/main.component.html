@@ -44,6 +44,11 @@
             <p routerLink="/admin/clientes">Clientes</p>
             <p routerLink="/admin/compradores">Compradores</p>
         </mat-expansion-panel>
+        <mat-toolbar class="painel-doc">
+            <a href="/assets/files/manual.pdf" target="blank">
+                <mat-icon>doc</mat-icon><span>Guia de utilização</span>
+            </a>
+        </mat-toolbar>
         <div class="footer">
             <div class="actions">
                 <button mat-raised-button color="primary" (click)="logout()">Sair</button>
