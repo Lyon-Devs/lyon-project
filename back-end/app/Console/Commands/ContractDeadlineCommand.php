@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Contract;
 use App\Models\User;
 use App\Notifications\ContractDeadlineNotification;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 
@@ -43,9 +42,7 @@ class ContractDeadlineCommand extends Command
     public function handle()
     {
         $days = $this->argument('days');
-        $contracts = Contract::whereRaw('datediff(date_end, now()) <= ?', $days)
-            ->whereRaw('datediff(date_end, now()) >= ?', $days)
-            ->where('date_end', '>', Carbon::now())
+        $contracts = Contract::deadlineEquals($days)
             ->get();
         if (count($contracts)) {
             $users = User::withRoles('comercial')->get();

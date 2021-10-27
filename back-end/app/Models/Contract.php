@@ -62,18 +62,35 @@ class Contract extends Model
         return $query->where('date_end', '<', new Carbon())->OrWhereNull('date_start');
     }
 
-    public function scopeBirthday($query, $days = 14)
+    public function scopeBirthday($query, $days = 14, $strict = false)
     {
-        $daysMinor = $days - 1;
-        return $query
-            ->whereRaw("TIMESTAMPDIFF(day, readjustment_base_date - INTERVAL $daysMinor DAY ,NOW())%365 <= $days")
-            ->whereRaw("TIMESTAMPDIFF(day, readjustment_base_date - INTERVAL $daysMinor DAY ,NOW())%365 > 0")
-            ->whereRaw("TIMESTAMPDIFF(year, readjustment_base_date ,NOW()) > 0")
+        $query
+            ->whereRaw('TIMESTAMPDIFF(day,NOW() + INTERVAL 15 DAY, readjustment_base_date) < ' . $days)
+            ->whereRaw('TIMESTAMPDIFF(day,NOW() + INTERVAL 15 DAY, readjustment_base_date) > 0')
             ->where('date_end', '>', Carbon::now());
+        return $query;
+    }
+
+    public function scopeBirthdayEquals($query, $days = 15)
+    {
+        $query
+            ->whereRaw('TIMESTAMPDIFF(day,NOW() + INTERVAL 15 DAY, readjustment_base_date) = ' . $days)
+            ->where('date_end', '>', Carbon::now());
+        return $query;
     }
 
     public function scopeDeadline($query, $days = 35)
     {
-        return $query->whereRaw('datediff(date_end, now()) <= ?', $days);
+        return $query
+            ->whereRaw("TIMESTAMPDIFF(day,NOW() , date_end) > 0")
+            ->whereRaw("TIMESTAMPDIFF(day,NOW() , date_end) <= $days")
+            ->where('date_end', '>', Carbon::now());
+    }
+
+    public function scopeDeadlineEquals($query, $days = 35)
+    {
+        return $query
+            ->whereRaw("TIMESTAMPDIFF(day,NOW() , date_end) = $days")
+            ->where('date_end', '>', Carbon::now());
     }
 }
