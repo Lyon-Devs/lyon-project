@@ -17,14 +17,6 @@ export class HomeComponent implements OnInit {
     private homeService: HomeService
   ) { }
 
-
-  public navigation(params: any): void {
-    this.router.navigate(['/contrato'], {
-      queryParams: {
-        ...params
-      }
-    });
-  }
   ngOnInit(): void {
     this.homeService.all().subscribe(home => {
       this.home = home;

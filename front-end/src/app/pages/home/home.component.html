@@ -2,9 +2,8 @@
     <div class="card-list-title">
         <h1>Contratos</h1>
     </div>
-    <!-- routerLink="/contrato" -->
-    <div class="card-list" (click)="navigation({})">
-        <mat-card class="card-data success">
+    <div class="card-list">
+        <mat-card class="card-data success" routerLink="/contrato">
             <mat-card-title>
                 Vigentes
             </mat-card-title>
@@ -15,7 +14,7 @@
                 <h3>{{home?.contract_ative || 0}}</h3>
             </mat-card-content>
         </mat-card>
-        <mat-card class="card-data danger" (click)="navigation({contract:'false'})">
+        <mat-card class="card-data danger" routerLink="/contrato" [queryParams]="{contract:'false'}">
             <mat-card-title>
                 Encerrados
             </mat-card-title>
@@ -26,8 +25,7 @@
                 <h3>{{home?.contract_inative}}</h3>
             </mat-card-content>
         </mat-card>
-        <!-- routerLink="/contrato" [queryParams]="{contract_end:'35'}" -->
-        <mat-card class="card-data primary" (click)="navigation({contract_end:'35'})">
+        <mat-card class="card-data primary" routerLink="/contrato" [queryParams]="{contract_birthday:'35'}">
             <mat-card-title>
                 Fim de Vigência em 35 Dias
             </mat-card-title>
@@ -38,8 +36,7 @@
                 <h3>{{home?.contract_deadline || 0}}</h3>
             </mat-card-content>
         </mat-card>
-        <!-- routerLink="/contrato" [queryParams]="{contract_birthday:'15'}" -->
-        <mat-card class="card-data info" (click)="navigation({contract_birthday:'15'})">
+        <mat-card class="card-data info" routerLink="/contrato" [queryParams]="{contract_birthday:'15'}">
             <mat-card-title>
                 Reajuste Contratual em 15 Dias
             </mat-card-title>
