@@ -17,7 +17,7 @@ class HomeController extends Controller
         $contractsDeadline = Contract::deadline(35)->get();
         $contractsBirthday = DB::table('contracts')
             ->selectRaw('TIMESTAMPDIFF(day,NOW() + INTERVAL 15 DAY, readjustment_base_date) as diffDays
-            ')->whereRaw('date_end > NOW()')->havingRaw('diffDays > 0 and diffDays < 15')->get();
+            ')->whereRaw('date_end > NOW()')->whereRaw('TIMESTAMPDIFF(day,NOW() + INTERVAL 15 DAY, readjustment_base_date) > 0 and TIMESTAMPDIFF(day,NOW() + INTERVAL 15 DAY, readjustment_base_date) < 15')->get();
         $proposalPending = Proposal::where('status', 'draft')->count();
         $proposalCommittee1 = Proposal::where('status', 'committee_1')->count();
         $proposalCommittee2 = Proposal::where('status', 'committee_2')->count();
